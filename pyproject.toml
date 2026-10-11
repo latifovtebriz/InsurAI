@@ -83,7 +83,7 @@ exclude = [
 
 [tool.pytest.ini_options]
 testpaths = ["backend/tests"]
-pythonpath = ["backend"]
+pythonpath = [".", "backend"]
 asyncio_mode = "auto"
 markers = [
     "integration: marks tests requiring external services (PostgreSQL, pgvector)",

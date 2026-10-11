@@ -8,17 +8,15 @@ from pathlib import Path
 FORBIDDEN_PATTERNS = [
     re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----"),
     re.compile(r"AIzaSy[A-Za-z0-9_-]{33}"),  # Google API key pattern
-    re.compile(r"sk-[a-zA-Z0-9]{20,T}"),      # Generic / OpenAI secret pattern
-    re.compile(r"postgres(ql)?://[^:\s]+:[^@\s]+@"),  # DB URI with real password (except change_me or placeholders)
+    re.compile(r"sk-[a-zA-Z0-9]{20,T}"),  # Generic / OpenAI secret pattern
+    re.compile(
+        r"postgres(ql)?://[^:\s]+:[^@\s]+@"
+    ),  # DB URI with real password (except change_me or placeholders)
 ]
 
-FORBIDDEN_FILE_EXTENSIONS = [
-    ".pem", ".key", ".p12", ".pfx", ".kdbx", ".dump", ".sql.gz"
-]
+FORBIDDEN_FILE_EXTENSIONS = [".pem", ".key", ".p12", ".pfx", ".kdbx", ".dump", ".sql.gz"]
 
-IGNORED_PATHS = {
-    ".git", ".venv", "venv", "__pycache__", "node_modules"
-}
+IGNORED_PATHS = {".git", ".venv", "venv", "__pycache__", "node_modules"}
 
 
 def check_git_tracked_files() -> list[str]:

@@ -1,0 +1,1002 @@
+[
+  {
+    "id": "PTY-0001",
+    "party_type": "individual",
+    "full_name": "Sevinc Mammadov",
+    "tax_id": "SYN0000001",
+    "email": "user_0001@synthetic-domain.test",
+    "phone": "+994501000001",
+    "birth_date": "1975-12-09",
+    "address": "Heydar Aliyev Ave 29, Sumqayit"
+  },
+  {
+    "id": "PTY-0002",
+    "party_type": "individual",
+    "full_name": "Anar Mammadov",
+    "tax_id": "SYN0000002",
+    "email": "user_0002@synthetic-domain.test",
+    "phone": "+994501000002",
+    "birth_date": "1981-04-17",
+    "address": "Azadlig Ave 4, Khirdalan"
+  },
+  {
+    "id": "PTY-0003",
+    "party_type": "individual",
+    "full_name": "Anar Hasanov",
+    "tax_id": "SYN0000003",
+    "email": "user_0003@synthetic-domain.test",
+    "phone": "+994501000003",
+    "birth_date": "1997-07-11",
+    "address": "Tabriz St 20, Sumqayit"
+  },
+  {
+    "id": "PTY-0004",
+    "party_type": "individual",
+    "full_name": "Elvin Taghiyev",
+    "tax_id": "SYN0000004",
+    "email": "user_0004@synthetic-domain.test",
+    "phone": "+994501000004",
+    "birth_date": "1983-01-24",
+    "address": "Ataturk Ave 69, Baku"
+  },
+  {
+    "id": "PTY-0005",
+    "party_type": "individual",
+    "full_name": "Rashad Aliyev",
+    "tax_id": "SYN0000005",
+    "email": "user_0005@synthetic-domain.test",
+    "phone": "+994501000005",
+    "birth_date": "1996-04-25",
+    "address": "Tabriz St 11, Sumqayit"
+  },
+  {
+    "id": "PTY-0006",
+    "party_type": "individual",
+    "full_name": "Elvin Huseynov",
+    "tax_id": "SYN0000006",
+    "email": "user_0006@synthetic-domain.test",
+    "phone": "+994501000006",
+    "birth_date": "1996-05-23",
+    "address": "Rasul Rza St 83, Baku"
+  },
+  {
+    "id": "PTY-0007",
+    "party_type": "individual",
+    "full_name": "Aysel Rzayev",
+    "tax_id": "SYN0000007",
+    "email": "user_0007@synthetic-domain.test",
+    "phone": "+994501000007",
+    "birth_date": "1982-11-11",
+    "address": "Nizami St 30, Baku"
+  },
+  {
+    "id": "PTY-0008",
+    "party_type": "individual",
+    "full_name": "Sevinc Babayev",
+    "tax_id": "SYN0000008",
+    "email": "user_0008@synthetic-domain.test",
+    "phone": "+994501000008",
+    "birth_date": "1987-11-15",
+    "address": "Heydar Aliyev Ave 34, Sumqayit"
+  },
+  {
+    "id": "PTY-0009",
+    "party_type": "individual",
+    "full_name": "Tural Ahmadov",
+    "tax_id": "SYN0000009",
+    "email": "user_0009@synthetic-domain.test",
+    "phone": "+994501000009",
+    "birth_date": "1986-04-05",
+    "address": "Azadlig Ave 64, Baku"
+  },
+  {
+    "id": "PTY-0010",
+    "party_type": "individual",
+    "full_name": "Rashad Ahmadov",
+    "tax_id": "SYN0000010",
+    "email": "user_0010@synthetic-domain.test",
+    "phone": "+994501000010",
+    "birth_date": "1987-10-15",
+    "address": "Azadlig Ave 33, Khirdalan"
+  },
+  {
+    "id": "PTY-0011",
+    "party_type": "individual",
+    "full_name": "Sevinc Ismayilov",
+    "tax_id": "SYN0000011",
+    "email": "user_0011@synthetic-domain.test",
+    "phone": "+994501000011",
+    "birth_date": "1978-05-14",
+    "address": "Heydar Aliyev Ave 59, Baku"
+  },
+  {
+    "id": "PTY-0012",
+    "party_type": "individual",
+    "full_name": "Sevinc Guliyev",
+    "tax_id": "SYN0000012",
+    "email": "user_0012@synthetic-domain.test",
+    "phone": "+994501000012",
+    "birth_date": "2001-11-17",
+    "address": "Azadlig Ave 26, Sumqayit"
+  },
+  {
+    "id": "PTY-0013",
+    "party_type": "individual",
+    "full_name": "Anar Mammadov",
+    "tax_id": "SYN0000013",
+    "email": "user_0013@synthetic-domain.test",
+    "phone": "+994501000013",
+    "birth_date": "2004-06-27",
+    "address": "Tabriz St 31, Baku"
+  },
+  {
+    "id": "PTY-0014",
+    "party_type": "individual",
+    "full_name": "Gunel Hasanov",
+    "tax_id": "SYN0000014",
+    "email": "user_0014@synthetic-domain.test",
+    "phone": "+994501000014",
+    "birth_date": "1979-11-16",
+    "address": "Azadlig Ave 22, Ganja"
+  },
+  {
+    "id": "PTY-0015",
+    "party_type": "individual",
+    "full_name": "Sevinc Ismayilov",
+    "tax_id": "SYN0000015",
+    "email": "user_0015@synthetic-domain.test",
+    "phone": "+994501000015",
+    "birth_date": "1989-09-15",
+    "address": "Nizami St 32, Sumqayit"
+  },
+  {
+    "id": "PTY-0016",
+    "party_type": "individual",
+    "full_name": "Rashad Aliyev",
+    "tax_id": "SYN0000016",
+    "email": "user_0016@synthetic-domain.test",
+    "phone": "+994501000016",
+    "birth_date": "1982-02-02",
+    "address": "Tabriz St 10, Khirdalan"
+  },
+  {
+    "id": "PTY-0017",
+    "party_type": "individual",
+    "full_name": "Tural Taghiyev",
+    "tax_id": "SYN0000017",
+    "email": "user_0017@synthetic-domain.test",
+    "phone": "+994501000017",
+    "birth_date": "1990-04-26",
+    "address": "Ataturk Ave 104, Mingachevir"
+  },
+  {
+    "id": "PTY-0018",
+    "party_type": "individual",
+    "full_name": "Murad Aliyev",
+    "tax_id": "SYN0000018",
+    "email": "user_0018@synthetic-domain.test",
+    "phone": "+994501000018",
+    "birth_date": "1996-11-21",
+    "address": "Nizami St 8, Mingachevir"
+  },
+  {
+    "id": "PTY-0019",
+    "party_type": "individual",
+    "full_name": "Nigar Hasanov",
+    "tax_id": "SYN0000019",
+    "email": "user_0019@synthetic-domain.test",
+    "phone": "+994501000019",
+    "birth_date": "1983-08-08",
+    "address": "Nizami St 57, Khirdalan"
+  },
+  {
+    "id": "PTY-0020",
+    "party_type": "individual",
+    "full_name": "Farid Hasanov",
+    "tax_id": "SYN0000020",
+    "email": "user_0020@synthetic-domain.test",
+    "phone": "+994501000020",
+    "birth_date": "1988-08-16",
+    "address": "Heydar Aliyev Ave 111, Mingachevir"
+  },
+  {
+    "id": "PTY-0021",
+    "party_type": "individual",
+    "full_name": "Nigar Rzayev",
+    "tax_id": "SYN0000021",
+    "email": "user_0021@synthetic-domain.test",
+    "phone": "+994501000021",
+    "birth_date": "1996-12-16",
+    "address": "Heydar Aliyev Ave 25, Ganja"
+  },
+  {
+    "id": "PTY-0022",
+    "party_type": "individual",
+    "full_name": "Anar Taghiyev",
+    "tax_id": "SYN0000022",
+    "email": "user_0022@synthetic-domain.test",
+    "phone": "+994501000022",
+    "birth_date": "1990-09-28",
+    "address": "Azadlig Ave 21, Baku"
+  },
+  {
+    "id": "PTY-0023",
+    "party_type": "individual",
+    "full_name": "Rashad Taghiyev",
+    "tax_id": "SYN0000023",
+    "email": "user_0023@synthetic-domain.test",
+    "phone": "+994501000023",
+    "birth_date": "1982-10-20",
+    "address": "Nizami St 80, Baku"
+  },
+  {
+    "id": "PTY-0024",
+    "party_type": "individual",
+    "full_name": "Kamran Ismayilov",
+    "tax_id": "SYN0000024",
+    "email": "user_0024@synthetic-domain.test",
+    "phone": "+994501000024",
+    "birth_date": "1982-05-13",
+    "address": "Heydar Aliyev Ave 86, Ganja"
+  },
+  {
+    "id": "PTY-0025",
+    "party_type": "individual",
+    "full_name": "Gunel Huseynov",
+    "tax_id": "SYN0000025",
+    "email": "user_0025@synthetic-domain.test",
+    "phone": "+994501000025",
+    "birth_date": "1991-05-05",
+    "address": "Tabriz St 113, Baku"
+  },
+  {
+    "id": "PTY-0026",
+    "party_type": "individual",
+    "full_name": "Sevinc Rzayev",
+    "tax_id": "SYN0000026",
+    "email": "user_0026@synthetic-domain.test",
+    "phone": "+994501000026",
+    "birth_date": "1975-11-27",
+    "address": "Azadlig Ave 39, Baku"
+  },
+  {
+    "id": "PTY-0027",
+    "party_type": "individual",
+    "full_name": "Aysel Taghiyev",
+    "tax_id": "SYN0000027",
+    "email": "user_0027@synthetic-domain.test",
+    "phone": "+994501000027",
+    "birth_date": "1981-12-11",
+    "address": "Heydar Aliyev Ave 88, Ganja"
+  },
+  {
+    "id": "PTY-0028",
+    "party_type": "individual",
+    "full_name": "Aysel Aliyev",
+    "tax_id": "SYN0000028",
+    "email": "user_0028@synthetic-domain.test",
+    "phone": "+994501000028",
+    "birth_date": "1975-06-25",
+    "address": "Heydar Aliyev Ave 82, Ganja"
+  },
+  {
+    "id": "PTY-0029",
+    "party_type": "individual",
+    "full_name": "Rashad Hasanov",
+    "tax_id": "SYN0000029",
+    "email": "user_0029@synthetic-domain.test",
+    "phone": "+994501000029",
+    "birth_date": "1992-01-27",
+    "address": "Tabriz St 75, Khirdalan"
+  },
+  {
+    "id": "PTY-0030",
+    "party_type": "individual",
+    "full_name": "Elvin Huseynov",
+    "tax_id": "SYN0000030",
+    "email": "user_0030@synthetic-domain.test",
+    "phone": "+994501000030",
+    "birth_date": "1996-04-22",
+    "address": "Nizami St 46, Khirdalan"
+  },
+  {
+    "id": "PTY-0031",
+    "party_type": "individual",
+    "full_name": "Leyla Ahmadov",
+    "tax_id": "SYN0000031",
+    "email": "user_0031@synthetic-domain.test",
+    "phone": "+994501000031",
+    "birth_date": "1975-03-24",
+    "address": "Tabriz St 101, Mingachevir"
+  },
+  {
+    "id": "PTY-0032",
+    "party_type": "individual",
+    "full_name": "Anar Babayev",
+    "tax_id": "SYN0000032",
+    "email": "user_0032@synthetic-domain.test",
+    "phone": "+994501000032",
+    "birth_date": "1982-04-27",
+    "address": "Ataturk Ave 45, Ganja"
+  },
+  {
+    "id": "PTY-0033",
+    "party_type": "individual",
+    "full_name": "Aysel Mammadov",
+    "tax_id": "SYN0000033",
+    "email": "user_0033@synthetic-domain.test",
+    "phone": "+994501000033",
+    "birth_date": "1999-05-12",
+    "address": "Rasul Rza St 66, Mingachevir"
+  },
+  {
+    "id": "PTY-0034",
+    "party_type": "individual",
+    "full_name": "Aysel Aliyev",
+    "tax_id": "SYN0000034",
+    "email": "user_0034@synthetic-domain.test",
+    "phone": "+994501000034",
+    "birth_date": "1978-10-14",
+    "address": "Tabriz St 94, Ganja"
+  },
+  {
+    "id": "PTY-0035",
+    "party_type": "individual",
+    "full_name": "Anar Ahmadov",
+    "tax_id": "SYN0000035",
+    "email": "user_0035@synthetic-domain.test",
+    "phone": "+994501000035",
+    "birth_date": "1975-09-26",
+    "address": "Azadlig Ave 88, Sumqayit"
+  },
+  {
+    "id": "PTY-0036",
+    "party_type": "individual",
+    "full_name": "Aysel Rzayev",
+    "tax_id": "SYN0000036",
+    "email": "user_0036@synthetic-domain.test",
+    "phone": "+994501000036",
+    "birth_date": "1984-11-14",
+    "address": "Tabriz St 52, Ganja"
+  },
+  {
+    "id": "PTY-0037",
+    "party_type": "individual",
+    "full_name": "Tural Guliyev",
+    "tax_id": "SYN0000037",
+    "email": "user_0037@synthetic-domain.test",
+    "phone": "+994501000037",
+    "birth_date": "1987-09-27",
+    "address": "Nizami St 39, Ganja"
+  },
+  {
+    "id": "PTY-0038",
+    "party_type": "individual",
+    "full_name": "Murad Huseynov",
+    "tax_id": "SYN0000038",
+    "email": "user_0038@synthetic-domain.test",
+    "phone": "+994501000038",
+    "birth_date": "1991-08-26",
+    "address": "Rasul Rza St 22, Baku"
+  },
+  {
+    "id": "PTY-0039",
+    "party_type": "individual",
+    "full_name": "Farid Guliyev",
+    "tax_id": "SYN0000039",
+    "email": "user_0039@synthetic-domain.test",
+    "phone": "+994501000039",
+    "birth_date": "1982-04-05",
+    "address": "Nizami St 6, Sumqayit"
+  },
+  {
+    "id": "PTY-0040",
+    "party_type": "individual",
+    "full_name": "Kamran Ahmadov",
+    "tax_id": "SYN0000040",
+    "email": "user_0040@synthetic-domain.test",
+    "phone": "+994501000040",
+    "birth_date": "1990-07-08",
+    "address": "Heydar Aliyev Ave 84, Baku"
+  },
+  {
+    "id": "PTY-0041",
+    "party_type": "individual",
+    "full_name": "Gunel Huseynov",
+    "tax_id": "SYN0000041",
+    "email": "user_0041@synthetic-domain.test",
+    "phone": "+994501000041",
+    "birth_date": "2004-02-15",
+    "address": "Heydar Aliyev Ave 103, Mingachevir"
+  },
+  {
+    "id": "PTY-0042",
+    "party_type": "individual",
+    "full_name": "Gunel Babayev",
+    "tax_id": "SYN0000042",
+    "email": "user_0042@synthetic-domain.test",
+    "phone": "+994501000042",
+    "birth_date": "2003-03-24",
+    "address": "Ataturk Ave 58, Ganja"
+  },
+  {
+    "id": "PTY-0043",
+    "party_type": "individual",
+    "full_name": "Farid Guliyev",
+    "tax_id": "SYN0000043",
+    "email": "user_0043@synthetic-domain.test",
+    "phone": "+994501000043",
+    "birth_date": "1989-02-23",
+    "address": "Tabriz St 31, Ganja"
+  },
+  {
+    "id": "PTY-0044",
+    "party_type": "individual",
+    "full_name": "Kamran Hasanov",
+    "tax_id": "SYN0000044",
+    "email": "user_0044@synthetic-domain.test",
+    "phone": "+994501000044",
+    "birth_date": "1997-04-03",
+    "address": "Ataturk Ave 53, Ganja"
+  },
+  {
+    "id": "PTY-0045",
+    "party_type": "individual",
+    "full_name": "Tural Aliyev",
+    "tax_id": "SYN0000045",
+    "email": "user_0045@synthetic-domain.test",
+    "phone": "+994501000045",
+    "birth_date": "2002-10-13",
+    "address": "Ataturk Ave 1, Ganja"
+  },
+  {
+    "id": "PTY-0046",
+    "party_type": "individual",
+    "full_name": "Farid Guliyev",
+    "tax_id": "SYN0000046",
+    "email": "user_0046@synthetic-domain.test",
+    "phone": "+994501000046",
+    "birth_date": "1988-08-01",
+    "address": "Ataturk Ave 44, Mingachevir"
+  },
+  {
+    "id": "PTY-0047",
+    "party_type": "individual",
+    "full_name": "Nigar Taghiyev",
+    "tax_id": "SYN0000047",
+    "email": "user_0047@synthetic-domain.test",
+    "phone": "+994501000047",
+    "birth_date": "1993-11-01",
+    "address": "Nizami St 83, Mingachevir"
+  },
+  {
+    "id": "PTY-0048",
+    "party_type": "individual",
+    "full_name": "Murad Ismayilov",
+    "tax_id": "SYN0000048",
+    "email": "user_0048@synthetic-domain.test",
+    "phone": "+994501000048",
+    "birth_date": "1985-07-09",
+    "address": "Ataturk Ave 33, Baku"
+  },
+  {
+    "id": "PTY-0049",
+    "party_type": "individual",
+    "full_name": "Sevinc Aliyev",
+    "tax_id": "SYN0000049",
+    "email": "user_0049@synthetic-domain.test",
+    "phone": "+994501000049",
+    "birth_date": "1999-01-08",
+    "address": "Heydar Aliyev Ave 108, Baku"
+  },
+  {
+    "id": "PTY-0050",
+    "party_type": "individual",
+    "full_name": "Kamran Guliyev",
+    "tax_id": "SYN0000050",
+    "email": "user_0050@synthetic-domain.test",
+    "phone": "+994501000050",
+    "birth_date": "1999-06-06",
+    "address": "Azadlig Ave 78, Baku"
+  },
+  {
+    "id": "PTY-0051",
+    "party_type": "individual",
+    "full_name": "Sevinc Ahmadov",
+    "tax_id": "SYN0000051",
+    "email": "user_0051@synthetic-domain.test",
+    "phone": "+994501000051",
+    "birth_date": "1987-12-07",
+    "address": "Nizami St 76, Sumqayit"
+  },
+  {
+    "id": "PTY-0052",
+    "party_type": "individual",
+    "full_name": "Gunel Ahmadov",
+    "tax_id": "SYN0000052",
+    "email": "user_0052@synthetic-domain.test",
+    "phone": "+994501000052",
+    "birth_date": "1996-06-03",
+    "address": "Azadlig Ave 83, Ganja"
+  },
+  {
+    "id": "PTY-0053",
+    "party_type": "individual",
+    "full_name": "Leyla Ahmadov",
+    "tax_id": "SYN0000053",
+    "email": "user_0053@synthetic-domain.test",
+    "phone": "+994501000053",
+    "birth_date": "1980-12-17",
+    "address": "Rasul Rza St 35, Khirdalan"
+  },
+  {
+    "id": "PTY-0054",
+    "party_type": "individual",
+    "full_name": "Farid Mammadov",
+    "tax_id": "SYN0000054",
+    "email": "user_0054@synthetic-domain.test",
+    "phone": "+994501000054",
+    "birth_date": "1983-08-08",
+    "address": "Ataturk Ave 73, Khirdalan"
+  },
+  {
+    "id": "PTY-0055",
+    "party_type": "individual",
+    "full_name": "Farid Ismayilov",
+    "tax_id": "SYN0000055",
+    "email": "user_0055@synthetic-domain.test",
+    "phone": "+994501000055",
+    "birth_date": "2000-05-11",
+    "address": "Tabriz St 113, Khirdalan"
+  },
+  {
+    "id": "PTY-0056",
+    "party_type": "individual",
+    "full_name": "Kamran Ahmadov",
+    "tax_id": "SYN0000056",
+    "email": "user_0056@synthetic-domain.test",
+    "phone": "+994501000056",
+    "birth_date": "1990-09-25",
+    "address": "Heydar Aliyev Ave 89, Mingachevir"
+  },
+  {
+    "id": "PTY-0057",
+    "party_type": "individual",
+    "full_name": "Nigar Huseynov",
+    "tax_id": "SYN0000057",
+    "email": "user_0057@synthetic-domain.test",
+    "phone": "+994501000057",
+    "birth_date": "1984-11-19",
+    "address": "Tabriz St 61, Khirdalan"
+  },
+  {
+    "id": "PTY-0058",
+    "party_type": "individual",
+    "full_name": "Murad Guliyev",
+    "tax_id": "SYN0000058",
+    "email": "user_0058@synthetic-domain.test",
+    "phone": "+994501000058",
+    "birth_date": "1984-05-08",
+    "address": "Nizami St 93, Sumqayit"
+  },
+  {
+    "id": "PTY-0059",
+    "party_type": "individual",
+    "full_name": "Kamran Babayev",
+    "tax_id": "SYN0000059",
+    "email": "user_0059@synthetic-domain.test",
+    "phone": "+994501000059",
+    "birth_date": "1983-12-19",
+    "address": "Azadlig Ave 77, Ganja"
+  },
+  {
+    "id": "PTY-0060",
+    "party_type": "individual",
+    "full_name": "Kamran Rzayev",
+    "tax_id": "SYN0000060",
+    "email": "user_0060@synthetic-domain.test",
+    "phone": "+994501000060",
+    "birth_date": "1979-05-02",
+    "address": "Nizami St 71, Ganja"
+  },
+  {
+    "id": "PTY-0061",
+    "party_type": "individual",
+    "full_name": "Anar Taghiyev",
+    "tax_id": "SYN0000061",
+    "email": "user_0061@synthetic-domain.test",
+    "phone": "+994501000061",
+    "birth_date": "1984-08-16",
+    "address": "Ataturk Ave 44, Sumqayit"
+  },
+  {
+    "id": "PTY-0062",
+    "party_type": "individual",
+    "full_name": "Rashad Taghiyev",
+    "tax_id": "SYN0000062",
+    "email": "user_0062@synthetic-domain.test",
+    "phone": "+994501000062",
+    "birth_date": "1995-11-02",
+    "address": "Heydar Aliyev Ave 20, Khirdalan"
+  },
+  {
+    "id": "PTY-0063",
+    "party_type": "individual",
+    "full_name": "Gunel Ahmadov",
+    "tax_id": "SYN0000063",
+    "email": "user_0063@synthetic-domain.test",
+    "phone": "+994501000063",
+    "birth_date": "1989-08-10",
+    "address": "Azadlig Ave 55, Ganja"
+  },
+  {
+    "id": "PTY-0064",
+    "party_type": "individual",
+    "full_name": "Farid Guliyev",
+    "tax_id": "SYN0000064",
+    "email": "user_0064@synthetic-domain.test",
+    "phone": "+994501000064",
+    "birth_date": "1996-02-06",
+    "address": "Heydar Aliyev Ave 23, Khirdalan"
+  },
+  {
+    "id": "PTY-0065",
+    "party_type": "individual",
+    "full_name": "Anar Huseynov",
+    "tax_id": "SYN0000065",
+    "email": "user_0065@synthetic-domain.test",
+    "phone": "+994501000065",
+    "birth_date": "1984-12-10",
+    "address": "Rasul Rza St 111, Mingachevir"
+  },
+  {
+    "id": "PTY-0066",
+    "party_type": "individual",
+    "full_name": "Rashad Rzayev",
+    "tax_id": "SYN0000066",
+    "email": "user_0066@synthetic-domain.test",
+    "phone": "+994501000066",
+    "birth_date": "1982-11-05",
+    "address": "Tabriz St 106, Sumqayit"
+  },
+  {
+    "id": "PTY-0067",
+    "party_type": "individual",
+    "full_name": "Rashad Babayev",
+    "tax_id": "SYN0000067",
+    "email": "user_0067@synthetic-domain.test",
+    "phone": "+994501000067",
+    "birth_date": "1997-05-23",
+    "address": "Ataturk Ave 35, Khirdalan"
+  },
+  {
+    "id": "PTY-0068",
+    "party_type": "individual",
+    "full_name": "Elvin Taghiyev",
+    "tax_id": "SYN0000068",
+    "email": "user_0068@synthetic-domain.test",
+    "phone": "+994501000068",
+    "birth_date": "1983-01-03",
+    "address": "Heydar Aliyev Ave 87, Khirdalan"
+  },
+  {
+    "id": "PTY-0069",
+    "party_type": "individual",
+    "full_name": "Leyla Babayev",
+    "tax_id": "SYN0000069",
+    "email": "user_0069@synthetic-domain.test",
+    "phone": "+994501000069",
+    "birth_date": "1991-11-15",
+    "address": "Tabriz St 24, Khirdalan"
+  },
+  {
+    "id": "PTY-0070",
+    "party_type": "individual",
+    "full_name": "Sevinc Mammadov",
+    "tax_id": "SYN0000070",
+    "email": "user_0070@synthetic-domain.test",
+    "phone": "+994501000070",
+    "birth_date": "2002-03-11",
+    "address": "Ataturk Ave 89, Mingachevir"
+  },
+  {
+    "id": "PTY-0071",
+    "party_type": "individual",
+    "full_name": "Elvin Mammadov",
+    "tax_id": "SYN0000071",
+    "email": "user_0071@synthetic-domain.test",
+    "phone": "+994501000071",
+    "birth_date": "1999-07-28",
+    "address": "Azadlig Ave 106, Baku"
+  },
+  {
+    "id": "PTY-0072",
+    "party_type": "individual",
+    "full_name": "Murad Babayev",
+    "tax_id": "SYN0000072",
+    "email": "user_0072@synthetic-domain.test",
+    "phone": "+994501000072",
+    "birth_date": "1999-01-07",
+    "address": "Tabriz St 71, Sumqayit"
+  },
+  {
+    "id": "PTY-0073",
+    "party_type": "individual",
+    "full_name": "Leyla Guliyev",
+    "tax_id": "SYN0000073",
+    "email": "user_0073@synthetic-domain.test",
+    "phone": "+994501000073",
+    "birth_date": "1992-01-18",
+    "address": "Ataturk Ave 12, Sumqayit"
+  },
+  {
+    "id": "PTY-0074",
+    "party_type": "individual",
+    "full_name": "Kamran Guliyev",
+    "tax_id": "SYN0000074",
+    "email": "user_0074@synthetic-domain.test",
+    "phone": "+994501000074",
+    "birth_date": "1991-12-09",
+    "address": "Ataturk Ave 107, Mingachevir"
+  },
+  {
+    "id": "PTY-0075",
+    "party_type": "individual",
+    "full_name": "Tural Rzayev",
+    "tax_id": "SYN0000075",
+    "email": "user_0075@synthetic-domain.test",
+    "phone": "+994501000075",
+    "birth_date": "1998-03-28",
+    "address": "Nizami St 36, Mingachevir"
+  },
+  {
+    "id": "PTY-0076",
+    "party_type": "individual",
+    "full_name": "Tural Taghiyev",
+    "tax_id": "SYN0000076",
+    "email": "user_0076@synthetic-domain.test",
+    "phone": "+994501000076",
+    "birth_date": "1996-08-28",
+    "address": "Heydar Aliyev Ave 58, Khirdalan"
+  },
+  {
+    "id": "PTY-0077",
+    "party_type": "individual",
+    "full_name": "Elvin Huseynov",
+    "tax_id": "SYN0000077",
+    "email": "user_0077@synthetic-domain.test",
+    "phone": "+994501000077",
+    "birth_date": "1997-04-19",
+    "address": "Ataturk Ave 30, Mingachevir"
+  },
+  {
+    "id": "PTY-0078",
+    "party_type": "individual",
+    "full_name": "Sevinc Hasanov",
+    "tax_id": "SYN0000078",
+    "email": "user_0078@synthetic-domain.test",
+    "phone": "+994501000078",
+    "birth_date": "1990-01-05",
+    "address": "Azadlig Ave 76, Ganja"
+  },
+  {
+    "id": "PTY-0079",
+    "party_type": "individual",
+    "full_name": "Leyla Ahmadov",
+    "tax_id": "SYN0000079",
+    "email": "user_0079@synthetic-domain.test",
+    "phone": "+994501000079",
+    "birth_date": "2002-11-05",
+    "address": "Nizami St 61, Ganja"
+  },
+  {
+    "id": "PTY-0080",
+    "party_type": "individual",
+    "full_name": "Sevinc Rzayev",
+    "tax_id": "SYN0000080",
+    "email": "user_0080@synthetic-domain.test",
+    "phone": "+994501000080",
+    "birth_date": "1987-06-21",
+    "address": "Rasul Rza St 114, Mingachevir"
+  },
+  {
+    "id": "PTY-0081",
+    "party_type": "individual",
+    "full_name": "Kamran Mammadov",
+    "tax_id": "SYN0000081",
+    "email": "user_0081@synthetic-domain.test",
+    "phone": "+994501000081",
+    "birth_date": "1988-02-25",
+    "address": "Rasul Rza St 91, Baku"
+  },
+  {
+    "id": "PTY-0082",
+    "party_type": "individual",
+    "full_name": "Anar Guliyev",
+    "tax_id": "SYN0000082",
+    "email": "user_0082@synthetic-domain.test",
+    "phone": "+994501000082",
+    "birth_date": "1986-06-14",
+    "address": "Heydar Aliyev Ave 32, Khirdalan"
+  },
+  {
+    "id": "PTY-0083",
+    "party_type": "individual",
+    "full_name": "Tural Ahmadov",
+    "tax_id": "SYN0000083",
+    "email": "user_0083@synthetic-domain.test",
+    "phone": "+994501000083",
+    "birth_date": "1994-11-08",
+    "address": "Ataturk Ave 117, Khirdalan"
+  },
+  {
+    "id": "PTY-0084",
+    "party_type": "individual",
+    "full_name": "Anar Babayev",
+    "tax_id": "SYN0000084",
+    "email": "user_0084@synthetic-domain.test",
+    "phone": "+994501000084",
+    "birth_date": "2003-05-22",
+    "address": "Azadlig Ave 21, Baku"
+  },
+  {
+    "id": "PTY-0085",
+    "party_type": "individual",
+    "full_name": "Aysel Huseynov",
+    "tax_id": "SYN0000085",
+    "email": "user_0085@synthetic-domain.test",
+    "phone": "+994501000085",
+    "birth_date": "1987-08-04",
+    "address": "Heydar Aliyev Ave 49, Khirdalan"
+  },
+  {
+    "id": "PTY-0086",
+    "party_type": "individual",
+    "full_name": "Anar Taghiyev",
+    "tax_id": "SYN0000086",
+    "email": "user_0086@synthetic-domain.test",
+    "phone": "+994501000086",
+    "birth_date": "2002-11-25",
+    "address": "Rasul Rza St 7, Khirdalan"
+  },
+  {
+    "id": "PTY-0087",
+    "party_type": "individual",
+    "full_name": "Sevinc Huseynov",
+    "tax_id": "SYN0000087",
+    "email": "user_0087@synthetic-domain.test",
+    "phone": "+994501000087",
+    "birth_date": "1994-05-22",
+    "address": "Rasul Rza St 99, Sumqayit"
+  },
+  {
+    "id": "PTY-0088",
+    "party_type": "individual",
+    "full_name": "Tural Ismayilov",
+    "tax_id": "SYN0000088",
+    "email": "user_0088@synthetic-domain.test",
+    "phone": "+994501000088",
+    "birth_date": "1998-03-03",
+    "address": "Tabriz St 42, Mingachevir"
+  },
+  {
+    "id": "PTY-0089",
+    "party_type": "individual",
+    "full_name": "Aysel Hasanov",
+    "tax_id": "SYN0000089",
+    "email": "user_0089@synthetic-domain.test",
+    "phone": "+994501000089",
+    "birth_date": "1983-08-26",
+    "address": "Tabriz St 96, Ganja"
+  },
+  {
+    "id": "PTY-0090",
+    "party_type": "individual",
+    "full_name": "Gunel Ismayilov",
+    "tax_id": "SYN0000090",
+    "email": "user_0090@synthetic-domain.test",
+    "phone": "+994501000090",
+    "birth_date": "1977-07-01",
+    "address": "Tabriz St 69, Baku"
+  },
+  {
+    "id": "PTY-0091",
+    "party_type": "individual",
+    "full_name": "Sevinc Ismayilov",
+    "tax_id": "SYN0000091",
+    "email": "user_0091@synthetic-domain.test",
+    "phone": "+994501000091",
+    "birth_date": "1978-11-08",
+    "address": "Ataturk Ave 4, Khirdalan"
+  },
+  {
+    "id": "PTY-0092",
+    "party_type": "individual",
+    "full_name": "Kamran Guliyev",
+    "tax_id": "SYN0000092",
+    "email": "user_0092@synthetic-domain.test",
+    "phone": "+994501000092",
+    "birth_date": "1995-07-04",
+    "address": "Heydar Aliyev Ave 6, Baku"
+  },
+  {
+    "id": "PTY-0093",
+    "party_type": "individual",
+    "full_name": "Murad Ismayilov",
+    "tax_id": "SYN0000093",
+    "email": "user_0093@synthetic-domain.test",
+    "phone": "+994501000093",
+    "birth_date": "1996-12-23",
+    "address": "Azadlig Ave 54, Khirdalan"
+  },
+  {
+    "id": "PTY-0094",
+    "party_type": "individual",
+    "full_name": "Aysel Aliyev",
+    "tax_id": "SYN0000094",
+    "email": "user_0094@synthetic-domain.test",
+    "phone": "+994501000094",
+    "birth_date": "1997-06-07",
+    "address": "Ataturk Ave 57, Sumqayit"
+  },
+  {
+    "id": "PTY-0095",
+    "party_type": "individual",
+    "full_name": "Nigar Guliyev",
+    "tax_id": "SYN0000095",
+    "email": "user_0095@synthetic-domain.test",
+    "phone": "+994501000095",
+    "birth_date": "1981-02-28",
+    "address": "Ataturk Ave 12, Sumqayit"
+  },
+  {
+    "id": "PTY-0096",
+    "party_type": "individual",
+    "full_name": "Tural Huseynov",
+    "tax_id": "SYN0000096",
+    "email": "user_0096@synthetic-domain.test",
+    "phone": "+994501000096",
+    "birth_date": "1977-09-07",
+    "address": "Azadlig Ave 28, Sumqayit"
+  },
+  {
+    "id": "PTY-0097",
+    "party_type": "individual",
+    "full_name": "Aysel Hasanov",
+    "tax_id": "SYN0000097",
+    "email": "user_0097@synthetic-domain.test",
+    "phone": "+994501000097",
+    "birth_date": "1978-11-28",
+    "address": "Nizami St 17, Baku"
+  },
+  {
+    "id": "PTY-0098",
+    "party_type": "individual",
+    "full_name": "Leyla Ahmadov",
+    "tax_id": "SYN0000098",
+    "email": "user_0098@synthetic-domain.test",
+    "phone": "+994501000098",
+    "birth_date": "1991-02-24",
+    "address": "Nizami St 61, Mingachevir"
+  },
+  {
+    "id": "PTY-0099",
+    "party_type": "individual",
+    "full_name": "Tural Aliyev",
+    "tax_id": "SYN0000099",
+    "email": "user_0099@synthetic-domain.test",
+    "phone": "+994501000099",
+    "birth_date": "1998-11-17",
+    "address": "Tabriz St 59, Baku"
+  },
+  {
+    "id": "PTY-0100",
+    "party_type": "individual",
+    "full_name": "Murad Mammadov",
+    "tax_id": "SYN0000100",
+    "email": "user_0100@synthetic-domain.test",
+    "phone": "+994501000100",
+    "birth_date": "2003-02-11",
+    "address": "Azadlig Ave 19, Baku"
+  }
+]

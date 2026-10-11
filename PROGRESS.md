@@ -1,11 +1,11 @@
 # InsurAI Implementation Progress
 
 ## Current State
-- **Active Phase:** Phase 1 (Domain model, synthetic data, labels)
-- **Active Task:** Task 1.1 (Business rules catalog)
+- **Active Phase:** Phase 2 (Platform core)
+- **Active Task:** Task 2.1 (Database models and schema-per-module isolation)
 - **Status:** In Progress
-- **Last Completed Step:** Phase 0 completed and tagged `phase-0-done`.
-- **Next Step:** Implement business rules catalog, domain entities, and synthetic data generators.
+- **Last Completed Step:** Phase 1 completed and tagged `phase-1-done`.
+- **Next Step:** Implement platform database schemas, RBAC, audit log, state machine engine, and transactional outbox.
 
 ---
 
@@ -14,8 +14,8 @@
 | Phase | Description | Status | Tags |
 |---|---|---|---|
 | Phase 0 | Foundation, tooling, Git | Completed | `phase-0-done` |
-| Phase 1 | Domain model, synthetic data, labels | In Progress | - |
-| Phase 2 | Platform core | Not Started | - |
+| Phase 1 | Domain model, synthetic data, labels | Completed | `phase-1-done` |
+| Phase 2 | Platform core | In Progress | - |
 | Phase 3 | LLM gateway and extraction | Not Started | - |
 | Phase 4 | Knowledge service (RAG) | Not Started | - |
 | Phase 5 | Agent runtime, guardrails, evaluation core | Not Started | - |
