@@ -1,5 +1,6 @@
 """Unit tests for Platform Core: RBAC, Workflow, Outbox, Audit, and Job Runner."""
 
+from collections.abc import Generator
 from datetime import UTC, datetime, timedelta
 from typing import Any
 
@@ -25,7 +26,7 @@ from sqlalchemy.orm import Session, sessionmaker
 
 
 @pytest.fixture
-def db_session() -> Session:
+def db_session() -> Generator[Session, None, None]:
     """Provides an isolated SQLite in-memory session with schema translation."""
     engine = create_engine(
         "sqlite:///:memory:",

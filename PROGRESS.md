@@ -1,11 +1,11 @@
 # InsurAI Implementation Progress
 
 ## Current State
-- **Active Phase:** Phase 5 (Agent runtime, guardrails, tracing, evaluation core)
-- **Active Task:** Task 5.1 (Hand-written agent loop & tool registry)
+- **Active Phase:** Phase 6 (Core Policy Administration: Party, Product, Policy)
+- **Active Task:** Task 6.1 (Party, Product, Policy domain models & rating engines)
 - **Status:** In Progress
-- **Last Completed Step:** Phase 4 completed and tagged `phase-4-done`.
-- **Next Step:** Implement hand-written ReAct loop, tool registry, G1-G10 guardrail interceptors, agent step tracing, and demo agent.
+- **Last Completed Step:** Phase 5 completed and tagged `phase-5-done`.
+- **Next Step:** Implement party, product, and policy modules with deterministic rating engine, pro-rata cancellation, and policy issuance workflow.
 
 ---
 
@@ -18,8 +18,8 @@
 | Phase 2 | Platform core | Completed | `phase-2-done` |
 | Phase 3 | LLM gateway and extraction | Completed | `phase-3-done` |
 | Phase 4 | Knowledge service (RAG) | Completed | `phase-4-done` |
-| Phase 5 | Agent runtime, guardrails, evaluation core | In Progress | - |
-| Phase 6 | Party, product, policy | Not Started | - |
+| Phase 5 | Agent runtime, guardrails, evaluation core | Completed | `phase-5-done` |
+| Phase 6 | Party, product, policy | In Progress | - |
 | Phase 7 | Claims and Claims Triage Agent (A4) | Not Started | - |
 | Phase 8 | Web console v1 & Release R1 | Not Started | `release-R1` pending |
 | Phase 9 | Sales and underwriting (A1, A2) | Not Started | - |

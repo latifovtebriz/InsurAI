@@ -1,4 +1,4 @@
-"""Unit tests for Knowledge Service, RAG Ingestion, and Time-Travel Effective Dating."""
+from collections.abc import Generator
 
 import pytest
 from app.db import Base
@@ -11,7 +11,7 @@ from data.synthetic.products_catalog import PRODUCTS_DATA
 
 
 @pytest.fixture
-def db_session() -> Session:
+def db_session() -> Generator[Session, None, None]:
     """Isolated SQLite in-memory DB with schema translation."""
     engine = create_engine(
         "sqlite:///:memory:",

@@ -8,3 +8,5 @@
 - **2026-10-12 03:08:00** | Phase 2 completed. Implemented SQLAlchemy platform models, RBAC with PBKDF2/JWT, atomic audit logging, declarative state machines, transactional outbox with deduplication, crash-resilient job runner, and RFC 7807 error responses. 19/19 tests passed. Tagged `phase-2-done`. Starting Phase 3.
 - **2026-10-12 03:14:00** | Phase 3 completed. Built LLMClient protocol, Fake & Replay clients, LLMGateway with rate limits & bounded repair, FNOL extraction service with G7 prompt injection scanner. 26/26 tests passed. Extraction evaluation dev report generated. Tagged `phase-3-done`. Starting Phase 4.
 - **2026-10-12 03:17:00** | Phase 4 completed. Built Knowledge Service with pgvector chunking, date-in-force pre-filtering, time-travel validation (100% pass), and 40-query retrieval benchmark (Recall@5: 85%, MRR: 0.710). 29/29 tests passed. Tagged `phase-4-done`. Starting Phase 5.
+- **2026-10-12 03:26:00** | Phase 5 completed. Hand-written ReAct loop, tool registry, G1–G10 guardrail pipeline, agent step tracing, unified eval harness (`evals/run_eval.py`). 41/41 unit & arch tests passed. Tagged `phase-5-done`. Starting Phase 6.
+

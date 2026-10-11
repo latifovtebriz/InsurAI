@@ -52,6 +52,19 @@ from app.modules.platform.rules_catalog import (
     BusinessRuleDefinition,
     get_rule_by_code,
 )
+from app.modules.platform.runtime.demo_agent import ClauseLookupAgent
+from app.modules.platform.runtime.guardrails import (
+    GuardrailPipeline,
+    GuardrailResult,
+    guardrail_pipeline,
+)
+from app.modules.platform.runtime.loop import AgentLoop
+from app.modules.platform.runtime.models import AgentRun, AgentStep
+from app.modules.platform.runtime.tools import (
+    ToolCategory,
+    ToolDefinition,
+    ToolRegistry,
+)
 from app.modules.platform.workflow import (
     CLAIM_WORKFLOW,
     INVOICE_WORKFLOW,
@@ -72,6 +85,8 @@ __all__: list[str] = [
     "ProcessedEvent",
     "Job",
     "BusinessRuleModel",
+    "AgentRun",
+    "AgentStep",
     # Rules
     "BUSINESS_RULES_CATALOG",
     "BusinessRuleDefinition",
@@ -122,4 +137,15 @@ __all__: list[str] = [
     "knowledge_service",
     "DeterministicFakeEmbedder",
     "fake_embedder",
+    # Runtime & Guardrails
+    "AgentRun",
+    "AgentStep",
+    "ToolCategory",
+    "ToolDefinition",
+    "ToolRegistry",
+    "GuardrailResult",
+    "GuardrailPipeline",
+    "guardrail_pipeline",
+    "AgentLoop",
+    "ClauseLookupAgent",
 ]
