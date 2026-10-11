@@ -1,11 +1,11 @@
 # InsurAI Implementation Progress
 
 ## Current State
-- **Active Phase:** Phase 2 (Platform core)
-- **Active Task:** Task 2.1 (Database models and schema-per-module isolation)
+- **Active Phase:** Phase 3 (LLM gateway and extraction)
+- **Active Task:** Task 3.1 (Verify Gemini SDK & LLMClient interface)
 - **Status:** In Progress
-- **Last Completed Step:** Phase 1 completed and tagged `phase-1-done`.
-- **Next Step:** Implement platform database schemas, RBAC, audit log, state machine engine, and transactional outbox.
+- **Last Completed Step:** Phase 2 completed and tagged `phase-2-done`.
+- **Next Step:** Implement LLMClient interface, Fake & Replay clients, Gateway with retry/cache/cost accounting, and FNOL Extraction service.
 
 ---
 
@@ -15,8 +15,8 @@
 |---|---|---|---|
 | Phase 0 | Foundation, tooling, Git | Completed | `phase-0-done` |
 | Phase 1 | Domain model, synthetic data, labels | Completed | `phase-1-done` |
-| Phase 2 | Platform core | In Progress | - |
-| Phase 3 | LLM gateway and extraction | Not Started | - |
+| Phase 2 | Platform core | Completed | `phase-2-done` |
+| Phase 3 | LLM gateway and extraction | In Progress | - |
 | Phase 4 | Knowledge service (RAG) | Not Started | - |
 | Phase 5 | Agent runtime, guardrails, evaluation core | Not Started | - |
 | Phase 6 | Party, product, policy | Not Started | - |
