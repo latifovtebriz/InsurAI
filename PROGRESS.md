@@ -1,11 +1,11 @@
 # InsurAI Implementation Progress
 
 ## Current State
-- **Active Phase:** Phase 0 (Foundation, tooling, Git)
-- **Active Task:** Task 0.0 (Git initialization and pre-commit security verification)
+- **Active Phase:** Phase 1 (Domain model, synthetic data, labels)
+- **Active Task:** Task 1.1 (Business rules catalog)
 - **Status:** In Progress
-- **Last Completed Step:** Bootstrap and document assembly completed.
-- **Next Step:** Git setup, `.gitignore` creation, verify `.env` is ignored, initial commit.
+- **Last Completed Step:** Phase 0 completed and tagged `phase-0-done`.
+- **Next Step:** Implement business rules catalog, domain entities, and synthetic data generators.
 
 ---
 
@@ -13,8 +13,8 @@
 
 | Phase | Description | Status | Tags |
 |---|---|---|---|
-| Phase 0 | Foundation, tooling, Git | In Progress | - |
-| Phase 1 | Domain model, synthetic data, labels | Not Started | - |
+| Phase 0 | Foundation, tooling, Git | Completed | `phase-0-done` |
+| Phase 1 | Domain model, synthetic data, labels | In Progress | - |
 | Phase 2 | Platform core | Not Started | - |
 | Phase 3 | LLM gateway and extraction | Not Started | - |
 | Phase 4 | Knowledge service (RAG) | Not Started | - |

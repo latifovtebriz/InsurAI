@@ -1,8 +1,18 @@
 import os
 
 modules = [
-    "platform", "party", "product", "policy", "claims", "sales",
-    "underwriting", "finance", "fraud", "compliance", "service", "reinsurance"
+    "platform",
+    "party",
+    "product",
+    "policy",
+    "claims",
+    "sales",
+    "underwriting",
+    "finance",
+    "fraud",
+    "compliance",
+    "service",
+    "reinsurance",
 ]
 
 for m in modules:
@@ -18,7 +28,7 @@ for m in modules:
             f.write(
                 f'"""Public API and contracts for the {m} module.\n'
                 f'Other modules must import ONLY from this file.\n"""\n\n'
-                f'__all__: list[str] = []\n'
+                f"__all__: list[str] = []\n"
             )
 
 for d in [
@@ -29,7 +39,7 @@ for d in [
     os.path.join("backend", "tests", "architecture"),
     os.path.join("data", "synthetic"),
     "evals",
-    "scripts"
+    "scripts",
 ]:
     os.makedirs(d, exist_ok=True)
     if "tests" in d or "app" in d:
