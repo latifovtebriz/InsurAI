@@ -1,0 +1,1 @@
+"""Party bounded context module."""

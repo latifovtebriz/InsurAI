@@ -1,0 +1,1 @@
+"""Fraud bounded context module."""

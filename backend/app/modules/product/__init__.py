@@ -1,0 +1,1 @@
+"""Product bounded context module."""

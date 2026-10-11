@@ -1,0 +1,1 @@
+"""Claims bounded context module."""
