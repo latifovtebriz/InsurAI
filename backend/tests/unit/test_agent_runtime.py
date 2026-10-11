@@ -1,11 +1,9 @@
 """Unit tests for Agent Runtime, Tools, ReAct Loop, Tracing, and Guardrails (G1-G10)."""
 
 import json
-from collections.abc import Generator
 from typing import Any
 
 import pytest
-from app.db import Base
 from app.modules.platform.knowledge.service import KnowledgeService
 from app.modules.platform.llm.client import FakeLLMClient, LLMMessage, LLMResponse
 from app.modules.platform.llm.gateway import LLMGateway
@@ -21,26 +19,10 @@ from app.modules.platform.runtime.tools import (
     ToolRegistry,
 )
 from pydantic import BaseModel, Field
-from sqlalchemy import create_engine, select
-from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy import select
+from sqlalchemy.orm import Session
 
 from data.synthetic.products_catalog import PRODUCTS_DATA
-
-
-@pytest.fixture
-def db_session() -> Generator[Session, None, None]:
-    """Isolated SQLite in-memory DB with schema translation."""
-    engine = create_engine(
-        "sqlite:///:memory:",
-        execution_options={"schema_translate_map": {"platform": None}},
-    )
-    Base.metadata.create_all(engine)
-    session_factory = sessionmaker(bind=engine)
-    session = session_factory()
-    try:
-        yield session
-    finally:
-        session.close()
 
 
 class SimpleAddArgs(BaseModel):

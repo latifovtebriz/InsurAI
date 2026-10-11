@@ -96,6 +96,7 @@ POLICY_WORKFLOW = StateMachineDefinition(
     transitions=[
         Transition("bound", "pending_payment", "issue_invoice"),
         Transition("pending_payment", "active", "confirm_payment"),
+        Transition("pending_payment", "cancelled", "cancel_policy"),
         Transition("active", "cancelled", "cancel_policy"),
         Transition("active", "expired", "expire_policy"),
         Transition("active", "renewed", "renew_policy"),

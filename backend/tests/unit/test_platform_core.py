@@ -1,11 +1,9 @@
 """Unit tests for Platform Core: RBAC, Workflow, Outbox, Audit, and Job Runner."""
 
-from collections.abc import Generator
 from datetime import UTC, datetime, timedelta
 from typing import Any
 
 import pytest
-from app.db import Base
 from app.modules.platform.audit import record_audit_event
 from app.modules.platform.job_runner import JobRunner
 from app.modules.platform.models import AuditLog, OutboxEvent
@@ -21,25 +19,8 @@ from app.modules.platform.workflow import (
     CLAIM_WORKFLOW,
     InvalidStateTransitionError,
 )
-from sqlalchemy import create_engine, select
-from sqlalchemy.orm import Session, sessionmaker
-
-
-@pytest.fixture
-def db_session() -> Generator[Session, None, None]:
-    """Provides an isolated SQLite in-memory session with schema translation."""
-    engine = create_engine(
-        "sqlite:///:memory:",
-        execution_options={"schema_translate_map": {"platform": None}},
-    )
-    Base.metadata.create_all(engine)
-    session_factory = sessionmaker(bind=engine)
-    session = session_factory()
-    try:
-        yield session
-    finally:
-        session.close()
-
+from sqlalchemy import select
+from sqlalchemy.orm import Session
 
 # ==============================================================================
 # RBAC Tests

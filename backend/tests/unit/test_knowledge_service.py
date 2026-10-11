@@ -1,29 +1,9 @@
-from collections.abc import Generator
-
-import pytest
-from app.db import Base
 from app.modules.platform.knowledge.models import KBChunk
 from app.modules.platform.knowledge.service import KnowledgeService
-from sqlalchemy import create_engine, select
-from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy import select
+from sqlalchemy.orm import Session
 
 from data.synthetic.products_catalog import PRODUCTS_DATA
-
-
-@pytest.fixture
-def db_session() -> Generator[Session, None, None]:
-    """Isolated SQLite in-memory DB with schema translation."""
-    engine = create_engine(
-        "sqlite:///:memory:",
-        execution_options={"schema_translate_map": {"platform": None}},
-    )
-    Base.metadata.create_all(engine)
-    session_factory = sessionmaker(bind=engine)
-    session = session_factory()
-    try:
-        yield session
-    finally:
-        session.close()
 
 
 def test_wording_ingestion_idempotency(db_session: Session) -> None:
