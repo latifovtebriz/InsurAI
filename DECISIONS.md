@@ -37,6 +37,11 @@
 - **Decision:** Implement the Transactional Outbox pattern. Domain events are inserted into `platform.outbox_events` within the exact same database transaction as the entity state update. A background dispatcher (`OutboxDispatcher`) polls pending events and delivers them to registered consumers with deduplication via `platform.processed_events`.
 - **Consequences:** At-least-once delivery guarantee, zero ghost events on transaction rollback, idempotent consumer processing.
 
+### ADR-009: Clause-Based Semantic Chunking with Date-in-Force Filtering
+- **Context:** Standard fixed-token window RAG (e.g., 512 tokens with 50-token overlap) arbitrarily slices legal sentences, destroying legal coherence and clause references. Furthermore, policy wordings change over time across versions. Searching across all versions simultaneously leads to retrieving outdated clauses for modern claims or modern clauses for historical incidents.
+- **Decision:** Chunk documents strictly at the numbered clause boundary (`clause_id`). Embed `title + "\n" + text`. Before calculating vector similarity, enforce a strict relational filter in SQL where `product_code == requested` and `effective_from <= incident_date <= effective_to`. Return structured `Citation` objects.
+- **Consequences:** Guaranteed preservation of complete legal clauses, zero cross-version leakage, 100% accurate time-travel retrieval.
+
 ### ADR-010: Tooling and Quality Stack
 - **Context:** The project requires fast dependency resolution, strict typing, linting, formatting, and reproducible environments on Windows.
 - **Decision:** Use `uv` for package management, Python 3.12+, FastAPI for REST endpoints, Pydantic v2 for data schemas, `ruff` for linting/formatting, `mypy` for static typing, and `pytest` for testing.

@@ -1,0 +1,68 @@
+"""Generates 40 labeled queries for retrieval evaluation across policy wording."""
+
+import json
+from pathlib import Path
+
+QUERIES = [
+    # Perils (Clause A)
+    {"id": "Q01", "query": "front bumper damaged after collision with guardrail", "expected_clause_id": "MOTOR_OD:A.1", "category": "collision"},
+    {"id": "Q02", "query": "car rolled over into a ditch on highway", "expected_clause_id": "MOTOR_OD:A.1", "category": "collision"},
+    {"id": "Q03", "query": "impact with another car at intersection", "expected_clause_id": "MOTOR_OD:A.1", "category": "collision"},
+    {"id": "Q04", "query": "engine compartment caught fire while driving", "expected_clause_id": "MOTOR_OD:A.2", "category": "fire"},
+    {"id": "Q05", "query": "explosion of gas installation in vehicle", "expected_clause_id": "MOTOR_OD:A.2", "category": "fire"},
+    {"id": "Q06", "query": "lightning struck car during thunderstorm", "expected_clause_id": "MOTOR_OD:A.2", "category": "fire"},
+    {"id": "Q07", "query": "large hailstones cracked windshield and dented roof", "expected_clause_id": "MOTOR_OD:A.3", "category": "natural_disaster"},
+    {"id": "Q08", "query": "flash flood in underground garage submerged car", "expected_clause_id": "MOTOR_OD:A.3", "category": "natural_disaster"},
+    {"id": "Q09", "query": "earthquake caused brick wall to collapse onto car", "expected_clause_id": "MOTOR_OD:A.3", "category": "natural_disaster"},
+    {"id": "Q10", "query": "car stolen from parking lot overnight", "expected_clause_id": "MOTOR_OD:A.4", "category": "theft"},
+    {"id": "Q11", "query": "armed robbery and carjacking on rural road", "expected_clause_id": "MOTOR_OD:A.4", "category": "theft"},
+    {"id": "Q12", "query": "unidentified person scratched car paint with key", "expected_clause_id": "MOTOR_OD:A.5", "category": "vandalism"},
+    {"id": "Q13", "query": "vandals smashed headlights while parked", "expected_clause_id": "MOTOR_OD:A.5", "category": "vandalism"},
+
+    # Exclusions (Clause B)
+    {"id": "Q14", "query": "damage during military invasion and artillery shelling", "expected_clause_id": "MOTOR_OD:B.1", "category": "war_exclusion"},
+    {"id": "Q15", "query": "owner deliberately set vehicle on fire for payout", "expected_clause_id": "MOTOR_OD:B.2", "category": "intentional_fraud"},
+    {"id": "Q16", "query": "driver was drunk with alcohol blood level 1.2 g/l", "expected_clause_id": "MOTOR_OD:B.3", "category": "drunk_driving"},
+    {"id": "Q17", "query": "operating vehicle under influence of narcotic substances", "expected_clause_id": "MOTOR_OD:B.3", "category": "drunk_driving"},
+    {"id": "Q18", "query": "intoxicated driver crashed into tree", "expected_clause_id": "MOTOR_OD:B.3", "category": "drunk_driving"},
+    {"id": "Q19", "query": "driver had no valid driving license for car category", "expected_clause_id": "MOTOR_OD:B.4", "category": "unlicensed_driver"},
+    {"id": "Q20", "query": "16-year-old student driving without license", "expected_clause_id": "MOTOR_OD:B.4", "category": "unlicensed_driver"},
+    {"id": "Q21", "query": "accident during illegal night street drag race", "expected_clause_id": "MOTOR_OD:B.5", "category": "racing_exclusion"},
+    {"id": "Q22", "query": "speed testing rally competition on closed track", "expected_clause_id": "MOTOR_OD:B.5", "category": "racing_exclusion"},
+    {"id": "Q23", "query": "engine failed because of worn out timing belt and rust", "expected_clause_id": "MOTOR_OD:B.6", "category": "wear_tear"},
+    {"id": "Q24", "query": "gearbox internal mechanical failure from old age", "expected_clause_id": "MOTOR_OD:B.6", "category": "wear_tear"},
+    {"id": "Q25", "query": "hacked car firmware causing ECU system glitch", "expected_clause_id": "MOTOR_OD:B.7", "category": "cyber_exclusion"},
+
+    # Obligations (Clause C)
+    {"id": "Q26", "query": "driver did not take precautions to mitigate further damage", "expected_clause_id": "MOTOR_OD:C.1", "category": "mitigation"},
+    {"id": "Q27", "query": "how many business days do I have to notify insurer of accident", "expected_clause_id": "MOTOR_OD:C.2", "category": "notice_deadline"},
+    {"id": "Q28", "query": "reported claim three weeks after accident happened", "expected_clause_id": "MOTOR_OD:C.2", "category": "notice_deadline"},
+    {"id": "Q29", "query": "mandatory duty to call state traffic police to scene", "expected_clause_id": "MOTOR_OD:C.3", "category": "police_report"},
+    {"id": "Q30", "query": "driver left scene of collision without waiting for police", "expected_clause_id": "MOTOR_OD:C.3", "category": "police_report"},
+
+    # Settlement & Deductible (Clause D)
+    {"id": "Q31", "query": "partner certified service center repair estimate valuation", "expected_clause_id": "MOTOR_OD:D.1", "category": "repair_valuation"},
+    {"id": "Q32", "query": "repair cost exceeds 70 percent of vehicle market value", "expected_clause_id": "MOTOR_OD:D.2", "category": "total_loss"},
+    {"id": "Q33", "query": "constructive total loss salvage deduction calculation", "expected_clause_id": "MOTOR_OD:D.2", "category": "total_loss"},
+    {"id": "Q34", "query": "unconditional deductible amount subtracted from payout", "expected_clause_id": "MOTOR_OD:D.3", "category": "deductible"},
+    {"id": "Q35", "query": "what is the excess deducted for partial damage claim", "expected_clause_id": "MOTOR_OD:D.3", "category": "deductible"},
+
+    # Subrogation & Cancellation (Clause E & F)
+    {"id": "Q36", "query": "insurer right of recovery against liable third party driver", "expected_clause_id": "MOTOR_OD:E.1", "category": "subrogation"},
+    {"id": "Q37", "query": "subrogation transfer of legal rights upon claim settlement", "expected_clause_id": "MOTOR_OD:E.1", "category": "subrogation"},
+    {"id": "Q38", "query": "pro-rata premium refund upon policy cancellation", "expected_clause_id": "MOTOR_OD:F.1", "category": "cancellation"},
+    {"id": "Q39", "query": "administrative fee deducted when customer terminates policy", "expected_clause_id": "MOTOR_OD:F.1", "category": "cancellation"},
+    {"id": "Q40", "query": "daily proportional calculation of unearned premium", "expected_clause_id": "MOTOR_OD:F.1", "category": "cancellation"},
+]
+
+
+def save_retrieval_queries(out_file: Path) -> None:
+    out_file.parent.mkdir(parents=True, exist_ok=True)
+    with open(out_file, "w", encoding="utf-8") as f:
+        json.dump(QUERIES, f, indent=2)
+    print(f"Saved {len(QUERIES)} labeled retrieval queries to {out_file}")
+
+
+if __name__ == "__main__":
+    target = Path("data/synthetic/retrieval_queries.json")
+    save_retrieval_queries(target)

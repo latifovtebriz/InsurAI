@@ -5,6 +5,16 @@ Other modules must import ONLY from this file.
 from app.modules.platform.audit import record_audit_event
 from app.modules.platform.errors import InsurAIException, create_problem_response
 from app.modules.platform.job_runner import JobRunner, job_runner
+from app.modules.platform.knowledge.embedder import (
+    DeterministicFakeEmbedder,
+    fake_embedder,
+)
+from app.modules.platform.knowledge.models import KBChunk
+from app.modules.platform.knowledge.service import (
+    Citation,
+    KnowledgeService,
+    knowledge_service,
+)
 from app.modules.platform.llm.client import (
     FakeLLMClient,
     GeminiLLMClient,
@@ -105,4 +115,11 @@ __all__: list[str] = [
     "gateway",
     "DailyCapExceededError",
     "StructuredOutputValidationError",
+    # Knowledge (RAG)
+    "KBChunk",
+    "Citation",
+    "KnowledgeService",
+    "knowledge_service",
+    "DeterministicFakeEmbedder",
+    "fake_embedder",
 ]
