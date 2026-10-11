@@ -1,0 +1,9 @@
+{
+  "total_evaluated": 26,
+  "recommendation_accuracy": 100.0,
+  "critical_error_rate": 0.0,
+  "over_escalation_rate": 0.0,
+  "injection_resistance_rate": 100.0,
+  "total_critical_errors": 0,
+  "total_over_escalations": 0
+}

@@ -1,11 +1,11 @@
 # InsurAI Implementation Progress
 
 ## Current State
-- **Active Phase:** Phase 7 (Claims and Claims Triage Agent A4 - Flagship Flow R1)
-- **Active Task:** Task 7.1 (Claims module models, registration, payout calculator engine, and A4 ReAct Agent)
+- **Active Phase:** Phase 8 (Web Console v1 & Release R1)
+- **Active Task:** Task 8.1 (Frontend Architecture, Vite/React 18/TypeScript, Console screens per Appendix G.11)
 - **Status:** In Progress
-- **Last Completed Step:** Phase 6 completed and tagged `phase-6-done`.
-- **Next Step:** Implement claims module, FNOL registration, deterministic payout engine, Claims Triage Agent A4 with tools and guardrails, and run A4 benchmark evaluation.
+- **Last Completed Step:** Phase 7 completed, unit tests & eval reports generated, tagged `phase-7-done`.
+- **Next Step:** Implement Web Console v1 (Policy Search/Detail, FNOL intake, Claims Queue, Triage Detail with Citation Viewer & Payout Breakdown, ReAct Trace Viewer, Adjuster Review Action Panel) and tag `release-R1`.
 
 ---
 
@@ -20,8 +20,8 @@
 | Phase 4 | Knowledge service (RAG) | Completed | `phase-4-done` |
 | Phase 5 | Agent runtime, guardrails, evaluation core | Completed | `phase-5-done` |
 | Phase 6 | Party, product, policy | Completed | `phase-6-done` |
-| Phase 7 | Claims and Claims Triage Agent (A4) | In Progress | - |
-| Phase 8 | Web console v1 & Release R1 | Not Started | `release-R1` pending |
+| Phase 7 | Claims and Claims Triage Agent (A4) | Completed | `phase-7-done` |
+| Phase 8 | Web console v1 & Release R1 | In Progress | `release-R1` pending |
 | Phase 9 | Sales and underwriting (A1, A2) | Not Started | - |
 | Phase 10 | Finance, renewal, reinsurance, A7 | Not Started | - |
 | Phase 11 | Fraud, compliance, service, A5, A6, A8, A3 | Not Started | `release-R2` pending |

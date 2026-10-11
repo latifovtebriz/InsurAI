@@ -122,3 +122,7 @@ class ClaimExtractionService:
             extracted.has_injection_risk = True
 
         return extracted
+
+
+claim_extraction_service = ClaimExtractionService()
+

@@ -120,6 +120,7 @@ CLAIM_WORKFLOW = StateMachineDefinition(
         Transition("fnol_received", "registered", "register_claim"),
         Transition("registered", "triage_in_progress", "start_triage"),
         Transition("triage_in_progress", "awaiting_review", "submit_recommendation"),
+        Transition("triage_in_progress", "approved", "auto_approve_l3"),
         Transition("awaiting_review", "approved", "confirm_approval"),
         Transition("awaiting_review", "rejected", "confirm_rejection"),
         Transition("approved", "settled", "disburse_payment"),
