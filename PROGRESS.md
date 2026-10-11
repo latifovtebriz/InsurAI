@@ -1,11 +1,11 @@
 # InsurAI Implementation Progress
 
 ## Current State
-- **Active Phase:** Phase 3 (LLM gateway and extraction)
-- **Active Task:** Task 3.1 (Verify Gemini SDK & LLMClient interface)
+- **Active Phase:** Phase 4 (Knowledge service - RAG)
+- **Active Task:** Task 4.1 (KB chunks model and pgvector integration)
 - **Status:** In Progress
-- **Last Completed Step:** Phase 2 completed and tagged `phase-2-done`.
-- **Next Step:** Implement LLMClient interface, Fake & Replay clients, Gateway with retry/cache/cost accounting, and FNOL Extraction service.
+- **Last Completed Step:** Phase 3 completed and tagged `phase-3-done`.
+- **Next Step:** Implement knowledge service vector storage, clause-based chunking, date-in-force filtering, and time-travel retrieval test.
 
 ---
 
@@ -16,8 +16,8 @@
 | Phase 0 | Foundation, tooling, Git | Completed | `phase-0-done` |
 | Phase 1 | Domain model, synthetic data, labels | Completed | `phase-1-done` |
 | Phase 2 | Platform core | Completed | `phase-2-done` |
-| Phase 3 | LLM gateway and extraction | In Progress | - |
-| Phase 4 | Knowledge service (RAG) | Not Started | - |
+| Phase 3 | LLM gateway and extraction | Completed | `phase-3-done` |
+| Phase 4 | Knowledge service (RAG) | In Progress | - |
 | Phase 5 | Agent runtime, guardrails, evaluation core | Not Started | - |
 | Phase 6 | Party, product, policy | Not Started | - |
 | Phase 7 | Claims and Claims Triage Agent (A4) | Not Started | - |

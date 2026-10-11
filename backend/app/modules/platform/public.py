@@ -5,6 +5,20 @@ Other modules must import ONLY from this file.
 from app.modules.platform.audit import record_audit_event
 from app.modules.platform.errors import InsurAIException, create_problem_response
 from app.modules.platform.job_runner import JobRunner, job_runner
+from app.modules.platform.llm.client import (
+    FakeLLMClient,
+    GeminiLLMClient,
+    LLMClient,
+    LLMMessage,
+    LLMResponse,
+    RecordReplayLLMClient,
+)
+from app.modules.platform.llm.gateway import (
+    DailyCapExceededError,
+    LLMGateway,
+    StructuredOutputValidationError,
+    gateway,
+)
 from app.modules.platform.models import (
     AuditLog,
     BusinessRuleModel,
@@ -80,4 +94,15 @@ __all__: list[str] = [
     # Errors
     "InsurAIException",
     "create_problem_response",
+    # LLM & Gateway
+    "LLMClient",
+    "FakeLLMClient",
+    "RecordReplayLLMClient",
+    "GeminiLLMClient",
+    "LLMMessage",
+    "LLMResponse",
+    "LLMGateway",
+    "gateway",
+    "DailyCapExceededError",
+    "StructuredOutputValidationError",
 ]
