@@ -14,6 +14,7 @@
 | ADR-008 | Transactional Outbox Pattern for Inter-Module Event Dispatching | Accepted | 2026-10-12 |
 | ADR-009 | Clause-Based Semantic Chunking with Date-in-Force Filtering | Accepted | 2026-10-12 |
 | ADR-010 | Tooling and Quality Stack: Python 3.12+, uv, FastAPI, Pydantic v2, Ruff, Mypy | Accepted | 2026-10-12 |
+| ADR-011 | React 18, Vite, TypeScript Web Console with Human-in-the-Loop Transparency | Accepted | 2026-10-12 |
 
 ---
 
@@ -69,3 +70,8 @@
 ### ADR-010: Tooling and Quality Stack
 - **Context:** The project requires fast dependency resolution, strict typing, linting, formatting, and reproducible environments on Windows.
 - **Decision:** Use `uv` for package management, Python 3.12+, FastAPI for REST endpoints, Pydantic v2 for data schemas, `ruff` for linting/formatting, `mypy` for static typing, and `pytest` for testing.
+
+### ADR-011: React 18, Vite, TypeScript Web Console with Human-in-the-Loop Transparency
+- **Context:** An AI copilot in insurance claims and underwriting cannot be an opaque black box. Adjusters and underwriters require full visibility into agent confidence, exact wording citations, deterministic payout breakdowns, fraud risk alerts, and execution traces (thoughts and tool calls) before confirming actions.
+- **Decision:** Build a single-page application using React 18, Vite, TypeScript, and TailwindCSS. The console enforces persona-based quick logins, presents prominent uncertainty disclosures whenever confidence is less than 1.0 or flags exist, provides 4 golden demo scenario presets, and requires mandatory written rationale for any adjuster override.
+- **Consequences:** Low latency UI (<50ms state updates), explainable AI for claims adjusters, seamless human oversight, and ready-to-demo golden journeys.

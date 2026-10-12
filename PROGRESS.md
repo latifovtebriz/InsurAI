@@ -1,11 +1,11 @@
 # InsurAI Implementation Progress
 
 ## Current State
-- **Active Phase:** Phase 8 (Web Console v1 & Release R1)
-- **Active Task:** Task 8.1 (Frontend Architecture, Vite/React 18/TypeScript, Console screens per Appendix G.11)
+- **Active Phase:** Phase 9 (Sales and Underwriting: A1 Quote Assistant & A2 Underwriting Copilot)
+- **Active Task:** Task 9.1 (Sales module P02, Leads, Quotes, Rating integration, Quotation workflow)
 - **Status:** In Progress
-- **Last Completed Step:** Phase 7 completed, unit tests & eval reports generated, tagged `phase-7-done`.
-- **Next Step:** Implement Web Console v1 (Policy Search/Detail, FNOL intake, Claims Queue, Triage Detail with Citation Viewer & Payout Breakdown, ReAct Trace Viewer, Adjuster Review Action Panel) and tag `release-R1`.
+- **Last Completed Step:** Phase 8 completed, Web Console v1, REST API, E2E journey test, DEMO_SCRIPT.md, README.md, tagged `phase-8-done` and `release-R1`.
+- **Next Step:** Implement Sales domain models, quotation service, A1 Quote Assistant agent, Underwriting rules engine, and A2 Copilot.
 
 ---
 
@@ -21,8 +21,8 @@
 | Phase 5 | Agent runtime, guardrails, evaluation core | Completed | `phase-5-done` |
 | Phase 6 | Party, product, policy | Completed | `phase-6-done` |
 | Phase 7 | Claims and Claims Triage Agent (A4) | Completed | `phase-7-done` |
-| Phase 8 | Web console v1 & Release R1 | In Progress | `release-R1` pending |
-| Phase 9 | Sales and underwriting (A1, A2) | Not Started | - |
+| Phase 8 | Web console v1 & Release R1 | Completed | `phase-8-done`, `release-R1` |
+| Phase 9 | Sales and underwriting (A1, A2) | In Progress | - |
 | Phase 10 | Finance, renewal, reinsurance, A7 | Not Started | - |
 | Phase 11 | Fraud, compliance, service, A5, A6, A8, A3 | Not Started | `release-R2` pending |
 | Phase 12 | Console v2, KPIs, end-to-end journeys | Not Started | - |

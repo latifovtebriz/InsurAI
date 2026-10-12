@@ -6,6 +6,7 @@ from typing import Any
 from fastapi import FastAPI, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.v1.router import api_v1_router
 from app.config import settings
 from app.db import check_db_connectivity
 from app.logging import setup_logging
@@ -36,6 +37,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Domain Routers
+app.include_router(api_v1_router)
 
 
 @app.get("/health", tags=["System"])

@@ -259,7 +259,7 @@ class AgentLoop:
         except Exception:
             pass
 
-        # Regex fallback for `ToolCall: name(args)` syntax
+        # Regex fallback for `ToolCall: name(args)` or ReAct `Action: name\nAction Input: json` syntax
         import re
 
         match = re.search(r"ToolCall:\s*([a-zA-Z0-9_]+)\((.*)\)", content)
@@ -270,6 +270,18 @@ class AgentLoop:
                 args = json.loads(raw_args)
             except Exception:
                 args = {}
+            return {"name": tool_name, "arguments": args}
+
+        action_match = re.search(r"Action:\s*([a-zA-Z0-9_]+)\s*(?:Action Input:\s*(\{.*\}))?", content, re.DOTALL)
+        if action_match:
+            tool_name = action_match.group(1).strip()
+            raw_input = action_match.group(2)
+            args = {}
+            if raw_input:
+                try:
+                    args = json.loads(raw_input.strip())
+                except Exception:
+                    args = {}
             return {"name": tool_name, "arguments": args}
 
         return None

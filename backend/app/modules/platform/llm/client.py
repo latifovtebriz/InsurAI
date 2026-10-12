@@ -77,6 +77,56 @@ class FakeLLMClient:
             if kw in full_prompt:
                 return self._build_response(resp, self.default_model)
 
+        # Handle Claims Triage Agent A4 multi-step ReAct flow in offline mode
+        if tools and "Triage Claim:" in full_prompt:
+            if "ToolCall: check_policy_active" not in full_prompt:
+                pol_match = re.search(r"Policy Number:\s*([A-Z0-9-]+)", full_prompt)
+                pol = pol_match.group(1) if pol_match else "POL-2026-MOD-0001"
+                inc_match = re.search(r"Incident Date:\s*([0-9-]+)", full_prompt)
+                inc = inc_match.group(1) if inc_match else "2026-06-01"
+                return self._build_response(
+                    f'Thought: I must verify if the policy was active on the date of loss.\nAction: check_policy_active\nAction Input: {{"policy_number": "{pol}", "incident_date": "{inc}"}}',
+                    self.default_model,
+                )
+            if "ToolCall: calculate_payout" not in full_prompt:
+                amt_match = re.search(r"Claimed Amount:\s*(\d+(?:\.\d+)?)", full_prompt)
+                amt = float(amt_match.group(1)) if amt_match else 1000.0
+                return self._build_response(
+                    f'Thought: Policy is verified active. Now I compute the deterministic payout using calculate_payout.\nAction: calculate_payout\nAction Input: {{"claimed_amount": {amt}, "sum_insured": 38000.0, "deductible": 200.0}}',
+                    self.default_model,
+                )
+            amt_match = re.search(r"Claimed Amount:\s*(\d+(?:\.\d+)?)", full_prompt)
+            amt = float(amt_match.group(1)) if amt_match else 1000.0
+            payable = max(0.0, amt - 200.0)
+            rec = {
+                "recommendation": "approve",
+                "confidence": 0.95,
+                "reasoning": "Policy active, partial damage verified, deductible 200 AZN applied deterministically.",
+                "payout": {
+                    "claimed_amount": amt,
+                    "covered_loss": amt,
+                    "deductible": 200.0,
+                    "payable": payable,
+                    "is_total_loss": False,
+                    "salvage_deduction": 0.0,
+                    "calculation_rule": "Standard Partial Loss: Claimed - Deductible",
+                },
+                "risk_flags": [],
+                "missing_information": [],
+                "clause_citations": [
+                    {
+                        "clause_id": "MOTOR_OD:A.1",
+                        "section": "A",
+                        "title": "Accidental Collision Damage",
+                        "relevance": 0.95,
+                    }
+                ],
+            }
+            return self._build_response(
+                f'Thought: All evidence gathered. Submitting terminal recommendation.\nAction: submit_recommendation\nAction Input: {{"recommendation": {json.dumps(rec)}}}',
+                self.default_model,
+            )
+
         # Handle Extraction Service request with Pydantic target schema
         if response_schema and response_schema.__name__ == "ExtractedClaim":
             extracted_json = self._extract_claim_fields_heuristically(full_prompt)
