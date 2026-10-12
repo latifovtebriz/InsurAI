@@ -39,3 +39,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Turnkey Seed-to-Demo Script (`scripts/seed_demo_data.py`):** Standalone zero-friction seeding pipeline populating products, accounts, treaties, parties, policies, claims, and balanced accounting books in seconds.
 - **Web Console v2 Metrics Polish:** Real-time Executive KPIs dashboard, General Ledger balanced badge, and explicit AI Autonomy Level matrix (`[L1 Automated Execution]`, `[L2 Human-in-the-Loop]`, `[L3 Advisory Copilot]`).
 
+## [3.0.0] - Release R3 - 2026-10-12
+
+### Added
+- **Production Observability & Prometheus Exposition (Architecture 3.13):** Standard text exposition at `GET /metrics` and `GET /api/v1/metrics/prometheus` exposing HTTP business transaction volume, agent run durations, token consumption, guardrail downgrade rates, claim triage decision breakdowns, active policy totals, established claim reserves, and the General Ledger balance difference gauge ($\Delta = 0.00$ AZN).
+- **Enhanced Readiness Probe (`GET /ready`):** Database pool connection verification and transactional outbox queue depth monitoring.
+- **Observability Guide & Operational Runbooks (`docs/observability.md`):** Complete Prometheus metrics catalog, Service Level Objectives (SLOs), Prometheus alert rules (`GeneralLedgerImbalance`, `OutboxBacklogHigh`, `AgentSafetyDowngradeSpike`, `ComplaintSLABreachRisk`), and step-by-step incident runbooks.
+- **Security Defenses & DoS Mitigation:** `MaxPayloadSizeMiddleware` rejecting oversized requests > 10MB with HTTP 413 Payload Too Large. Automatic PII and secret redaction (`sanitize_pii` in `JSONFormatter`) scrubbing credit card PANs and Authorization Bearer tokens in structured JSON logs.
+- **Chaos-Style Robustness Test Suite (`test_chaos_and_robustness.py`):** Verified system fail-safe resilience against LLM timeouts, network drops, malformed non-JSON model outputs, atomic database rollbacks, and oversized payload attacks.
+- **Security Mitigations Test Suite (`test_security_mitigations.py`):** Verifies G7 prompt injection defense, ReAct tool execution whitelist and argument validation, RBAC matrix authorization across 8 roles, and log PII redaction.
+- **Threat Model Specification (`docs/security.md`):** Complete STRIDE analysis and OWASP Top 10 for Large Language Models (LLM01–LLM10) defensive mappings.
+- **AI Governance Framework (`docs/ai-governance.md`):** Formalized 3-tier autonomy matrix (L1, L2, L3), human oversight invariants (adjuster overrides, sanctions non-clearance), explainability (G1 grounding citations), and fairness blindness (G9).
+- **Engineering Interview Notes (`INTERVIEW_NOTES.md`):** 10 tough interview questions with honest answers, architectural story, 5 hardest problems solved, honest limitations, and resume bullets with real metrics.
+- **Golden Demo Walkthrough Script (`DEMO_SCRIPT.md`):** 5-minute walkthrough of 4 core operational journeys with curl and UI verification steps.
+- **CI/CD Pipeline Enhancement (`.github/workflows/ci.yml`):** Comprehensive GitHub Actions workflow executing secret scanner, ruff lint/format, mypy typecheck, SAST security scan (Bandit), dependency audit (pip-audit), backend test suite, and frontend production build.
+- **Open Source Licensing:** Added standard MIT License (`LICENSE`).
+

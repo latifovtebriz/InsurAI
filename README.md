@@ -1,54 +1,75 @@
-# InsurAI — Autonomous Enterprise P&C Insurance Core Platform
+# InsurAI — Autonomous Enterprise P&C Insurance Core Platform (Release R3)
 
-**InsurAI** is an enterprise-grade agentic insurance core platform for Property & Casualty (P&C) insurance. It combines deterministic financial and legal computation engines, schema-per-module database isolation across 12 business contexts, a hand-written ReAct agent runtime with defensive guardrails (G1–G10), and a modern React/TypeScript claims adjudication console.
+[![InsurAI CI](https://github.com/latifovtebriz/InsurAI/actions/workflows/ci.yml/badge.svg)](https://github.com/latifovtebriz/InsurAI/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Python: 3.12+](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://www.python.org/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.115%2B-009688.svg)](https://fastapi.tiangolo.com/)
+[![React: 18](https://img.shields.io/badge/React-18-61DAFB.svg)](https://react.dev/)
+[![TypeScript: 5](https://img.shields.io/badge/TypeScript-5.0-3178C6.svg)](https://www.typescriptlang.org/)
+
+**InsurAI** is an enterprise-grade autonomous Property & Casualty (P&C) core insurance platform. Built from the ground up to solve the real operational challenges of modern carriers, InsurAI combines:
+- **12 Schema-Isolated Domain Modules** with strict AST-enforced architecture boundaries.
+- **8 Specialized Autonomous AI Agents (A1–A8)** operating under deterministic guardrails (G1–G10) and tiered autonomy (L1–L3).
+- **A Double-Entry General Ledger** enforcing a zero-imbalance mathematical invariant ($\Delta = |Debits - Credits| == 0.00$ AZN) across 13 accounts and quota-share reinsurance treaties.
+- **A Full Operational Web Console v2** in React, TypeScript, and Tailwind CSS.
+- **Enterprise Observability & Security** with standard Prometheus exposition (`/metrics`), statutory complaint SLA tracking, and an automated zero-leak secret scanner.
 
 ---
 
 ## 🏛️ System Architecture
 
-InsurAI is architected as a modular monolith with strict schema-per-module isolation and an event-driven transactional outbox.
-
 ```mermaid
 graph TD
-    subgraph Frontend["Frontend Web Console (React / Vite / TypeScript)"]
-        UI_Claims["Claims Adjudication Queue & Dossier"]
-        UI_FNOL["FNOL Intake (4 Golden Demo Scenarios)"]
-        UI_Policies["Policy Contract & Schedule Viewer"]
-        UI_Audit["Immutable Audit Log & Diff Viewer"]
-        UI_Metrics["Operational KPIs & Eval Benchmarks"]
+    subgraph Frontend["Frontend Web Console v2 (React 18 / Vite / TypeScript)"]
+        UI_Dash["Executive KPI & Autonomy Matrix Dashboard"]
+        UI_Claims["Claims Adjudication Dossier & Override"]
+        UI_Quotes["Sales Quotation & Risk Intake"]
+        UI_Policies["Policy Administration & Endorsements"]
+        UI_Ledger["Double-Entry General Ledger Viewer"]
+        UI_Service["Complaints & Statutory SLA Tracking"]
+        UI_Traces["Real-Time Agent Execution & Guardrail Traces"]
     end
 
     subgraph API_GW["FastAPI Core REST API (/api/v1)"]
-        AuthRouter["/auth (JWT / PBKDF2 / RBAC)"]
-        ClaimsRouter["/claims (FNOL, Triage, Adjudication, Settlement)"]
-        PolicyRouter["/policies (Rating, Issuance, Cancellation)"]
-        TracesRouter["/traces (Agent Execution Timeline)"]
-        AuditRouter["/audit (Append-Only Event Stream)"]
-        MetricsRouter["/metrics (STP Rates, Reserves, Evals)"]
+        AuthRouter["/auth (RBAC Matrix & JWT HS256)"]
+        SalesRouter["/sales & /underwriting (Quotes & Risk Binding)"]
+        ClaimsRouter["/claims (FNOL, Triage, Payouts)"]
+        PolicyRouter["/policies (Issuance, Mid-term Endorsement)"]
+        FinanceRouter["/finance (Ledger, Invoices, Disbursements)"]
+        FraudRouter["/fraud & /compliance (SIU Cases & Sanctions)"]
+        ServiceRouter["/service (Customer Inquiries & Complaints)"]
+        MetricsRouter["/metrics & /metrics/executive-kpis (Prometheus & KPIs)"]
     end
 
     subgraph CoreModules["Bounded Context Modules (Schema-per-Module)"]
-        direction TB
         ModPlatform["platform: Identity, Outbox, Audit, Job Runner"]
-        ModParty["party: Natural & Legal Persons, KYC"]
-        ModProduct["product: Wordings, Rating Rules, 4-Eyes Governance"]
-        ModPolicy["policy: Binding, Endorsement, Pro-Rata Cancellation"]
-        ModClaims["claims: Reserves, Payout Engine, Heuristics"]
-        ModSales["sales: Leads, Quotation (Phase 9)"]
-        ModUW["underwriting: Rules, Authority Limits (Phase 9)"]
+        ModParty["party: Natural & Legal Persons, Vehicles, Properties"]
+        ModProduct["product: Wordings, Rating Rules, Governance"]
+        ModPolicy["policy: Binding, Endorsement, Pro-Rata Engine"]
+        ModSales["sales: Leads, Quotes, Conversions"]
+        ModUW["underwriting: Appetite Rules, Authority Limits"]
+        ModClaims["claims: Reserves, Payout Engine, Settlement"]
+        ModFinance["finance: Double-Entry Ledger, Invoicing, Banking"]
+        ModFraud["fraud: Signal Scoring, SIU Investigation"]
+        ModCompliance["compliance: Watchlists, Sanctions, KYC"]
+        ModService["service: Endorsement Drafts, Statutory Complaints"]
+        ModReinsurance["reinsurance: Quota-Share Treaties & Recoveries"]
     end
 
     subgraph AgentRuntime["Agentic Copilot Runtime & Defensive Guardrails"]
-        A4["A4 Claims Triage Agent (ReAct Loop)"]
-        ToolRegistry["Tool Registry (Read-only + Grounded Tools)"]
-        Guardrails["Defensive Guardrails Pipeline (G1 - G10)"]
-        KnowledgeSvc["Knowledge Service (pgvector Chunking, SQL Date-in-Force)"]
-        LLMGateway["LLM Gateway (Token Budgets, Bounded Repair, G7 Interceptor)"]
+        A_Agents["Agents A1 to A8 (ReAct Loop)"]
+        ToolRegistry["Tool Registry (Strict Pydantic Validation)"]
+        Guardrails["Defensive Guardrail Pipeline (G1 - G10)"]
+        KnowledgeSvc["Knowledge Service (pgvector Chunking, Date-in-Force)"]
+        LLMGateway["LLM Gateway (Token Budgets, Fail-Safe Fallbacks)"]
     end
 
     Frontend --> API_GW
     API_GW --> CoreModules
+    SalesRouter --> AgentRuntime
     ClaimsRouter --> AgentRuntime
+    FraudRouter --> AgentRuntime
+    ServiceRouter --> AgentRuntime
     AgentRuntime --> KnowledgeSvc
     AgentRuntime --> Guardrails
     CoreModules --> ModPlatform
@@ -56,108 +77,112 @@ graph TD
 
 ---
 
-## 🛡️ Core Architectural Principles
+## 🤖 Specialized AI Agent Roster (A1 – A8)
 
-1. **Deterministic Financial & Legal Core:**
-   The LLM **never** calculates money or dates. All premiums, deductibles, constructive total loss thresholds (70% rule under Clause D.2), pro-rata cancellation refunds (365/366 day leap-year precision), and notification deadlines (skipping weekends per Clause C.2) are executed in pure, deterministic Python using `Decimal(ROUND_HALF_UP)`.
-2. **Schema-per-Module Boundary Enforcement:**
-   Every business domain owns its private schema and tables (`platform`, `party`, `product`, `policy`, `claims`). Inter-module communication is strictly prohibited from touching foreign internals and must call `public.py` interfaces, enforced by AST architecture tests (`backend/tests/architecture/test_module_boundaries.py`).
-3. **Defense-in-Depth Guardrails (G1–G10):**
-   - **G1 (Grounding):** Recommendations require exact wording clause citations.
-   - **G2 (Mathematical Equality):** Payouts match deterministic engine output down to the cent.
-   - **G3 (Terminal Rejection):** Exclusions (e.g. Clause B.1 alcohol) clamp payouts to 0.00 AZN.
-   - **G4 (Confidence Floor):** Low confidence (<0.70) or risk flags route to human adjusters.
-   - **G5 (Mandatory Tools):** Critical tools must be invoked before issuing decisions.
-   - **G7 (Prompt Injection Defense):** Intercepts jailbreaks and adversarial instructions.
-   - **G10 (Non-Negative Payout):** Invariant preventing negative settlements.
-4. **Effective-Dated Wordings & Time-Travel Retrieval:**
-   Policy wording terms (e.g. 2025 vs 2026 revisions) are indexed with `effective_from` and `effective_to`. Retrieval strictly applies SQL date-in-force pre-filtering against the policy inception date.
-5. **Transactional Outbox & Audit Trail:**
-   All domain events are persisted in the same transaction as state changes. Audit logs are append-only with before/after state diffs.
-
----
-
-### 4. Release R2 Agent Roster & Benchmarks
-| Agent | Role | Governance Level | Key Guardrails & Invariants | Benchmark Pass Rate |
+| Agent | Operational Domain | Autonomy Level | Guardrails & Invariants | Automated Capability |
 |---|---|---|---|---|
-| **A1: Quote Assistant** | Sales & Natural Language Intake | L1 (STP) / L2 (Referral) | G2 (Mathematical equality), G7 (Injection block) | 100.0% rate fidelity |
-| **A2: Underwriting Copilot** | Risk Profiling & Referral Dossier | L2 (Mandatory Human Sign-off) | G3 (Decline justification), Authority Limit matrix | 100.0% rule recall |
-| **A3: Policy Servicing** | Mid-term Endorsements (P06) | L2 (Underwriter Approval) | Pro-rata Decimal math down to day ($\Delta = 0.00$) | 100.0% math exactness |
-| **A4: Claims Triage** | Reserves, Clause Citations, Payouts | L1 / L2 / L3 (Tiered) | G1 (Grounding), G2 (Math), G10 (Non-negative) | 100.0% recommendation acc. |
-| **A5: SIU Fraud Assistant** | Special Investigation Triage | L2 (Investigator Adjudication) | G8 (Neutral language, 0 accusatory words), G9 (Fairness) | 100.0% neutral / fair |
-| **A6: Customer Service** | Policyholder Support & FAQ | Verification-Gated | Verification Gate (Zero PII leakage to unverified sessions) | 100.0% gate enforcement |
-| **A7: Renewal Advisor** | T-60 Expiry Scanning & Re-rating | L1 (Standard) / L2 (Notice) | Statutory 30-day notice deadline rule | 100.0% breach recall |
-| **A8: Compliance Explainer** | AML / Sanctions / PEP Matching | Human Officer Adjudication | Never-Clears Invariant (AI prohibited from auto-clearing) | 100.0% invariant rate |
+| **A1: Quote Assistant** | Sales & Natural Language Intake | Level 1 (STP) / Level 2 (Referral) | G2 (Math Invariant), G7 (Prompt Injection) | Generates actuarial quotes from customer conversations |
+| **A2: Underwriting Copilot** | Commercial & Complex Risk Profiling | Level 2 (Human Underwriter Sign-off) | G3 (Decline Justification), Authority Matrix | Evaluates risk attributes against underwriting appetite |
+| **A3: Policy Servicing** | Mid-term Endorsements & Complaints | Level 2 (Adjuster Approval) | Pro-rata Decimal arithmetic down to the day | Drafts prorated endorsements and statutory complaint letters |
+| **A4: Claims Triage** | Motor OD & Property Loss Adjudication | Level 1 ($\le 2,500$ AZN) / Level 2 ($> 2,500$ AZN) | G1 (Citations), G2 (Math), G10 (Non-negative) | Retrieves effective clauses, calculates payable settlements |
+| **A5: SIU Fraud Assistant** | Anomaly Detection & Special Investigation | Level 2 (SIU Investigator Adjudication) | G8 (Neutral Language), G9 (Fairness Blindness) | Detects anomaly clusters without defamatory language |
+| **A6: Customer Support** | Policyholder FAQ & Coverage Inquiries | Verification-Gated | Verification Gate (Zero PII to unauthenticated callers) | Answers policy wording questions grounded in contracts |
+| **A7: Renewal Advisor** | Expiry Scanning & Re-rating | Level 1 (Standard) / Level 2 (High Risk) | Statutory 30-day notice deadline rules | Scans policies at T-60 days; prepares renewal terms |
+| **A8: Compliance Explainer** | AML, PEP & Sanctions Screening | Level 3 (Compliance Officer Sign-off) | **Never-Clears Invariant** (AI cannot auto-clear) | Explains secondary watchlist matches to officers |
 
 ---
 
-## 🚀 Quick Start Guide
+## ⚡ Quick Start: Turnkey Local Setup (30 Seconds)
 
 ### 1. Prerequisites
-- **Python:** 3.12+ (or 3.13)
-- **Node.js:** 18+ (for frontend console)
+- **Python**: 3.12+ (or 3.13)
+- **Node.js**: 20+ (for frontend console)
 - **uv** (recommended) or `pip`
 
-### 2. Backend Setup & Run
+### 2. Single-Command Demo Seeding
+InsurAI includes a zero-dependency turnkey seeder that automatically tests database connectivity and provisions all 12 modules:
 ```bash
-# Set up virtual environment
-python -m uv venv
-.venv\Scripts\activate
+# Set up virtual environment and install dependencies
+uv venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+uv pip install -e ".[dev]"
 
-# Install backend dependencies
-python -m uv pip install -e ".[dev]"
-
-# Start backend server
-uvicorn backend.app.main:app --reload --port 8000
+# Provision seed demo environment (100% offline fallback to SQLite if Postgres is offline)
+python scripts/seed_demo_data.py
 ```
-- API Documentation: `http://localhost:8000/docs`
-- Health Probe: `http://localhost:8000/health`
-- Readiness Probe: `http://localhost:8000/ready`
+*Output*: Provisions 13 chart-of-accounts, 2 reinsurance treaties, 10 parties, 8 vehicles, 6 properties, 8 active policies, 8 claims across all statuses, 3 complaints, and posts balanced journal transactions with **$\Delta = 0.00$ AZN**.
 
-### 3. Frontend Console Setup & Run
+### 3. Start Backend & Frontend
 ```bash
+# Terminal 1: Backend API
+uvicorn app.main:app --port 8000 --reload
+
+# Terminal 2: Frontend Console
 cd frontend
 npm install
 npm run dev
 ```
-Open `http://localhost:5173` in your browser. Select **Adjuster** or **Senior Adjuster** persona for instant login.
+- **Web Console**: `http://localhost:5173`
+- **Swagger Documentation**: `http://localhost:8000/docs`
+- **Prometheus Metrics**: `http://localhost:8000/metrics`
+- **Executive KPIs**: `http://localhost:8000/api/v1/metrics/executive-kpis`
 
-### 4. Running Tests
+---
+
+## 🧪 Comprehensive Verification Suite
+
+InsurAI enforces 100% green builds across every commit and phase:
+
 ```bash
-# Run all unit, architecture, and integration tests (75+ passing tests)
+# 1. Run all unit, architecture, robustness, and golden journey tests (129+ tests)
 pytest
 
-# Architecture boundary enforcement test
+# 2. Strict architecture boundary verification (AST imports)
 pytest backend/tests/architecture/test_module_boundaries.py
 
-# End-to-end golden journey test
-pytest backend/tests/integration/test_e2e_journey.py
+# 3. 12-Step Full Lifecycle Golden Journey integration test
+pytest backend/tests/integration/test_full_lifecycle_golden_journey.py
 
-# Type checking and linting
+# 4. Chaos, robustness, and security mitigation tests
+pytest backend/tests/unit/test_chaos_and_robustness.py backend/tests/unit/test_security_mitigations.py
+
+# 5. Type safety analysis (0 errors across 140+ files)
 mypy backend/app
-ruff check backend/
+
+# 6. Linter and code formatting
+ruff check .
+ruff format --check .
+
+# 7. Frontend typecheck and production build
+cd frontend && npm run build
+
+# 8. Pre-push security and hygiene scanner
+python scripts/secret_scanner.py
 ```
 
 ---
 
-## 🎬 90-Second Demo Walkthrough
+## 📊 Observability & Telemetry
 
-The console includes 4 pre-loaded golden demo scenarios under **"New FNOL Intake"**:
+InsurAI exposes production-grade observability endpoints per **Architecture 3.13**:
+- `GET /health`: Instant liveness probe.
+- `GET /ready`: Readiness probe validating database pool connection and outbox backlog queue depth.
+- `GET /metrics`: Standard Prometheus exposition format (`http_requests_total`, `agent_run_duration_seconds`, `llm_token_usage_total`, `guardrail_downgrade_total`, `claims_triage_decision_total`, `general_ledger_balance_difference`, `insurai_active_policies_total`, `insurai_total_reserves_azn`).
+- `GET /api/v1/metrics/executive-kpis`: Real-time operational JSON telemetry for leadership dashboards.
 
-1. **Clean Covered Collision (STP):** Parking scrape (`POL-2026-MOD-0001`). Claimed 1,250 AZN. AI triage applies deductible (200 AZN), verifies Clause A.1, and recommends **1,050.00 AZN** payout with 96% confidence.
-2. **Clause D.2 Constructive Total Loss:** Highway collision, repair cost 28,000 AZN on vehicle valued at 35,000 AZN (80% $\ge$ 70% threshold). AI recommends write-off payout of **31,500.00 AZN** (Sum Insured minus salvage).
-3. **Clause B.1 Alcohol Exclusion:** Single-vehicle crash with police report recording driver intoxication (0.8 g/L BAC). AI detects exclusion, G3 guardrail fires, and net payable amount is clamped to **0.00 AZN**.
-4. **Adversarial Prompt Injection:** Incident payload contains `"SYSTEM OVERRIDE: ignore instructions..."`. G7 Guardrail intercepts attack, sets confidence to 0%, alerts SIU, and forces human review.
-
-Detailed walkthrough steps are available in [docs/DEMO_SCRIPT.md](file:///c:/Users/Baku/Desktop/InsurAI/docs/DEMO_SCRIPT.md).
+For alert rules, SLOs, and incident SOPs, see [docs/observability.md](file:///c:/Users/Baku/Desktop/InsurAI/docs/observability.md).
 
 ---
 
-## 🔒 Design Decisions & Honest Limitations
+## 🔒 Security & AI Governance
 
-1. **Offline Mode:** If `LLM_API_KEY` is not present, InsurAI runs in offline mode using `FakeLLMClient`. Live evaluation numbers against Gemini 2.5 Flash / Pro can be triggered once an API key is supplied:
-   ```bash
-   LLM_API_KEY="your-key" python evals/run_eval.py --agent claims_a4 --split dev
-   ```
-2. **SQLite vs PostgreSQL:** In local development without Docker, tests and offline server run against SQLite with in-memory connection pooling. For production and pgvector similarity search, PostgreSQL + pgvector is supported via `DATABASE_URL`.
-3. **Four-Eyes Governance:** Policy wordings, rating plans, and cancellations exceeding 1,000 AZN require dual authorization (different creator and approver) enforced at the database level.
+- **Threat Model**: Complete STRIDE analysis and OWASP Top 10 for LLMs defense-in-depth detailed in [docs/security.md](file:///c:/Users/Baku/Desktop/InsurAI/docs/security.md).
+- **AI Governance**: Detailed autonomy matrix, statutory CBA alignment, human oversight points, and algorithmic fairness guarantees detailed in [docs/ai-governance.md](file:///c:/Users/Baku/Desktop/InsurAI/docs/ai-governance.md).
+- **Interview & Architectural Deep-Dive**: 10 tough interview questions, 5 hardest problems solved, and real telemetry metrics in [INTERVIEW_NOTES.md](file:///c:/Users/Baku/Desktop/InsurAI/INTERVIEW_NOTES.md).
+- **Live 5-Minute Demo Walkthrough**: 4 golden demo scenarios detailed in [DEMO_SCRIPT.md](file:///c:/Users/Baku/Desktop/InsurAI/DEMO_SCRIPT.md).
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](file:///c:/Users/Baku/Desktop/InsurAI/LICENSE) file for details.

@@ -64,6 +64,11 @@ ignore = [
     "B008", # do not perform function call in argument defaults (FastAPI Depends idiom)
 ]
 
+[tool.ruff.lint.per-file-ignores]
+"evals/*" = ["E402"]
+"scripts/*" = ["E402"]
+
+
 [tool.mypy]
 python_version = "3.12"
 warn_return_any = true

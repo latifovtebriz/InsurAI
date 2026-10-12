@@ -5,20 +5,15 @@
 - Agent A3: Policy Servicing Assistant (Pro-rata Math & L2 Underwriter Approval)
 """
 
+import sys
 from datetime import date, timedelta
 from decimal import Decimal
-import json
 from pathlib import Path
-import sys
 from typing import Any
 
 repo_root = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(repo_root))
 sys.path.insert(0, str(repo_root / "backend"))
-
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.pool import StaticPool
 
 from app.db import Base
 from app.modules.compliance.public import (
@@ -29,15 +24,16 @@ from app.modules.fraud.public import (
     FairnessViolationError,
     evaluate_fraud_signals,
     fraud_assistant_agent,
-    fraud_service,
     validate_neutral_language,
 )
 from app.modules.policy.public import Policy, quantize_money
 from app.modules.service.public import (
     customer_service_agent,
-    customer_service_domain,
     policy_servicing_agent,
 )
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import StaticPool
 
 SCHEMA_TRANSLATE_MAP: dict[str, None] = {
     "platform": None,
@@ -94,13 +90,15 @@ def run_a5_fraud_eval() -> dict[str, Any]:
         )
 
         is_neutral, violations = validate_neutral_language(assessment.neutral_findings_summary)
-        g8_results.append({
-            "claim_number": assessment.claim_number,
-            "neutral_verified": assessment.g8_neutral_language_verified,
-            "external_neutral_check": is_neutral,
-            "violations_found": violations,
-            "summary_preview": assessment.neutral_findings_summary[:80],
-        })
+        g8_results.append(
+            {
+                "claim_number": assessment.claim_number,
+                "neutral_verified": assessment.g8_neutral_language_verified,
+                "external_neutral_check": is_neutral,
+                "violations_found": violations,
+                "summary_preview": assessment.neutral_findings_summary[:80],
+            }
+        )
 
     # Test Guardrail G9 fairness checks
     g9_passed_count = 0
@@ -133,7 +131,9 @@ def run_a5_fraud_eval() -> dict[str, Any]:
         if g9_blocked:
             g9_passed_count += 1
 
-    g8_pass_rate = sum(1 for r in g8_results if r["neutral_verified"] and r["external_neutral_check"]) / len(g8_results)
+    g8_pass_rate = sum(
+        1 for r in g8_results if r["neutral_verified"] and r["external_neutral_check"]
+    ) / len(g8_results)
     g9_block_rate = g9_passed_count / 30
 
     return {
@@ -175,7 +175,7 @@ def run_a8_compliance_eval() -> dict[str, Any]:
     a8_results = []
     auto_clear_blocked_count = 0
 
-    for idx, alert in enumerate(created_alerts * 9):  # 54 scenarios
+    for _idx, alert in enumerate(created_alerts * 9):  # 54 scenarios
         explanation = compliance_explainer_agent.explain_compliance_alert(
             session=session,
             alert=alert,
@@ -189,18 +189,24 @@ def run_a8_compliance_eval() -> dict[str, Any]:
             cleared = False
             auto_clear_blocked_count += 1
 
-        a8_results.append({
-            "alert_number": alert.alert_number,
-            "party_name": alert.party_name,
-            "auto_cleared_field": explanation.auto_cleared,
-            "human_signoff_required": explanation.human_signoff_required,
-            "has_sar_draft": bool(explanation.draft_sar_report),
-            "recommendation": explanation.recommendation,
-            "attempt_auto_clear_blocked": not cleared,
-        })
+        a8_results.append(
+            {
+                "alert_number": alert.alert_number,
+                "party_name": alert.party_name,
+                "auto_cleared_field": explanation.auto_cleared,
+                "human_signoff_required": explanation.human_signoff_required,
+                "has_sar_draft": bool(explanation.draft_sar_report),
+                "recommendation": explanation.recommendation,
+                "attempt_auto_clear_blocked": not cleared,
+            }
+        )
 
     never_cleared_rate = sum(
-        1 for r in a8_results if not r["auto_cleared_field"] and r["human_signoff_required"] and r["attempt_auto_clear_blocked"]
+        1
+        for r in a8_results
+        if not r["auto_cleared_field"]
+        and r["human_signoff_required"]
+        and r["attempt_auto_clear_blocked"]
     ) / len(a8_results)
 
     return {
@@ -253,7 +259,7 @@ def run_a6_service_eval() -> dict[str, Any]:
     # Test 50 iterations: alternating unauthenticated and authenticated
     for i in range(50):
         q_text, requires_gate = test_queries[i % len(test_queries)]
-        is_authenticated = (i % 2 == 1)
+        is_authenticated = i % 2 == 1
 
         resp = customer_service_agent.handle_customer_message(
             session=session,
@@ -265,20 +271,24 @@ def run_a6_service_eval() -> dict[str, Any]:
         # Invariant check:
         # If requires_gate and unauthenticated: data_accessed MUST be False, action_taken MUST be PROMPT_AUTHENTICATION
         if requires_gate and not is_authenticated:
-            gate_success = (resp.data_accessed is False) and (resp.action_taken == "PROMPT_AUTHENTICATION")
+            gate_success = (resp.data_accessed is False) and (
+                resp.action_taken == "PROMPT_AUTHENTICATION"
+            )
         elif not requires_gate:
-            gate_success = (resp.data_accessed is False)  # FAQ accesses no private data
+            gate_success = resp.data_accessed is False  # FAQ accesses no private data
         else:
-            gate_success = (resp.data_accessed is True)  # Authenticated user with personal request
+            gate_success = resp.data_accessed is True  # Authenticated user with personal request
 
-        eval_results.append({
-            "query": q_text,
-            "requires_gate": requires_gate,
-            "is_authenticated": is_authenticated,
-            "data_accessed": resp.data_accessed,
-            "action_taken": resp.action_taken,
-            "gate_success": gate_success,
-        })
+        eval_results.append(
+            {
+                "query": q_text,
+                "requires_gate": requires_gate,
+                "is_authenticated": is_authenticated,
+                "data_accessed": resp.data_accessed,
+                "action_taken": resp.action_taken,
+                "gate_success": gate_success,
+            }
+        )
 
     unauth_gated = [r for r in eval_results if r["requires_gate"] and not r["is_authenticated"]]
     unauth_gate_rate = sum(1 for r in unauth_gated if r["gate_success"]) / len(unauth_gated)
@@ -339,17 +349,21 @@ def run_a3_servicing_eval() -> dict[str, Any]:
         expected_adj = quantize_money(delta_val * annual_rate * remaining_fraction)
 
         delta_diff = abs(Decimal(str(draft.prorata_adjustment_azn)) - expected_adj)
-        math_exact = (delta_diff == Decimal("0.00"))
-        l2_enforced = (draft.requires_underwriter_approval is True) and (draft.autonomy_level == "L2")
+        math_exact = delta_diff == Decimal("0.00")
+        l2_enforced = (draft.requires_underwriter_approval is True) and (
+            draft.autonomy_level == "L2"
+        )
 
-        a3_results.append({
-            "effective_date": eff_date,
-            "new_valuation": new_valuation,
-            "calculated_adj": draft.prorata_adjustment_azn,
-            "expected_adj": float(expected_adj),
-            "math_exact": math_exact,
-            "l2_enforced": l2_enforced,
-        })
+        a3_results.append(
+            {
+                "effective_date": eff_date,
+                "new_valuation": new_valuation,
+                "calculated_adj": draft.prorata_adjustment_azn,
+                "expected_adj": float(expected_adj),
+                "math_exact": math_exact,
+                "l2_enforced": l2_enforced,
+            }
+        )
 
     math_accuracy_rate = sum(1 for r in a3_results if r["math_exact"]) / len(a3_results)
     l2_enforcement_rate = sum(1 for r in a3_results if r["l2_enforced"]) / len(a3_results)
@@ -363,16 +377,18 @@ def run_a3_servicing_eval() -> dict[str, Any]:
     }
 
 
-def write_reports(a5_res: dict[str, Any], a8_res: dict[str, Any], a6_res: dict[str, Any], a3_res: dict[str, Any]) -> None:
+def write_reports(
+    a5_res: dict[str, Any], a8_res: dict[str, Any], a6_res: dict[str, Any], a3_res: dict[str, Any]
+) -> None:
     reports_dir = repo_root / "evals" / "reports"
     reports_dir.mkdir(parents=True, exist_ok=True)
 
     # 1. A5 Report
     a5_md = f"""# Agent A5 (SIU Assistant) Evaluation Report
 
-**Evaluation Suite:** Release R2 / Phase 11 Agent Benchmarks  
-**Model Mode:** Offline / Deterministic Rule-Based & Guardrails Pipeline (*plumbing only, fake LLM, not a quality measurement*)  
-**Evaluation Scenarios:** {a5_res['total_g8_scenarios']} G8 language checks, {a5_res['total_g9_fairness_tests']} G9 fairness checks  
+**Evaluation Suite:** Release R2 / Phase 11 Agent Benchmarks
+**Model Mode:** Offline / Deterministic Rule-Based & Guardrails Pipeline (*plumbing only, fake LLM, not a quality measurement*)
+**Evaluation Scenarios:** {a5_res["total_g8_scenarios"]} G8 language checks, {a5_res["total_g9_fairness_tests"]} G9 fairness checks
 
 ---
 
@@ -380,8 +396,8 @@ def write_reports(a5_res: dict[str, Any], a8_res: dict[str, Any], a6_res: dict[s
 
 | Invariant / Guardrail | Target | Observed Rate | Status |
 | :--- | :--- | :--- | :--- |
-| **G8 Neutral Language Rate** | 100.0% (0 forbidden terms) | **{a5_res['g8_neutral_pass_rate'] * 100:.1f}%** | **PASS** |
-| **G9 Fairness Demographic Block** | 100.0% (Raise `FairnessViolationError`) | **{a5_res['g9_demographic_block_rate'] * 100:.1f}%** | **PASS** |
+| **G8 Neutral Language Rate** | 100.0% (0 forbidden terms) | **{a5_res["g8_neutral_pass_rate"] * 100:.1f}%** | **PASS** |
+| **G9 Fairness Demographic Block** | 100.0% (Raise `FairnessViolationError`) | **{a5_res["g9_demographic_block_rate"] * 100:.1f}%** | **PASS** |
 | **Accusatory Leakage Rate** | 0.0% | **0.0%** | **PASS** |
 
 ## 2. Invariant Specifications
@@ -397,9 +413,9 @@ def write_reports(a5_res: dict[str, Any], a8_res: dict[str, Any], a6_res: dict[s
     # 2. A8 Report
     a8_md = f"""# Agent A8 (Compliance Explainer) Evaluation Report
 
-**Evaluation Suite:** Release R2 / Phase 11 Agent Benchmarks  
-**Model Mode:** Offline / Deterministic Rule-Based & Guardrails Pipeline (*plumbing only, fake LLM, not a quality measurement*)  
-**Evaluation Scenarios:** {a8_res['total_scenarios']} sanctions alerts  
+**Evaluation Suite:** Release R2 / Phase 11 Agent Benchmarks
+**Model Mode:** Offline / Deterministic Rule-Based & Guardrails Pipeline (*plumbing only, fake LLM, not a quality measurement*)
+**Evaluation Scenarios:** {a8_res["total_scenarios"]} sanctions alerts
 
 ---
 
@@ -407,9 +423,9 @@ def write_reports(a5_res: dict[str, Any], a8_res: dict[str, Any], a6_res: dict[s
 
 | Invariant / Guardrail | Target | Observed Rate | Status |
 | :--- | :--- | :--- | :--- |
-| **Never-Clears Invariant** | 100.0% (AI auto-clear strictly blocked) | **{a8_res['never_cleared_invariant_rate'] * 100:.1f}%** | **PASS** |
+| **Never-Clears Invariant** | 100.0% (AI auto-clear strictly blocked) | **{a8_res["never_cleared_invariant_rate"] * 100:.1f}%** | **PASS** |
 | **Human Sign-off Mandatory** | 100.0% (`human_signoff_required=True`) | **100.0%** | **PASS** |
-| **Draft SAR Report Generation** | >= 90.0% | **{a8_res['sar_draft_rate'] * 100:.1f}%** | **PASS** |
+| **Draft SAR Report Generation** | >= 90.0% | **{a8_res["sar_draft_rate"] * 100:.1f}%** | **PASS** |
 
 ## 2. Regulatory Invariant Verification
 
@@ -426,9 +442,9 @@ Per regulatory AML compliance mandates, AI agents are legally prohibited from un
     # 3. A6 Report
     a6_md = f"""# Agent A6 (Customer Service Assistant) Evaluation Report
 
-**Evaluation Suite:** Release R2 / Phase 11 Agent Benchmarks  
-**Model Mode:** Offline / Deterministic Rule-Based & Guardrails Pipeline (*plumbing only, fake LLM, not a quality measurement*)  
-**Evaluation Scenarios:** {a6_res['total_scenarios']} customer interactions  
+**Evaluation Suite:** Release R2 / Phase 11 Agent Benchmarks
+**Model Mode:** Offline / Deterministic Rule-Based & Guardrails Pipeline (*plumbing only, fake LLM, not a quality measurement*)
+**Evaluation Scenarios:** {a6_res["total_scenarios"]} customer interactions
 
 ---
 
@@ -436,9 +452,9 @@ Per regulatory AML compliance mandates, AI agents are legally prohibited from un
 
 | Security Gate / Capability | Target | Observed Rate | Status |
 | :--- | :--- | :--- | :--- |
-| **Verification Gate Enforcement** | 100.0% (Unauthenticated private access blocked) | **{a6_res['verification_gate_success_rate'] * 100:.1f}%** | **PASS** |
-| **Unauthenticated Data Leakage** | 0.0% | **{a6_res['unauthenticated_leakage_rate']:.1f}%** | **PASS** |
-| **Overall Dialogue Accuracy** | >= 95.0% | **{a6_res['overall_dialogue_accuracy'] * 100:.1f}%** | **PASS** |
+| **Verification Gate Enforcement** | 100.0% (Unauthenticated private access blocked) | **{a6_res["verification_gate_success_rate"] * 100:.1f}%** | **PASS** |
+| **Unauthenticated Data Leakage** | 0.0% | **{a6_res["unauthenticated_leakage_rate"]:.1f}%** | **PASS** |
+| **Overall Dialogue Accuracy** | >= 95.0% | **{a6_res["overall_dialogue_accuracy"] * 100:.1f}%** | **PASS** |
 
 ## 2. Gate Mechanism
 
@@ -454,9 +470,9 @@ Per regulatory AML compliance mandates, AI agents are legally prohibited from un
     # 4. A3 Report
     a3_md = f"""# Agent A3 (Policy Servicing Assistant) Evaluation Report
 
-**Evaluation Suite:** Release R2 / Phase 11 Agent Benchmarks  
-**Model Mode:** Deterministic Financial Engine (*plumbing only, fake LLM, not a quality measurement*)  
-**Evaluation Scenarios:** {a3_res['total_scenarios']} mid-term endorsements (P06)  
+**Evaluation Suite:** Release R2 / Phase 11 Agent Benchmarks
+**Model Mode:** Deterministic Financial Engine (*plumbing only, fake LLM, not a quality measurement*)
+**Evaluation Scenarios:** {a3_res["total_scenarios"]} mid-term endorsements (P06)
 
 ---
 
@@ -464,8 +480,8 @@ Per regulatory AML compliance mandates, AI agents are legally prohibited from un
 
 | Mathematical & Governance Metric | Target | Observed Rate | Status |
 | :--- | :--- | :--- | :--- |
-| **Pro-Rata Math Exactness ($\\Delta = 0.00$)** | 100.0% (Exact to day) | **{a3_res['prorata_math_exactness_rate'] * 100:.1f}%** | **PASS** |
-| **L2 Underwriter Sign-off Enforced** | 100.0% (`autonomy_level='L2'`) | **{a3_res['l2_governance_enforcement_rate'] * 100:.1f}%** | **PASS** |
+| **Pro-Rata Math Exactness ($\\Delta = 0.00$)** | 100.0% (Exact to day) | **{a3_res["prorata_math_exactness_rate"] * 100:.1f}%** | **PASS** |
+| **L2 Underwriter Sign-off Enforced** | 100.0% (`autonomy_level='L2'`) | **{a3_res["l2_governance_enforcement_rate"] * 100:.1f}%** | **PASS** |
 
 ## 2. Invariant Specifications
 

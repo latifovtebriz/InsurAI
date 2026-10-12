@@ -1,35 +1,32 @@
 """Evaluation runner for Finance Balanced Ledger invariants and Agent A7 Renewal Advisor."""
 
+import json
+import sys
 from datetime import date, timedelta
 from decimal import Decimal
-import json
 from pathlib import Path
-import sys
 from typing import Any
 
 repo_root = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(repo_root))
 sys.path.insert(0, str(repo_root / "backend"))
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.pool import StaticPool
-
 from app.db import Base
+from app.modules.claims.public import Claim
 from app.modules.finance.public import (
     check_ledger_balance,
     ensure_chart_of_accounts,
     finance_service,
     quantize_money,
-    validate_balanced_transaction,
 )
 from app.modules.policy.public import (
     Policy,
     renewal_advisor_agent,
-    renewal_service,
 )
-from app.modules.claims.public import Claim
 from app.modules.reinsurance.public import reinsurance_service
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.pool import StaticPool
 
 SCHEMA_TRANSLATE_MAP: dict[str, None] = {
     "platform": None,
@@ -75,7 +72,9 @@ def run_finance_eval() -> dict[str, Any]:
             end_date=date(2027, 1, 1),
             sum_insured=Decimal("25000.00"),
             total_premium=prem,
-            payment_schedule=[{"installment_number": 1, "due_date": "2026-01-01", "amount": str(prem)}],
+            payment_schedule=[
+                {"installment_number": 1, "due_date": "2026-01-01", "amount": str(prem)}
+            ],
         )
         session.add(pol)
         session.flush()
@@ -220,7 +219,7 @@ def run_renewal_eval() -> dict[str, Any]:
 
         for c_idx in range(claims_for_pol):
             claim = Claim(
-                claim_number=f"CLM-EV-{i:03d}-{c_idx+1}",
+                claim_number=f"CLM-EV-{i:03d}-{c_idx + 1}",
                 policy_id=pol.id,
                 policy_number=pol.policy_number,
                 incident_date=today - timedelta(days=120 - c_idx * 30),
@@ -287,9 +286,7 @@ def run_renewal_eval() -> dict[str, Any]:
         "human_signoff_enforcement_pct": round(
             (human_signoffs_enforced / scenarios_count) * 100, 2
         ),
-        "injection_detection_rate_pct": round(
-            (injections_detected / expected_injections) * 100, 2
-        ),
+        "injection_detection_rate_pct": round((injections_detected / expected_injections) * 100, 2),
     }
 
 

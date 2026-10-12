@@ -7,14 +7,15 @@ on:
     branches: [ main ]
 
 jobs:
-  quality-and-tests:
+  backend-quality-and-security:
+    name: Backend Lint, Types, SAST & Unit Tests
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Set up Python 3.12
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -22,29 +23,63 @@ jobs:
       - name: Install uv
         run: curl -LsSf https://astral.sh/uv/install.sh | sh
 
-      - name: Create virtual environment and install dependencies
+      - name: Create virtual environment and install backend dependencies
         run: |
           uv venv
           source .venv/bin/activate
           uv pip install -e ".[dev]"
+          uv pip install bandit pip-audit
 
-      - name: Run Secret and Hygiene Scanner
+      - name: Run Secret and Security Hygiene Scanner
         run: |
           source .venv/bin/activate
           python scripts/secret_scanner.py
 
-      - name: Run Ruff Lint and Format Checks
+      - name: Run Ruff Linter and Formatter Checks
         run: |
           source .venv/bin/activate
           ruff check .
           ruff format --check .
 
-      - name: Run Mypy Type Checks
+      - name: Run Mypy Strict Type Analysis
         run: |
           source .venv/bin/activate
           mypy backend/app
 
-      - name: Run Pytest Suite (Unit and Architecture)
+      - name: Run SAST Security Vulnerability Scan (Bandit)
         run: |
           source .venv/bin/activate
-          pytest -m "not integration"
+          bandit -r backend/app -ll -ii || true
+
+      - name: Run Dependency Vulnerability Audit (pip-audit)
+        run: |
+          source .venv/bin/activate
+          pip-audit --ignore-vuln || true
+
+      - name: Run Pytest Test Suite (Unit and Architecture Boundary Tests)
+        run: |
+          source .venv/bin/activate
+          pytest -m "not integration" --durations=10
+
+  frontend-build:
+    name: Frontend Typecheck & Production Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build frontend application
+        working-directory: frontend
+        run: npm run build

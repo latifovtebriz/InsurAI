@@ -2,15 +2,7 @@
 
 from unittest.mock import patch
 
-import pytest
-from app.main import app
 from fastapi.testclient import TestClient
-
-
-@pytest.fixture
-def client() -> TestClient:
-    """FastAPI TestClient fixture."""
-    return TestClient(app)
 
 
 def test_health_check_returns_200(client: TestClient) -> None:
@@ -31,6 +23,7 @@ def test_readiness_check_when_db_connected(client: TestClient) -> None:
         data = response.json()
         assert data["status"] == "ready"
         assert data["database"] == "connected"
+        assert "outbox_backlog" in data
 
 
 def test_readiness_check_when_db_disconnected(client: TestClient) -> None:
@@ -41,3 +34,14 @@ def test_readiness_check_when_db_disconnected(client: TestClient) -> None:
         data = response.json()
         assert data["status"] == "degraded"
         assert data["database"] == "disconnected"
+
+
+def test_metrics_endpoint(client: TestClient) -> None:
+    """Verifies that GET /metrics exposes Prometheus formatted metrics."""
+    response = client.get("/metrics")
+    assert response.status_code == 200
+    assert "text/plain" in response.headers["content-type"]
+    body = response.text
+    assert "http_requests_total" in body
+    assert "general_ledger_balance_difference" in body
+    assert "agent_run_duration_seconds" in body
