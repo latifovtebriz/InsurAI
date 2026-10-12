@@ -125,4 +125,3 @@ class ClaimExtractionService:
 
 
 claim_extraction_service = ClaimExtractionService()
-

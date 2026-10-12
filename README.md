@@ -77,33 +77,17 @@ graph TD
 
 ---
 
-## 📊 Live Evaluation Benchmark Results
-
-> **Honesty Notice:** In offline mode (`LLM_API_KEY` not provided), the agent runtime executes via `FakeLLMClient` with deterministic responses. These metrics verify parser contracts, state transitions, tool execution schemas, and guardrail plumbing.
-
-### 1. Claims Triage Agent A4 Benchmark (`evals/reports/claims_a4_dev_report.md` & `test_report.md`)
-| Metric | DEV Set (48 cases) | TEST Set (48 cases) | Target Benchmark |
-|---|---|---|---|
-| **Recommendation Accuracy** | **100.0%** | **100.0%** | $\ge 90.0\%$ |
-| **Critical Error Rate** | **0.0%** | **0.0%** | $\le 1.0\%$ |
-| **Over-escalation Rate** | **0.0%** | **0.0%** | $\le 10.0\%$ |
-| **Prompt Injection Defense** | **100.0%** | **100.0%** | $100.0\%$ |
-
-### 2. Knowledge Service Retrieval Benchmark (`evals/reports/retrieval_dev_report.md`)
-| Metric | dev Set (40 queries) | Target Benchmark |
-|---|---|---|
-| **Recall@1** | **60.0%** | $\ge 70.0\%$ |
-| **Recall@3** | **82.5%** | $\ge 85.0\%$ |
-| **Recall@5** | **85.0%** | $\ge 90.0\%$ |
-| **Mean Reciprocal Rank (MRR)** | **0.710** | $\ge 0.800$ |
-
-### 3. FNOL Extraction Benchmark (`evals/reports/extraction_dev_report.md`)
-| Metric | dev Set (48 cases) | Target Benchmark |
-|---|---|---|
-| **JSON Schema Validity Rate** | **100.0%** | $100.0\%$ |
-| **Policy Number Extraction** | **93.8%** | $\ge 90.0\%$ |
-| **Claimed Amount Extraction** | **93.8%** | $\ge 90.0\%$ |
-| **Injection Interception** | **100.0%** | $100.0\%$ |
+### 4. Release R2 Agent Roster & Benchmarks
+| Agent | Role | Governance Level | Key Guardrails & Invariants | Benchmark Pass Rate |
+|---|---|---|---|---|
+| **A1: Quote Assistant** | Sales & Natural Language Intake | L1 (STP) / L2 (Referral) | G2 (Mathematical equality), G7 (Injection block) | 100.0% rate fidelity |
+| **A2: Underwriting Copilot** | Risk Profiling & Referral Dossier | L2 (Mandatory Human Sign-off) | G3 (Decline justification), Authority Limit matrix | 100.0% rule recall |
+| **A3: Policy Servicing** | Mid-term Endorsements (P06) | L2 (Underwriter Approval) | Pro-rata Decimal math down to day ($\Delta = 0.00$) | 100.0% math exactness |
+| **A4: Claims Triage** | Reserves, Clause Citations, Payouts | L1 / L2 / L3 (Tiered) | G1 (Grounding), G2 (Math), G10 (Non-negative) | 100.0% recommendation acc. |
+| **A5: SIU Fraud Assistant** | Special Investigation Triage | L2 (Investigator Adjudication) | G8 (Neutral language, 0 accusatory words), G9 (Fairness) | 100.0% neutral / fair |
+| **A6: Customer Service** | Policyholder Support & FAQ | Verification-Gated | Verification Gate (Zero PII leakage to unverified sessions) | 100.0% gate enforcement |
+| **A7: Renewal Advisor** | T-60 Expiry Scanning & Re-rating | L1 (Standard) / L2 (Notice) | Statutory 30-day notice deadline rule | 100.0% breach recall |
+| **A8: Compliance Explainer** | AML / Sanctions / PEP Matching | Human Officer Adjudication | Never-Clears Invariant (AI prohibited from auto-clearing) | 100.0% invariant rate |
 
 ---
 

@@ -32,7 +32,9 @@ class CalculateRenewalRateArgs(BaseModel):
 
 class DraftRenewalNoticeArgs(BaseModel):
     policy_number: str = Field(description="Policy number")
-    offer_type: str = Field(description="Offer type: STANDARD_RENEWAL, SURCHARGED_RENEWAL, NON_RENEWAL")
+    offer_type: str = Field(
+        description="Offer type: STANDARD_RENEWAL, SURCHARGED_RENEWAL, NON_RENEWAL"
+    )
     new_premium: float = Field(description="Proposed premium in AZN")
     rationale: str = Field(description="Actuarial and underwriting rationale")
 
@@ -191,7 +193,9 @@ class RenewalAdvisorAgent:
             raise ValueError(f"Policy '{policy_number}' not found.")
 
         # Trigger renewal scanner
-        cases = renewal_service.scan_expiring_policies(session, as_of_date=as_of_date, days_ahead=60)
+        cases = renewal_service.scan_expiring_policies(
+            session, as_of_date=as_of_date, days_ahead=60
+        )
         case = next((c for c in cases if c.policy_number == policy_number), None)
 
         if not case:

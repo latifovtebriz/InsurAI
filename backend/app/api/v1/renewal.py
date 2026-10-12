@@ -22,7 +22,9 @@ class ScanRequest(BaseModel):
 
 class AssessRequest(BaseModel):
     message: str = Field(default="", description="Optional applicant message or context")
-    as_of_date: str | None = Field(default=None, description="Optional ISO evaluation date YYYY-MM-DD")
+    as_of_date: str | None = Field(
+        default=None, description="Optional ISO evaluation date YYYY-MM-DD"
+    )
 
 
 class NonRenewalRequest(BaseModel):
@@ -135,7 +137,10 @@ def generate_offer(
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
 
 
-@router.post("/cases/{case_id}/non-renewal", summary="Issue statutory non-renewal notice (L2 Underwriter Sign-off)")
+@router.post(
+    "/cases/{case_id}/non-renewal",
+    summary="Issue statutory non-renewal notice (L2 Underwriter Sign-off)",
+)
 def issue_non_renewal(
     case_id: str,
     req: NonRenewalRequest,
@@ -164,7 +169,9 @@ def issue_non_renewal(
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(exc)) from exc
 
 
-@router.post("/cases/{case_id}/accept", summary="Accept renewal terms and issue renewed policy contract")
+@router.post(
+    "/cases/{case_id}/accept", summary="Accept renewal terms and issue renewed policy contract"
+)
 def accept_renewal_terms(
     case_id: str,
     db: Session = Depends(get_db),

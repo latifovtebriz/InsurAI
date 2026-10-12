@@ -18,7 +18,9 @@ class UnderwritingEvaluationResult(BaseModel):
     has_referral: bool
     is_knockout: bool
     required_authority_tier: str  # junior, senior, chief
-    recommended_status: str  # approved_standard, approved_with_conditions, declined, referred_senior
+    recommended_status: (
+        str  # approved_standard, approved_with_conditions, declined, referred_senior
+    )
     rule_hits: list[UnderwritingRuleHit]
     suggested_conditions: list[str]
 
@@ -56,7 +58,11 @@ def evaluate_underwriting_rules(
         is_knockout = True
         has_referral = True
         required_tier = "chief"
-        reason = "Driver is under statutory driving age (18)" if d_age < 18 else "Sum insured exceeds 300,000 AZN maximum capacity."
+        reason = (
+            "Driver is under statutory driving age (18)"
+            if d_age < 18
+            else "Sum insured exceeds 300,000 AZN maximum capacity."
+        )
         hits.append(
             UnderwritingRuleHit(
                 rule_code="UW-05",

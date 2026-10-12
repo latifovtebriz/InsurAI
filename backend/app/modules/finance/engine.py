@@ -104,6 +104,7 @@ STANDARD_CHART_OF_ACCOUNTS = [
 
 class LedgerImbalanceError(ValueError):
     """Raised when a GL transaction violates the double-entry invariant (Debits != Credits)."""
+
     pass
 
 
@@ -147,10 +148,14 @@ def validate_balanced_transaction(entries: list[dict[str, Any]]) -> Decimal:
         credit = quantize_money(entry.get("credit", Decimal("0.00")))
 
         if debit < Decimal("0.00") or credit < Decimal("0.00"):
-            raise LedgerImbalanceError(f"Entry {idx} has negative debit ({debit}) or credit ({credit}). Negative amounts are forbidden.")
+            raise LedgerImbalanceError(
+                f"Entry {idx} has negative debit ({debit}) or credit ({credit}). Negative amounts are forbidden."
+            )
 
         if debit > Decimal("0.00") and credit > Decimal("0.00"):
-            raise LedgerImbalanceError(f"Entry {idx} has both debit ({debit}) and credit ({credit}). Each line must be either debit or credit.")
+            raise LedgerImbalanceError(
+                f"Entry {idx} has both debit ({debit}) and credit ({credit}). Each line must be either debit or credit."
+            )
 
         total_debits += debit
         total_credits += credit
@@ -177,7 +182,7 @@ def check_ledger_balance(session: Session) -> dict[str, Any]:
     total_debits = quantize_money(res[0] if res else Decimal("0.00"))
     total_credits = quantize_money(res[1] if res else Decimal("0.00"))
     difference = quantize_money((total_debits - total_credits).copy_abs())
-    is_balanced = (difference == Decimal("0.00"))
+    is_balanced = difference == Decimal("0.00")
 
     return {
         "total_debits": total_debits,

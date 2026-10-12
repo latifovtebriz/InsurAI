@@ -12,6 +12,9 @@ import { QuotesScreen } from './screens/QuotesScreen';
 import { UnderwritingScreen } from './screens/UnderwritingScreen';
 import { FinanceScreen } from './screens/FinanceScreen';
 import { RenewalScreen } from './screens/RenewalScreen';
+import { SIUScreen } from './screens/SIUScreen';
+import { ComplianceScreen } from './screens/ComplianceScreen';
+import { CustomerServiceScreen } from './screens/CustomerServiceScreen';
 import { AuditScreen } from './screens/AuditScreen';
 import { MetricsScreen } from './screens/MetricsScreen';
 
@@ -116,6 +119,9 @@ export default function App(): React.JSX.Element {
             {activeTab === 'underwriting' && <UnderwritingScreen />}
             {activeTab === 'finance' && <FinanceScreen />}
             {activeTab === 'renewals' && <RenewalScreen />}
+            {activeTab === 'siu' && <SIUScreen />}
+            {activeTab === 'compliance' && <ComplianceScreen />}
+            {activeTab === 'service' && <CustomerServiceScreen />}
             {activeTab === 'claims' && (
               <ClaimsQueueScreen
                 onSelectClaim={(num) => setSelectedClaimNumber(num)}

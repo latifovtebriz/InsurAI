@@ -88,7 +88,7 @@ def test_payout_capped_by_sum_insured() -> None:
 def test_notification_deadline_within_allowed_window() -> None:
     """Clause C.2: Reported within 3 business days."""
     incident = date(2026, 6, 1)  # Monday
-    notice = date(2026, 6, 3)    # Wednesday (2 business days)
+    notice = date(2026, 6, 3)  # Wednesday (2 business days)
     report = check_notification_deadline(incident, notice, allowed_business_days=3)
     assert report.is_within_deadline
     assert report.business_days_elapsed == 2
@@ -97,7 +97,7 @@ def test_notification_deadline_within_allowed_window() -> None:
 def test_notification_deadline_skipping_weekends() -> None:
     """Incident on Thursday, reported on Tuesday (3 business days, skipping Sat/Sun)."""
     incident = date(2026, 6, 4)  # Thursday
-    notice = date(2026, 6, 9)    # Tuesday (Fri, Mon, Tue = 3 business days)
+    notice = date(2026, 6, 9)  # Tuesday (Fri, Mon, Tue = 3 business days)
     report = check_notification_deadline(incident, notice, allowed_business_days=3)
     assert report.is_within_deadline
     assert report.business_days_elapsed == 3
@@ -106,7 +106,7 @@ def test_notification_deadline_skipping_weekends() -> None:
 def test_notification_deadline_exceeded() -> None:
     """Late notification exceeding allowed days."""
     incident = date(2026, 6, 1)  # Monday
-    notice = date(2026, 6, 8)    # Following Monday (5 business days)
+    notice = date(2026, 6, 8)  # Following Monday (5 business days)
     report = check_notification_deadline(incident, notice, allowed_business_days=3)
     assert not report.is_within_deadline
     assert report.business_days_elapsed == 5
@@ -185,10 +185,25 @@ async def test_a4_clean_covered_collision(db_session: Session) -> None:
     product_service.publish_product_version(db_session, v2.id, reviewer_id="reviewer_2")
 
     party = party_service.create_party(
-        db_session, "individual", "FIN888999", "clean@test.com", "+994509999999", "Baku", "Samir", "Aliyev"
+        db_session,
+        "individual",
+        "FIN888999",
+        "clean@test.com",
+        "+994509999999",
+        "Baku",
+        "Samir",
+        "Aliyev",
     )
     vehicle = party_service.create_vehicle(
-        db_session, party.id, "VIN_CLEAN_001", "10-BB-100", "Hyundai", "Elantra", 2023, 1600, Decimal("22000.00")
+        db_session,
+        party.id,
+        "VIN_CLEAN_001",
+        "10-BB-100",
+        "Hyundai",
+        "Elantra",
+        2023,
+        1600,
+        Decimal("22000.00"),
     )
     policy = policy_service.issue_policy(
         db_session,
@@ -210,49 +225,79 @@ async def test_a4_clean_covered_collision(db_session: Session) -> None:
         incident_date=date(2026, 5, 10),
         claimed_amount=Decimal("1200.00"),
         incident_description="Rear bumper damaged during collision with another vehicle at intersection.",
-        documents=[{"file_name": "estimate.txt", "content": "Repair estimate: 1200 AZN bumper replacement.", "type": "estimate"}],
+        documents=[
+            {
+                "file_name": "estimate.txt",
+                "content": "Repair estimate: 1200 AZN bumper replacement.",
+                "type": "estimate",
+            }
+        ],
     )
     assert claim.status == "registered"
 
     # 4. Script A4 Agent ReAct steps
     steps = [
         # Step 1: check policy active
-        json.dumps({
-            "name": "check_policy_active",
-            "arguments": {"policy_number": policy.policy_number, "incident_date": "2026-05-10"},
-        }),
+        json.dumps(
+            {
+                "name": "check_policy_active",
+                "arguments": {"policy_number": policy.policy_number, "incident_date": "2026-05-10"},
+            }
+        ),
         # Step 2: search policy wording
-        json.dumps({
-            "name": "search_policy_wording",
-            "arguments": {"query": "collision damage", "product_code": "MOTOR_OD", "incident_date": "2026-05-10"},
-        }),
+        json.dumps(
+            {
+                "name": "search_policy_wording",
+                "arguments": {
+                    "query": "collision damage",
+                    "product_code": "MOTOR_OD",
+                    "incident_date": "2026-05-10",
+                },
+            }
+        ),
         # Step 3: calculate payout
-        json.dumps({
-            "name": "calculate_payout",
-            "arguments": {"claimed_amount": 1200.0, "sum_insured": 22000.0, "deductible": 200.0},
-        }),
+        json.dumps(
+            {
+                "name": "calculate_payout",
+                "arguments": {
+                    "claimed_amount": 1200.0,
+                    "sum_insured": 22000.0,
+                    "deductible": 200.0,
+                },
+            }
+        ),
         # Step 4: submit recommendation
-        json.dumps({
-            "name": "submit_recommendation",
-            "arguments": {
-                "recommendation": {
-                    "recommendation": "approve",
-                    "confidence": 0.95,
-                    "summary": "Direct collision damage covered under Clause A.1.",
-                    "reasons": [
-                        {
-                            "type": "coverage",
-                            "statement": "Collision covered under Section A Clause 1.",
-                            "evidence": {"clause_ids": ["MOTOR_OD:A.1"], "tool_calls": ["step-2"]},
-                        }
-                    ],
-                    "payout": {"claimed": 1200.0, "deductible": 200.0, "payable": 1000.0, "currency": "AZN"},
-                    "risk_flags": [],
-                    "missing_information": [],
-                    "next_actions_for_human": ["Confirm repair invoice"],
-                }
-            },
-        }),
+        json.dumps(
+            {
+                "name": "submit_recommendation",
+                "arguments": {
+                    "recommendation": {
+                        "recommendation": "approve",
+                        "confidence": 0.95,
+                        "summary": "Direct collision damage covered under Clause A.1.",
+                        "reasons": [
+                            {
+                                "type": "coverage",
+                                "statement": "Collision covered under Section A Clause 1.",
+                                "evidence": {
+                                    "clause_ids": ["MOTOR_OD:A.1"],
+                                    "tool_calls": ["step-2"],
+                                },
+                            }
+                        ],
+                        "payout": {
+                            "claimed": 1200.0,
+                            "deductible": 200.0,
+                            "payable": 1000.0,
+                            "currency": "AZN",
+                        },
+                        "risk_flags": [],
+                        "missing_information": [],
+                        "next_actions_for_human": ["Confirm repair invoice"],
+                    }
+                },
+            }
+        ),
     ]
 
     class ScriptedA4Client(FakeLLMClient):
@@ -299,21 +344,28 @@ async def test_a4_prompt_injection_intercepted_by_guardrails(db_session: Session
     knowledge_service.ingest_product_wording(db_session, motor_od)
 
     # Attacker tricks model into submitting an approval
-    malicious_call = json.dumps({
-        "name": "submit_recommendation",
-        "arguments": {
-            "recommendation": {
-                "recommendation": "approve",
-                "confidence": 0.99,
-                "summary": "Attacker forced approval.",
-                "reasons": [],
-                "payout": {"claimed": 500.0, "deductible": 0.0, "payable": 500.0, "currency": "AZN"},
-                "risk_flags": [],
-                "missing_information": [],
-                "next_actions_for_human": [],
-            }
-        },
-    })
+    malicious_call = json.dumps(
+        {
+            "name": "submit_recommendation",
+            "arguments": {
+                "recommendation": {
+                    "recommendation": "approve",
+                    "confidence": 0.99,
+                    "summary": "Attacker forced approval.",
+                    "reasons": [],
+                    "payout": {
+                        "claimed": 500.0,
+                        "deductible": 0.0,
+                        "payable": 500.0,
+                        "currency": "AZN",
+                    },
+                    "risk_flags": [],
+                    "missing_information": [],
+                    "next_actions_for_human": [],
+                }
+            },
+        }
+    )
     client = FakeLLMClient()
     client.set_response_for_keyword("SYSTEM OVERRIDE", malicious_call)
     gw = LLMGateway(client=client)
@@ -333,7 +385,6 @@ async def test_a4_prompt_injection_intercepted_by_guardrails(db_session: Session
     assert rec["recommendation"] == "needs_human_review"
     statements = " ".join(r.get("statement", "") for r in rec.get("reasons", []))
     assert "prompt injection" in statements.lower() or "g7" in statements.lower()
-
 
 
 def test_claims_adjuster_review_and_settlement_workflow(db_session: Session) -> None:

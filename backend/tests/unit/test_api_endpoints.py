@@ -95,7 +95,9 @@ def test_auth_flow(client: TestClient) -> None:
     assert me_resp.json()["role"] == "admin"
 
 
-def test_policy_endpoints(client: TestClient, auth_header: dict[str, str], seeded_policy: str) -> None:
+def test_policy_endpoints(
+    client: TestClient, auth_header: dict[str, str], seeded_policy: str
+) -> None:
     """Tests listing and retrieving policy details."""
     # List policies
     list_resp = client.get("/api/v1/policies", headers=auth_header)
@@ -114,7 +116,9 @@ def test_policy_endpoints(client: TestClient, auth_header: dict[str, str], seede
     assert detail["holder_info"]["full_name"] == "Fuad Huseynov"
 
 
-def test_claims_lifecycle_api(client: TestClient, auth_header: dict[str, str], seeded_policy: str) -> None:
+def test_claims_lifecycle_api(
+    client: TestClient, auth_header: dict[str, str], seeded_policy: str
+) -> None:
     """Tests FNOL intake, claims queue, triage execution, and adjuster decision via REST API."""
     # 1. Submit FNOL
     fnol_payload = {
@@ -124,7 +128,11 @@ def test_claims_lifecycle_api(client: TestClient, auth_header: dict[str, str], s
         "incident_description": "Minor bumper scrape in parking garage.",
         "product_code": "MOTOR_OD",
         "documents": [
-            {"type": "police_report", "file_name": "police.pdf", "content": "Police confirmed no third party involvement."}
+            {
+                "type": "police_report",
+                "file_name": "police.pdf",
+                "content": "Police confirmed no third party involvement.",
+            }
         ],
     }
     fnol_resp = client.post("/api/v1/claims/fnol", json=fnol_payload, headers=auth_header)
@@ -160,7 +168,9 @@ def test_claims_lifecycle_api(client: TestClient, auth_header: dict[str, str], s
         "notes": "Verified parking scrape, deductible 200 AZN applied properly.",
         "override_reason": None,
     }
-    decision_resp = client.post(f"/api/v1/claims/{claim_num}/decision", json=decision_payload, headers=auth_header)
+    decision_resp = client.post(
+        f"/api/v1/claims/{claim_num}/decision", json=decision_payload, headers=auth_header
+    )
     assert decision_resp.status_code == 200
     assert decision_resp.json()["status"] == "approved"
     assert decision_resp.json()["approved_payout"] == 650.0
@@ -171,7 +181,9 @@ def test_claims_lifecycle_api(client: TestClient, auth_header: dict[str, str], s
     assert settle_resp.json()["status"] == "settled"
 
 
-def test_metrics_endpoints(client: TestClient, auth_header: dict[str, str], seeded_policy: str) -> None:
+def test_metrics_endpoints(
+    client: TestClient, auth_header: dict[str, str], seeded_policy: str
+) -> None:
     """Tests operational metrics and eval report endpoints."""
     # Metrics
     m_resp = client.get("/api/v1/metrics", headers=auth_header)

@@ -71,7 +71,9 @@ class ReinsuranceService:
         treaties: list[ReinsuranceTreaty] = []
         for defn in DEFAULT_TREATIES:
             existing = session.scalars(
-                select(ReinsuranceTreaty).where(ReinsuranceTreaty.treaty_code == defn["treaty_code"])
+                select(ReinsuranceTreaty).where(
+                    ReinsuranceTreaty.treaty_code == defn["treaty_code"]
+                )
             ).first()
             if not existing:
                 treaty = ReinsuranceTreaty(
@@ -160,7 +162,7 @@ class ReinsuranceService:
                 session=session,
                 reference_type="REINSURANCE_CESSION",
                 reference_id=policy_number,
-                description=f"Premium cession ({float(treaty.ceded_share_pct)*100:.0f}%) under treaty {treaty.treaty_code} for Policy {policy_number}",
+                description=f"Premium cession ({float(treaty.ceded_share_pct) * 100:.0f}%) under treaty {treaty.treaty_code} for Policy {policy_number}",
                 entries=entries,
                 transaction_date=c_date,
                 user_id=user_id,
@@ -294,7 +296,9 @@ class ReinsuranceService:
         total_net_prem = quantize_money(sum((c.net_premium for c in cessions), Decimal("0.00")))
 
         total_gross_loss = quantize_money(sum((r.gross_loss for r in recoveries), Decimal("0.00")))
-        total_recovered_loss = quantize_money(sum((r.recovered_amount for r in recoveries), Decimal("0.00")))
+        total_recovered_loss = quantize_money(
+            sum((r.recovered_amount for r in recoveries), Decimal("0.00"))
+        )
         total_net_loss = quantize_money(sum((r.net_loss for r in recoveries), Decimal("0.00")))
 
         return {

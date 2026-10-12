@@ -228,7 +228,9 @@ def test_flagship_claims_golden_journey(
     # -------------------------------------------------------------------------
     # Step 10: Audit Trail & Operational Metrics Verification
     # -------------------------------------------------------------------------
-    audit_resp = e2e_client.get(f"/api/v1/audit?entity_id={settled_data['id']}", headers=auth_header)
+    audit_resp = e2e_client.get(
+        f"/api/v1/audit?entity_id={settled_data['id']}", headers=auth_header
+    )
     assert audit_resp.status_code == 200
     actions = [a["action"] for a in audit_resp.json()]
     assert "claim.settled" in actions

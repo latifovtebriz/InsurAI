@@ -27,9 +27,7 @@ def test_finance_api_invoices_and_payment(client: TestClient, db_session: Sessio
         end_date=date(2027, 1, 1),
         sum_insured=Decimal("20000.00"),
         total_premium=Decimal("600.00"),
-        payment_schedule=[
-            {"installment_number": 1, "due_date": "2026-01-01", "amount": "600.00"}
-        ],
+        payment_schedule=[{"installment_number": 1, "due_date": "2026-01-01", "amount": "600.00"}],
     )
     db_session.add(policy)
     db_session.commit()

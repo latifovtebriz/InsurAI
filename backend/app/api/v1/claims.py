@@ -173,7 +173,9 @@ def get_claim_detail(
             "id": d.id,
             "document_type": d.document_type,
             "file_name": d.file_name,
-            "content_preview": (d.content_text[:200] + "...") if len(d.content_text) > 200 else d.content_text,
+            "content_preview": (d.content_text[:200] + "...")
+            if len(d.content_text) > 200
+            else d.content_text,
             "content_text": d.content_text,
             "created_at": d.created_at.isoformat(),
         }
@@ -181,7 +183,11 @@ def get_claim_detail(
     ]
 
     # Reserves
-    res_stmt = select(ClaimReserve).where(ClaimReserve.claim_id == claim.id).order_by(ClaimReserve.created_at.asc())
+    res_stmt = (
+        select(ClaimReserve)
+        .where(ClaimReserve.claim_id == claim.id)
+        .order_by(ClaimReserve.created_at.asc())
+    )
     reserves = db.scalars(res_stmt).all()
     reserve_dicts = [
         {

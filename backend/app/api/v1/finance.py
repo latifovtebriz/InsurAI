@@ -19,11 +19,15 @@ router = APIRouter(prefix="/finance", tags=["Finance & Accounting"])
 
 class PaymentRequest(BaseModel):
     amount: Decimal = Field(description="Exact payment amount in AZN")
-    payment_method: str = Field(default="bank_transfer", description="bank_transfer, credit_card, debit_card")
+    payment_method: str = Field(
+        default="bank_transfer", description="bank_transfer, credit_card, debit_card"
+    )
 
 
 class DunningRunRequest(BaseModel):
-    as_of_date: str | None = Field(default=None, description="ISO date YYYY-MM-DD for dunning evaluation")
+    as_of_date: str | None = Field(
+        default=None, description="ISO date YYYY-MM-DD for dunning evaluation"
+    )
 
 
 @router.get("/invoices", summary="List premium installment invoices")
@@ -95,14 +99,20 @@ def list_gl_transactions(
     db: Session = Depends(get_db),
     user_payload: dict[str, Any] = Depends(require_permission("finance:read")),
 ) -> list[dict[str, Any]]:
-    tx_stmt = select(GeneralLedgerTransaction).order_by(GeneralLedgerTransaction.created_at.desc()).limit(limit)
+    tx_stmt = (
+        select(GeneralLedgerTransaction)
+        .order_by(GeneralLedgerTransaction.created_at.desc())
+        .limit(limit)
+    )
     txs = db.scalars(tx_stmt).all()
     result: list[dict[str, Any]] = []
 
     for tx in txs:
-        entries_stmt = select(GeneralLedgerEntry).where(
-            GeneralLedgerEntry.transaction_id == tx.id
-        ).order_by(GeneralLedgerEntry.entry_order)
+        entries_stmt = (
+            select(GeneralLedgerEntry)
+            .where(GeneralLedgerEntry.transaction_id == tx.id)
+            .order_by(GeneralLedgerEntry.entry_order)
+        )
         entries = db.scalars(entries_stmt).all()
 
         result.append(
@@ -129,7 +139,9 @@ def list_gl_transactions(
     return result
 
 
-@router.get("/ledger/check", summary="Verify double-entry mathematical invariant (Debits == Credits)")
+@router.get(
+    "/ledger/check", summary="Verify double-entry mathematical invariant (Debits == Credits)"
+)
 def check_ledger_invariants(
     db: Session = Depends(get_db),
     user_payload: dict[str, Any] = Depends(require_permission("finance:read")),
@@ -172,6 +184,7 @@ def run_dunning_job(
     user_payload: dict[str, Any] = Depends(require_permission("policy:write")),
 ) -> dict[str, Any]:
     from datetime import date
+
     as_of = date.fromisoformat(req.as_of_date) if req.as_of_date else None
     notices = finance_service.run_dunning_job(db, as_of_date=as_of)
     db.commit()

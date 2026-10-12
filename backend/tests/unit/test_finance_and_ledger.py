@@ -152,9 +152,7 @@ def test_dunning_job_escalation(db_session: Session) -> None:
         end_date=date(2027, 1, 1),
         sum_insured=Decimal("25000.00"),
         total_premium=Decimal("800.00"),
-        payment_schedule=[
-            {"installment_number": 1, "due_date": "2026-01-01", "amount": "800.00"}
-        ],
+        payment_schedule=[{"installment_number": 1, "due_date": "2026-01-01", "amount": "800.00"}],
     )
     db_session.add(policy)
     db_session.flush()
@@ -201,13 +199,23 @@ def test_claims_disbursement_and_kpis(db_session: Session) -> None:
 
     # 3. Claim disbursement: 800 AZN
     disb = finance_service.disburse_claim_payout(
-        db_session, "CLM-001", "CLM-2026-0001", "PARTY-PAYEE", Decimal("800.00"), approved_by="Adjuster Bob"
+        db_session,
+        "CLM-001",
+        "CLM-2026-0001",
+        "PARTY-PAYEE",
+        Decimal("800.00"),
+        approved_by="Adjuster Bob",
     )
     assert disb.status == "disbursed"
 
     # 4. Commission accrued: 200 AZN (10%)
     comm = finance_service.accrue_commission(
-        db_session, "POL-001", "POL-2026-0001", "AGENT-001", Decimal("2000.00"), rate=Decimal("0.1000")
+        db_session,
+        "POL-001",
+        "POL-2026-0001",
+        "AGENT-001",
+        Decimal("2000.00"),
+        rate=Decimal("0.1000"),
     )
     assert comm.amount == Decimal("200.00")
 

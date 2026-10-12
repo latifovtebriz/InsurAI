@@ -1,11 +1,11 @@
 # InsurAI Implementation Progress
 
 ## Current State
-- **Active Phase:** Phase 11 (Fraud, Compliance, Service, A5, A6, A8, A3 - Release R2)
-- **Active Task:** Task 11.1 (`fraud` module P09, SIU routing, A5 Fraud Agent with G8 neutral language)
+- **Active Phase:** Phase 12 (Console v2, KPIs, and End-to-End Journeys)
+- **Active Task:** Task 12.1 (Full lifecycle E2E golden journeys & KPI aggregation views)
 - **Status:** In Progress
-- **Last Completed Step:** Phase 10 completed. Built Finance double-entry ledger (Debits == Credits invariant), Invoicing, Payments, Dunning, Reinsurance treaties (QS/XOL), Bordereaux, Policy Renewal (P07), Agent A7 Renewal Advisor, REST APIs, and UI screens. Tagged `phase-10-done`.
-- **Next Step:** Implement Phase 11 modules: fraud SIU (A5), compliance screening (A8), policy servicing (A3), customer service chat (A6), and tag `release-R2`.
+- **Last Completed Step:** Phase 11 completed. Implemented Fraud & SIU (Agent A5, G8 neutral language, G9 fairness), Compliance (Agent A8, fuzzy watchlist matching, never-clears invariant), Service (Agent A6 verification gate, Agent A3 pro-rata endorsements, statutory complaint SLAs), REST APIs, evaluation benchmarks, and Web Console v2 screens. Tagged `phase-11-done` and `release-R2`.
+- **Next Step:** Implement Phase 12: end-to-end golden journey test covering the entire policy lifecycle (quote -> underwrite -> issue -> pay -> claim -> settle -> renew), comprehensive KPI views, and seed demo script.
 
 ---
 
@@ -24,8 +24,8 @@
 | Phase 8 | Web console v1 & Release R1 | Completed | `phase-8-done`, `release-R1` |
 | Phase 9 | Sales and underwriting (A1, A2) | Completed | `phase-9-done` |
 | Phase 10 | Finance, renewal, reinsurance, A7 | Completed | `phase-10-done` |
-| Phase 11 | Fraud, compliance, service, A5, A6, A8, A3 | In Progress | `release-R2` pending |
-| Phase 12 | Console v2, KPIs, end-to-end journeys | Not Started | - |
+| Phase 11 | Fraud, compliance, service, A5, A6, A8, A3 | Completed | `phase-11-done`, `release-R2` |
+| Phase 12 | Console v2, KPIs, end-to-end journeys | In Progress | - |
 | Phase 13 | Observability, security, governance, polish | Not Started | `release-R3` pending |
 | Phase 14 | Deployment (Postponed) | Postponed | - |
 | Phase 15 | Stretch (Postponed) | Postponed | - |

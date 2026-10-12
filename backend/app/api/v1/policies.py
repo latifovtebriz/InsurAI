@@ -114,7 +114,9 @@ def get_policy_detail(
     party = party_service.get_party_by_id(db, pol.party_id)
     holder_info: dict[str, Any] | None = None
     if party:
-        h_name = f"{party.first_name or ''} {party.last_name or ''}".strip() or party.company_name or ""
+        h_name = (
+            f"{party.first_name or ''} {party.last_name or ''}".strip() or party.company_name or ""
+        )
         holder_info = {
             "party_id": party.id,
             "full_name": h_name,

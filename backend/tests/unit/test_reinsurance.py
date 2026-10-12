@@ -14,11 +14,15 @@ def test_reinsurance_treaties_seeding(db_session: Session) -> None:
     """Verifies that market reinsurance treaties are seeded properly."""
     treaties = reinsurance_service.ensure_default_treaties(db_session)
     assert len(treaties) >= 3
-    qs = next(t for t in treaties if t.treaty_type == "QUOTA_SHARE" and t.product_code == "MOTOR_OD")
+    qs = next(
+        t for t in treaties if t.treaty_type == "QUOTA_SHARE" and t.product_code == "MOTOR_OD"
+    )
     assert qs.ceded_share_pct == Decimal("0.2000")
     assert qs.retention_share_pct == Decimal("0.8000")
 
-    xol = next(t for t in treaties if t.treaty_type == "EXCESS_OF_LOSS" and t.product_code == "MOTOR_OD")
+    xol = next(
+        t for t in treaties if t.treaty_type == "EXCESS_OF_LOSS" and t.product_code == "MOTOR_OD"
+    )
     assert xol.retention_amount == Decimal("50000.00")
     assert xol.treaty_limit == Decimal("500000.00")
 
@@ -39,7 +43,7 @@ def test_premium_cession_and_gl_journal(db_session: Session) -> None:
     c = cessions[0]
     assert c.gross_premium == Decimal("1000.00")
     assert c.ceded_premium == Decimal("200.00")  # 20% of 1000
-    assert c.net_premium == Decimal("800.00")    # 80% retained
+    assert c.net_premium == Decimal("800.00")  # 80% retained
 
     # Check ledger balance
     check = check_ledger_balance(db_session)
@@ -80,7 +84,7 @@ def test_claim_loss_recoveries_qs_and_xol(db_session: Session) -> None:
     xol_rec = next(r for r in recs2 if "XOL" in r.treaty_code)
 
     assert qs_rec.recovered_amount == Decimal("16000.00")  # 20% of 80k
-    assert xol_rec.recovered_amount == Decimal("30000.00") # 80k - 50k retention = 30k
+    assert xol_rec.recovered_amount == Decimal("30000.00")  # 80k - 50k retention = 30k
 
     # Check ledger balance
     check = check_ledger_balance(db_session)

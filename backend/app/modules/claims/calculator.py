@@ -50,7 +50,9 @@ def calculate_claim_payout(
         raise ValueError("Claimed amount cannot be negative.")
 
     # 1. Check Constructive Total Loss (70% threshold per Clause D.2)
-    total_loss_threshold = (sum_insured * Decimal("0.70")).quantize(Decimal("0.01"), rounding=ROUND_HALF_UP)
+    total_loss_threshold = (sum_insured * Decimal("0.70")).quantize(
+        Decimal("0.01"), rounding=ROUND_HALF_UP
+    )
     is_total_loss = (claimed_amount >= total_loss_threshold) or (loss_type.lower() == "total_loss")
 
     if is_total_loss:
@@ -107,7 +109,9 @@ def check_notification_deadline(
 
     is_valid = business_days <= allowed_business_days
     if is_valid:
-        reason = f"Reported within {business_days} business day(s) (allowed: {allowed_business_days})."
+        reason = (
+            f"Reported within {business_days} business day(s) (allowed: {allowed_business_days})."
+        )
     else:
         reason = f"Notice deadline exceeded: reported after {business_days} business days (allowed: {allowed_business_days})."
 
@@ -155,7 +159,9 @@ def get_rule_based_fraud_signals(
         )
 
     # 3. Exact round sum between 5,000 and 20,000 AZN (excluding total loss threshold claims)
-    if Decimal("5000.00") <= claimed_amount < Decimal("20000.00") and (claimed_amount % Decimal("1000.00") == Decimal("0.00")):
+    if Decimal("5000.00") <= claimed_amount < Decimal("20000.00") and (
+        claimed_amount % Decimal("1000.00") == Decimal("0.00")
+    ):
         signals.append(
             FraudSignal(
                 code="SUSPICIOUS_ROUND_SUM",
@@ -176,7 +182,10 @@ def get_rule_based_fraud_signals(
         )
 
     # 5. Text indicators: ambiguous liability or third-party causation
-    if re.search(r"\b(municipal|tree branch|falling tree|disputed|conflicting|rotted|subrogation)\b", combined_text):
+    if re.search(
+        r"\b(municipal|tree branch|falling tree|disputed|conflicting|rotted|subrogation)\b",
+        combined_text,
+    ):
         signals.append(
             FraudSignal(
                 code="AMBIGUOUS_LIABILITY_OR_CAUSE",
@@ -186,9 +195,12 @@ def get_rule_based_fraud_signals(
         )
 
     # 6. Prompt injection indicators (G7)
-    if re.search(r"(ignore\s+(all\s+)?previous|you\s+are\s+now|system\s+override|approve\s+this\s+claim)", combined_text, re.I):
+    if re.search(
+        r"(ignore\s+(all\s+)?previous|you\s+are\s+now|system\s+override|approve\s+this\s+claim)",
+        combined_text,
+        re.I,
+    ):
         signals.append(
-
             FraudSignal(
                 code="PROMPT_INJECTION_ATTEMPT",
                 severity="high",

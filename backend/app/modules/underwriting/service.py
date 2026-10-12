@@ -132,7 +132,9 @@ class UnderwritingService:
             )
 
         if decision == "declined" and not (override_reason or notes):
-            raise ValueError("Declining a risk requires a mandatory written rationale (Guardrail G3).")
+            raise ValueError(
+                "Declining a risk requires a mandatory written rationale (Guardrail G3)."
+            )
 
         case.status = decision
         case.assigned_underwriter_id = underwriter_id
@@ -164,7 +166,11 @@ class UnderwritingService:
             event_type="UnderwritingCaseDecidedEvent",
             aggregate_type="underwriting_case",
             aggregate_id=case.id,
-            payload={"case_number": case.case_number, "decision": decision, "quote_id": case.quote_id},
+            payload={
+                "case_number": case.case_number,
+                "decision": decision,
+                "quote_id": case.quote_id,
+            },
         )
 
         return case

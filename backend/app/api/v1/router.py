@@ -5,12 +5,15 @@ from fastapi import APIRouter
 from app.api.v1.audit import router as audit_router
 from app.api.v1.auth import router as auth_router
 from app.api.v1.claims import router as claims_router
+from app.api.v1.compliance import router as compliance_router
 from app.api.v1.finance import router as finance_router
+from app.api.v1.fraud import router as fraud_router
 from app.api.v1.metrics import router as metrics_router
 from app.api.v1.policies import router as policies_router
 from app.api.v1.reinsurance import router as reinsurance_router
 from app.api.v1.renewal import router as renewal_router
 from app.api.v1.sales import router as sales_router
+from app.api.v1.service import router as service_router
 from app.api.v1.traces import router as traces_router
 from app.api.v1.underwriting import router as underwriting_router
 
@@ -24,6 +27,9 @@ api_v1_router.include_router(claims_router)
 api_v1_router.include_router(finance_router)
 api_v1_router.include_router(renewal_router)
 api_v1_router.include_router(reinsurance_router)
+api_v1_router.include_router(fraud_router)
+api_v1_router.include_router(compliance_router)
+api_v1_router.include_router(service_router)
 api_v1_router.include_router(traces_router)
 api_v1_router.include_router(audit_router)
 api_v1_router.include_router(metrics_router)

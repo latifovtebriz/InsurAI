@@ -127,7 +127,9 @@ class ClaimsService:
         """
         claim = session.get(Claim, claim_id)
         if not claim:
-            raise InsurAIException(status_code=404, title="Claim Not Found", detail=f"Claim '{claim_id}' not found.")
+            raise InsurAIException(
+                status_code=404, title="Claim Not Found", detail=f"Claim '{claim_id}' not found."
+            )
 
         old_status = claim.status
         claim.status = CLAIM_WORKFLOW.trigger(claim.status, "start_triage")
@@ -168,7 +170,9 @@ class ClaimsService:
             claim.status = CLAIM_WORKFLOW.trigger(claim.status, "auto_approve_l3")
             payout_val = float(recommendation.get("payout", {}).get("payable", 0.0))
             claim.approved_payout = Decimal(str(payout_val))
-            claim.deductible_applied = Decimal(str(recommendation.get("payout", {}).get("deductible", 200.0)))
+            claim.deductible_applied = Decimal(
+                str(recommendation.get("payout", {}).get("deductible", 200.0))
+            )
         else:
             claim.autonomy_level = "L2"
             claim.status = CLAIM_WORKFLOW.trigger(claim.status, "submit_recommendation")
@@ -192,7 +196,11 @@ class ClaimsService:
             entity_type="claim",
             entity_id=claim.id,
             before_state={"status": old_status},
-            after_state={"status": claim.status, "recommendation": rec_decision, "autonomy_level": claim.autonomy_level},
+            after_state={
+                "status": claim.status,
+                "recommendation": rec_decision,
+                "autonomy_level": claim.autonomy_level,
+            },
         )
 
         session.commit()
@@ -214,7 +222,9 @@ class ClaimsService:
         """
         claim = session.get(Claim, claim_id)
         if not claim:
-            raise InsurAIException(status_code=404, title="Claim Not Found", detail=f"Claim '{claim_id}' not found.")
+            raise InsurAIException(
+                status_code=404, title="Claim Not Found", detail=f"Claim '{claim_id}' not found."
+            )
 
         old_status = claim.status
         if decision == "approve":
@@ -224,7 +234,11 @@ class ClaimsService:
             claim.status = CLAIM_WORKFLOW.trigger(claim.status, "confirm_rejection")
             claim.approved_payout = Decimal("0.00")
         else:
-            raise InsurAIException(status_code=400, title="Invalid Decision", detail="Decision must be 'approve' or 'reject'.")
+            raise InsurAIException(
+                status_code=400,
+                title="Invalid Decision",
+                detail="Decision must be 'approve' or 'reject'.",
+            )
 
         decision_data = {
             "decision": decision,
@@ -258,7 +272,9 @@ class ClaimsService:
         """Disburses approved claim payout and releases claims reserve."""
         claim = session.get(Claim, claim_id)
         if not claim:
-            raise InsurAIException(status_code=404, title="Claim Not Found", detail=f"Claim '{claim_id}' not found.")
+            raise InsurAIException(
+                status_code=404, title="Claim Not Found", detail=f"Claim '{claim_id}' not found."
+            )
 
         old_status = claim.status
         claim.status = CLAIM_WORKFLOW.trigger(claim.status, "disburse_payment")
@@ -290,7 +306,10 @@ class ClaimsService:
             entity_type="claim",
             entity_id=claim.id,
             before_state={"status": old_status},
-            after_state={"status": claim.status, "approved_payout": float(claim.approved_payout or 0.0)},
+            after_state={
+                "status": claim.status,
+                "approved_payout": float(claim.approved_payout or 0.0),
+            },
         )
         session.commit()
         session.refresh(claim)

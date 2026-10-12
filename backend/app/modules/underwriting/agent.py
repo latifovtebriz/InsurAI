@@ -19,7 +19,9 @@ class EvaluateUnderwritingRulesArgs(BaseModel):
     sum_insured: float = Field(default=30000.0, description="Sum insured in AZN")
     driver_age: int = Field(default=30, description="Driver age in years")
     prior_claims_count: int = Field(default=0, description="Prior claims count in 12 months")
-    wall_type: str = Field(default="stone", description="Wall type for property: stone, wood, brick")
+    wall_type: str = Field(
+        default="stone", description="Wall type for property: stone, wood, brick"
+    )
 
 
 class SearchUwGuidelinesArgs(BaseModel):
@@ -92,7 +94,9 @@ class UnderwritingCopilotAgent:
 
             q = args.query.lower()
             matched = [
-                g for g in guidelines if any(w in g["title"].lower() or w in g["rule"].lower() for w in q.split())
+                g
+                for g in guidelines
+                if any(w in g["title"].lower() or w in g["rule"].lower() for w in q.split())
             ]
             return matched if matched else [guidelines[0]]
 
@@ -157,14 +161,18 @@ class UnderwritingCopilotAgent:
 
         cited_guidelines = []
         if eval_result.is_knockout:
-            cited_guidelines.append("UW-STATUTORY-ELIGIBILITY: Statutory driver minimum age (18) and insurer aggregate retention limits.")
+            cited_guidelines.append(
+                "UW-STATUTORY-ELIGIBILITY: Statutory driver minimum age (18) and insurer aggregate retention limits."
+            )
             recommended_action = "decline"
             confidence = 0.99
             risk_summary = "Risk is outside acceptable statutory guidelines. Mandatory recommendation to decline."
         elif eval_result.has_referral:
             for hit in eval_result.rule_hits:
                 if hit.rule_code == "UW-01":
-                    cited_guidelines.append("UW-GUIDELINE-MOTOR-01: High Exposure Vehicles (> 100,000 AZN)")
+                    cited_guidelines.append(
+                        "UW-GUIDELINE-MOTOR-01: High Exposure Vehicles (> 100,000 AZN)"
+                    )
                 elif hit.rule_code == "UW-02":
                     cited_guidelines.append("UW-GUIDELINE-MOTOR-02: Young Drivers (< 21 Years Old)")
                 elif hit.rule_code == "UW-03":
@@ -176,10 +184,14 @@ class UnderwritingCopilotAgent:
             confidence = 0.92
             risk_summary = f"Underwriting referral triggered ({len(eval_result.rule_hits)} rule hits). Proposed conditional acceptance subject to warranted endorsement."
         else:
-            cited_guidelines.append("UW-STANDARD-ACCEPTANCE: Clean risk parameters within delegated junior underwriter limits.")
+            cited_guidelines.append(
+                "UW-STANDARD-ACCEPTANCE: Clean risk parameters within delegated junior underwriter limits."
+            )
             recommended_action = "approve_standard"
             confidence = 0.95
-            risk_summary = "Standard risk profile. All rating inputs fall within standard pricing appetite."
+            risk_summary = (
+                "Standard risk profile. All rating inputs fall within standard pricing appetite."
+            )
 
         return UnderwritingAssessment(
             case_id=case_id,

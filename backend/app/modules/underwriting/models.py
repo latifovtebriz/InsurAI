@@ -21,12 +21,8 @@ class UnderwritingCase(Base):
     __tablename__ = "cases"
     __table_args__ = {"schema": "underwriting"}
 
-    id: Mapped[str] = mapped_column(
-        String(36), primary_key=True, default=lambda: str(uuid.uuid4())
-    )
-    case_number: Mapped[str] = mapped_column(
-        String(50), unique=True, nullable=False, index=True
-    )
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    case_number: Mapped[str] = mapped_column(String(50), unique=True, nullable=False, index=True)
     quote_id: Mapped[str | None] = mapped_column(String(36), nullable=True, index=True)
     policy_id: Mapped[str | None] = mapped_column(String(36), nullable=True, index=True)
     product_code: Mapped[str] = mapped_column(String(50), nullable=False, index=True)
@@ -35,7 +31,9 @@ class UnderwritingCase(Base):
     status: Mapped[str] = mapped_column(
         String(30), default="pending_review", nullable=False, index=True
     )  # pending_review, approved_standard, approved_with_conditions, declined, referred_senior
-    assigned_underwriter_id: Mapped[str | None] = mapped_column(String(36), nullable=True, index=True)
+    assigned_underwriter_id: Mapped[str | None] = mapped_column(
+        String(36), nullable=True, index=True
+    )
     authority_tier_required: Mapped[str] = mapped_column(
         String(20), default="junior", nullable=False
     )  # junior, senior, chief

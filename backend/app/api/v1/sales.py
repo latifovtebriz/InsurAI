@@ -180,7 +180,9 @@ def accept_quote(
 ) -> QuoteDetailResponse:
     """Accepts an offered quote."""
     try:
-        quote = sales_service.accept_quote(db=db, quote_id=quote_number, actor_id=user.get("sub", "user"))
+        quote = sales_service.accept_quote(
+            db=db, quote_id=quote_number, actor_id=user.get("sub", "user")
+        )
         db.commit()
     except ValueError as e:
         db.rollback()

@@ -53,4 +53,3 @@ __all__: list[str] = [
     "NotificationDeadlineReport",
     "FraudSignal",
 ]
-

@@ -17,7 +17,9 @@ from pydantic import BaseModel, Field
 
 
 class CalculateQuoteArgs(BaseModel):
-    product_code: str = Field(default="MOTOR_OD", description="Product code: MOTOR_OD, MOTOR_TPL, HOME")
+    product_code: str = Field(
+        default="MOTOR_OD", description="Product code: MOTOR_OD, MOTOR_TPL, HOME"
+    )
     vehicle_value: float = Field(default=30000.0, description="Estimated market value in AZN")
     vehicle_age: int = Field(default=3, description="Vehicle age in years")
     driver_age: int = Field(default=30, description="Driver age in years")
@@ -57,10 +59,17 @@ def extract_quote_intent(user_text: str) -> QuoteRequestExtraction:
     product_code = "MOTOR_OD"
     if "tpl" in text_lower or "icbari" in text_lower or "third party" in text_lower:
         product_code = "MOTOR_TPL"
-    elif "home" in text_lower or "ev" in text_lower or "əmlak" in text_lower or "property" in text_lower:
+    elif (
+        "home" in text_lower
+        or "ev" in text_lower
+        or "əmlak" in text_lower
+        or "property" in text_lower
+    ):
         product_code = "HOME"
 
-    value_match = re.search(r"(\d[\d\s,]*\d|\d+)\s*(?:azn|manat|\$|usd|dəyərində|qiymətində)", user_text, re.IGNORECASE)
+    value_match = re.search(
+        r"(\d[\d\s,]*\d|\d+)\s*(?:azn|manat|\$|usd|dəyərində|qiymətində)", user_text, re.IGNORECASE
+    )
     vehicle_value: float | None = None
     if value_match:
         val_str = value_match.group(1).replace(" ", "").replace(",", "")
@@ -72,7 +81,11 @@ def extract_quote_intent(user_text: str) -> QuoteRequestExtraction:
         else:
             missing.append("vehicle_value")
 
-    age_match = re.search(r"(?:yaş(?:ım|ı)?\s*(?:var|olaraq)?\s*[:=]?\s*|age\s*[:=]?\s*)(\d{2})", user_text, re.IGNORECASE)
+    age_match = re.search(
+        r"(?:yaş(?:ım|ı)?\s*(?:var|olaraq)?\s*[:=]?\s*|age\s*[:=]?\s*)(\d{2})",
+        user_text,
+        re.IGNORECASE,
+    )
     driver_age: int | None = None
     if age_match:
         driver_age = int(age_match.group(1))
@@ -83,7 +96,9 @@ def extract_quote_intent(user_text: str) -> QuoteRequestExtraction:
         else:
             missing.append("driver_age")
 
-    exp_match = re.search(r"(\d{1,2})\s*(?:il|illik|years?)\s*(?:təcrübə|staj|experience)", user_text, re.IGNORECASE)
+    exp_match = re.search(
+        r"(\d{1,2})\s*(?:il|illik|years?)\s*(?:təcrübə|staj|experience)", user_text, re.IGNORECASE
+    )
     driver_experience: int | None = None
     if exp_match:
         driver_experience = int(exp_match.group(1))
@@ -98,7 +113,9 @@ def extract_quote_intent(user_text: str) -> QuoteRequestExtraction:
     if year_match:
         vehicle_year = int(year_match.group(1))
 
-    ded_match = re.search(r"(\d+)\s*(?:azn)?\s*(?:azadolma|deductible|fransiza)", user_text, re.IGNORECASE)
+    ded_match = re.search(
+        r"(\d+)\s*(?:azn)?\s*(?:azadolma|deductible|fransiza)", user_text, re.IGNORECASE
+    )
     deductible = 200.0
     if ded_match:
         deductible = float(ded_match.group(1))
@@ -143,7 +160,11 @@ class QuoteAssistantAgent:
                 "final_premium": float(breakdown.final_premium),
                 "total_payable": float(breakdown.final_premium),
                 "factors_applied": [
-                    {"name": f.factor_name, "multiplier": float(f.multiplier), "reason": f.description}
+                    {
+                        "name": f.factor_name,
+                        "multiplier": float(f.multiplier),
+                        "reason": f.description,
+                    }
                     for f in breakdown.applied_factors
                 ],
             }
@@ -161,8 +182,17 @@ class QuoteAssistantAgent:
             code = args.product_code.upper()
             return {
                 "product_code": code,
-                "covered_perils": ["Traffic collision", "Theft / Burglary", "Natural disasters", "Falling objects"],
-                "key_exclusions": ["Driving under alcohol/drug influence", "Unlicensed driver", "Intentional damage"],
+                "covered_perils": [
+                    "Traffic collision",
+                    "Theft / Burglary",
+                    "Natural disasters",
+                    "Falling objects",
+                ],
+                "key_exclusions": [
+                    "Driving under alcohol/drug influence",
+                    "Unlicensed driver",
+                    "Intentional damage",
+                ],
                 "statutory_deductible_azn": 200.0,
             }
 
@@ -244,7 +274,8 @@ class QuoteAssistantAgent:
 
             return {
                 "status": "needs_clarification",
-                "message": "To provide you with an exact, guaranteed quote, please clarify: " + " ".join(missing_prompts),
+                "message": "To provide you with an exact, guaranteed quote, please clarify: "
+                + " ".join(missing_prompts),
                 "missing_fields": extracted.missing_fields,
                 "extracted": extracted.model_dump(),
                 "quote_result": None,

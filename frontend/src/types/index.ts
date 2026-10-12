@@ -400,3 +400,99 @@ export interface ReinsuranceTreatyItem {
   is_active: boolean;
 }
 
+// Phase 11: Fraud & SIU (Agent A5)
+export interface SIUCaseItem {
+  id: string;
+  case_number: string;
+  claim_id: string;
+  claim_number: string;
+  policy_number: string;
+  risk_score: number;
+  status: string;
+  investigator_id?: string | null;
+  findings_summary?: string | null;
+  created_at: string;
+}
+
+export interface FraudSignalItem {
+  code: string;
+  name: string;
+  weight: number;
+  description: string;
+}
+
+export interface SIUAssessmentResponse {
+  claim_number: string;
+  risk_score: number;
+  signals_detected: Array<{ signal_code: string; name: string; weight: number; description: string }>;
+  timeline_summary: string;
+  cross_claim_notes: string;
+  neutral_findings_summary: string;
+  g8_neutral_language_verified: boolean;
+  recommended_siu_action: string;
+}
+
+// Phase 11: Compliance & Watchlist (Agent A8)
+export interface ComplianceAlertItem {
+  id: string;
+  alert_number: string;
+  party_id: string;
+  party_name: string;
+  matched_entity_id: string;
+  matched_entity_name: string;
+  match_score: number;
+  match_reasons: string;
+  status: string;
+  assigned_officer_id?: string | null;
+  officer_decision_notes?: string | null;
+  decided_at?: string | null;
+  created_at: string;
+}
+
+export interface ComplianceExplanationResponse {
+  alert_number: string;
+  party_name: string;
+  matched_entity_name: string;
+  list_name: string;
+  match_score: number;
+  analysis_text: string;
+  recommendation: string;
+  auto_cleared: boolean;
+  human_signoff_required: boolean;
+  draft_sar_report?: string | null;
+}
+
+// Phase 11: Customer Service & Servicing (Agents A6 & A3)
+export interface CustomerChatResponse {
+  reply_text: string;
+  is_authenticated: boolean;
+  verified_party_id?: string | null;
+  data_accessed: boolean;
+  action_taken?: string | null;
+}
+
+export interface ComplaintItem {
+  id: string;
+  complaint_number: string;
+  party_id: string;
+  subject: string;
+  status: string;
+  initial_response_deadline: string;
+  final_resolution_deadline: string;
+  sla_breached: boolean;
+  created_at: string;
+}
+
+export interface EndorsementDraftResult {
+  policy_number: string;
+  endorsement_type: string;
+  effective_date: string;
+  prorata_adjustment_azn: number;
+  proposed_changes: Record<string, any>;
+  draft_status: string;
+  autonomy_level: string;
+  requires_underwriter_approval: boolean;
+  summary_explanation: string;
+}
+
+

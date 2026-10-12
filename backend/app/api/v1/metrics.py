@@ -53,12 +53,16 @@ def get_operational_metrics(
         claims_by_status[st] = count
 
     # L3 auto-approval rate
-    auto_approvals = db.scalar(select(func.count(Claim.id)).where(Claim.autonomy_level == "L3")) or 0
+    auto_approvals = (
+        db.scalar(select(func.count(Claim.id)).where(Claim.autonomy_level == "L3")) or 0
+    )
     stp_rate = round((auto_approvals / total_claims * 100.0), 2) if total_claims > 0 else 0.0
 
     # Reserves & payouts
     total_reserves = db.scalar(select(func.sum(Claim.estimated_reserve))) or 0.0
-    total_paid = db.scalar(select(func.sum(Claim.approved_payout)).where(Claim.status == "settled")) or 0.0
+    total_paid = (
+        db.scalar(select(func.sum(Claim.approved_payout)).where(Claim.status == "settled")) or 0.0
+    )
 
     return OperationalMetricsResponse(
         total_policies=total_policies,

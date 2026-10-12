@@ -19,19 +19,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Synthetic Dataset & Labels (Phase 1):** 136 realistic claims, 100 parties, 100 policies, effective-dated 2025/2026 wordings, held-out splits (`dev`, `test`, `smoke`).
 - **Core Skeleton (Phase 0):** Modular monolith layout, AST module boundary tests, secret scanner.
 
-## [Unreleased]
+## [2.0.0] - Release R2 - 2026-10-12
+
 ### Added
-- **Sales Module (Phase 9):** Lead and Quote domain models in `"sales"` schema, 30-day quote validity, deterministic rating integration (Motor OD, Motor TPL, Home), 1-lump-sum and 4-installment schedules, KYC-lite screening hook.
-- **Agent A1 (Quote Assistant):** Natural language quote intake, automatic missing-field clarification detection, Guardrail G2 mathematical equality (100% numerical fidelity matching engine), Guardrail G7 prompt injection interception.
-- **Underwriting Module & Rule Engine (Phase 9):** `UnderwritingCase` model in `"underwriting"` schema, deterministic rule engine (UW-01 through UW-05), authority limits matrix (Junior, Senior, Chief), Guardrail G3 terminal decline justification enforcement.
-- **Agent A2 (Underwriting Copilot):** Risk profiling, underwriting guidelines RAG, proposed conditions generation under L2 human-in-the-loop governance.
-- **REST API & Web Console v2 (Phase 9):** Endpoints `/api/v1/sales/*` and `/api/v1/underwriting/*`, `QuotesScreen.tsx` (calculator, A1 chat, quote ledger), and `UnderwritingScreen.tsx` (referral queue, rule hits dossier, A2 Copilot panel, adjudication form).
-- **Evaluation Suite (Phase 9):** Evaluated across 60 test scenarios with 100% G2 engine fidelity, 100% rule recall and precision, and 100% human sign-off enforcement.
+- **Fraud Detection & SIU (Phase 11):** `fraud` module in schema `"fraud"`, 6 transparent risk signals (FS-01..FS-06), automatic SIU case routing at score >= 70, Guardrail G9 fairness check (`FairnessViolationError` on protected demographics).
+- **Agent A5 (SIU Assistant):** Objective findings dossier synthesis with Guardrail G8 neutral language enforcement (`validate_neutral_language`, `sanitize_neutral_language`), stripping all accusatory defamation risks.
+- **Compliance & Sanctions Screening (Phase 11):** `compliance` module in schema `"compliance"`, fuzzy string matching against OFAC SDN, UN Sanctions, and PEP watchlists via token Jaccard, containment, and character bigrams.
+- **Agent A8 (Compliance Explainer):** Comparative match analysis and draft Suspicious Activity Reports (SAR). Hardcoded regulatory invariant: AI can never clear a sanctions match (`attempt_auto_clear()` strictly raises `PermissionError`), requiring human compliance officer adjudication.
+- **Customer Service (Agent A6) & Verification Gate (Phase 11):** Strict identity verification gate: unauthenticated guests receive public FAQs only, while policyholder data requests are blocked with zero PII exposure (`action_taken="PROMPT_AUTHENTICATION"`).
+- **Policy Servicing (Agent A3) & Mid-Term Endorsements (Phase 11):** Mid-term endorsement process (P06) with deterministic Decimal pro-rata premium adjustments down to the exact day, requiring Level 2 underwriter approval.
+- **Complaints & Statutory SLAs (Phase 11):** 5-day initial response and 15-day resolution deadline tracking with automatic Ombudsman breach escalation.
+- **Web Console v2 Screens (Phase 11):** `SIUScreen.tsx` (fraud score breakdown, G8 neutral dossier), `ComplianceScreen.tsx` (sanctions screening, A8 explainer, officer adjudication), and `CustomerServiceScreen.tsx` (verification gate chat simulator, A3 endorsement drafting, complaints SLA tracker).
+- **Finance, Renewal & Reinsurance (Phase 10):** Balanced double-entry ledger (Debits == Credits invariant across 100% of postings), installment invoicing, automated dunning (T+7, T+14, T+30), Quota Share and Excess of Loss treaties, bordereaux generator, T-60 renewal scanning with statutory 30-day notice monitoring, Agent A7 Renewal Advisor.
+- **Sales & Underwriting (Phase 9):** Sales module, deterministic rating engines (G2 math equality), Agent A1 Quote Assistant, Underwriting rule engine (UW-01..05), authority tiers, Agent A2 Underwriting Copilot.
+- **Agent Evaluation Benchmark Suite:** 4 evaluation suites in `evals/` covering all 8 agents (A1 through A8) with 100% pass rates on mathematical fidelity, fairness, and non-clearance invariants.
 
-- **Finance & Double-Entry Ledger (Phase 10):** Chart of Accounts (`finance.accounts`), General Ledger (`gl_transactions`, `gl_entries`), constraint-enforced balanced double-entry invariant (Debits strictly equal Credits down to exact cent across 100% of journal postings), installment invoicing, payment intake simulator, payment allocation to policies, automated dunning job (T+7, T+14, T+30 escalations), claims payout disbursement with 4-eyes authorization, commission accrual.
-- **Reinsurance Treaties & Bordereaux (Phase 10):** Reinsurance treaties (`reinsurance.treaties` for Quota Share 20% and Excess of Loss 50k xs 500k), automated premium cessions, claim loss recoveries, monthly bordereau report generator.
-- **Policy Renewal (P07) & Agent A7 (Renewal Advisor) (Phase 10):** T-60 automated expiring policy scanning, claim frequency/severity re-rating with bonus-malus adjustments, statutory 30-day notice deadline monitoring (`statutory_deadline_breached = True`), Agent A7 with ReAct tool registry, draft renewal notice generation, L1 standard renewals, L2 underwriter sign-off for surcharges and non-renewals.
-- **REST APIs & Console v2 Screens (Phase 10):** Endpoints `/api/v1/finance/*`, `/api/v1/renewals/*`, `/api/v1/reinsurance/*`, `FinanceScreen.tsx` (KPIs, invoice simulator, double-entry journal viewer, treaties), `RenewalScreen.tsx` (T-60 queue, statutory notice alert banner, A7 Advisor inspection panel).
-- **Evaluation Benchmark (Phase 10):** Evaluated 175 financial transactions with 100.0% invariant preservation (Δ = 0.00 AZN), 30 renewal scenarios with 100.0% statutory breach recall and 100.0% G2 rate fidelity.
-
-- Phase 11: Fraud SIU (A5), Compliance (A8), Servicing (A3), Customer Chat (A6). Tag `release-R2`.

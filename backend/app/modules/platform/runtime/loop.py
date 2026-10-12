@@ -272,7 +272,9 @@ class AgentLoop:
                 args = {}
             return {"name": tool_name, "arguments": args}
 
-        action_match = re.search(r"Action:\s*([a-zA-Z0-9_]+)\s*(?:Action Input:\s*(\{.*\}))?", content, re.DOTALL)
+        action_match = re.search(
+            r"Action:\s*([a-zA-Z0-9_]+)\s*(?:Action Input:\s*(\{.*\}))?", content, re.DOTALL
+        )
         if action_match:
             tool_name = action_match.group(1).strip()
             raw_input = action_match.group(2)

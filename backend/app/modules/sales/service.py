@@ -117,7 +117,9 @@ class SalesService:
         elif code == "HOME":
             sum_insured = Decimal(str(rating_inputs.get("property_value", 150000)))
             deductible = Decimal(str(rating_inputs.get("deductible", 500)))
-            construction_type = str(rating_inputs.get("construction_type", rating_inputs.get("wall_type", "stone")))
+            construction_type = str(
+                rating_inputs.get("construction_type", rating_inputs.get("wall_type", "stone"))
+            )
             build_year = int(rating_inputs.get("build_year", 2010))
 
             breakdown_obj = calculate_home_premium(
@@ -246,7 +248,9 @@ class SalesService:
                 raise ValueError(f"Quote '{quote_id}' not found")
 
         if quote.status not in ["offered", "approved_by_uw"]:
-            raise ValueError(f"Quote {quote.quote_number} is in status '{quote.status}', cannot accept.")
+            raise ValueError(
+                f"Quote {quote.quote_number} is in status '{quote.status}', cannot accept."
+            )
 
         if quote.valid_until < datetime.now(UTC).date():
             quote.status = "expired"
@@ -274,7 +278,10 @@ class SalesService:
             event_type="QuoteAcceptedEvent",
             aggregate_type="quote",
             aggregate_id=quote.id,
-            payload={"quote_number": quote.quote_number, "total_premium": float(quote.total_premium)},
+            payload={
+                "quote_number": quote.quote_number,
+                "total_premium": float(quote.total_premium),
+            },
         )
 
         return quote

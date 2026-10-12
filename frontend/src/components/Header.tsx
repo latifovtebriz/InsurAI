@@ -1,5 +1,20 @@
 import React from 'react';
-import { Shield, FileText, CheckCircle2, History, BarChart3, LogOut, PlusCircle, Calculator, Scale, DollarSign, RefreshCw } from 'lucide-react';
+import {
+  Shield,
+  FileText,
+  CheckCircle2,
+  History,
+  BarChart3,
+  LogOut,
+  PlusCircle,
+  Calculator,
+  Scale,
+  DollarSign,
+  RefreshCw,
+  ShieldAlert,
+  AlertTriangle,
+  Headphones,
+} from 'lucide-react';
 import { UserProfile } from '../types';
 
 interface HeaderProps {
@@ -19,13 +34,16 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const navItems = [
     { id: 'quotes', label: 'Quotes (A1)', icon: Calculator },
-    { id: 'underwriting', label: 'Underwriting (A2)', icon: Scale },
-    { id: 'claims', label: 'Claims Queue', icon: CheckCircle2 },
-    { id: 'finance', label: 'Finance & Ledger', icon: DollarSign },
+    { id: 'underwriting', label: 'UW (A2)', icon: Scale },
+    { id: 'claims', label: 'Claims', icon: CheckCircle2 },
+    { id: 'finance', label: 'Finance', icon: DollarSign },
     { id: 'renewals', label: 'Renewals (A7)', icon: RefreshCw },
+    { id: 'siu', label: 'SIU (A5)', icon: ShieldAlert },
+    { id: 'compliance', label: 'Compliance (A8)', icon: AlertTriangle },
+    { id: 'service', label: 'Service (A6/A3)', icon: Headphones },
     { id: 'fnol', label: 'Submit FNOL', icon: PlusCircle },
     { id: 'policies', label: 'Policies', icon: FileText },
-    { id: 'audit', label: 'Audit Trail', icon: History },
+    { id: 'audit', label: 'Audit', icon: History },
     { id: 'metrics', label: 'Metrics', icon: BarChart3 },
   ];
 

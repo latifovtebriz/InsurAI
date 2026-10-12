@@ -19,12 +19,8 @@ class ReinsuranceTreaty(Base):
     __tablename__ = "treaties"
     __table_args__ = {"schema": "reinsurance"}
 
-    id: Mapped[str] = mapped_column(
-        String(36), primary_key=True, default=lambda: str(uuid.uuid4())
-    )
-    treaty_code: Mapped[str] = mapped_column(
-        String(50), unique=True, nullable=False, index=True
-    )
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    treaty_code: Mapped[str] = mapped_column(String(50), unique=True, nullable=False, index=True)
     treaty_name: Mapped[str] = mapped_column(String(100), nullable=False)
     treaty_type: Mapped[str] = mapped_column(
         String(30), nullable=False, index=True
@@ -59,9 +55,7 @@ class ReinsuranceCession(Base):
     __tablename__ = "cessions"
     __table_args__ = {"schema": "reinsurance"}
 
-    id: Mapped[str] = mapped_column(
-        String(36), primary_key=True, default=lambda: str(uuid.uuid4())
-    )
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     treaty_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True)
     treaty_code: Mapped[str] = mapped_column(String(50), nullable=False, index=True)
     policy_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True)
@@ -81,9 +75,7 @@ class ReinsuranceRecovery(Base):
     __tablename__ = "recoveries"
     __table_args__ = {"schema": "reinsurance"}
 
-    id: Mapped[str] = mapped_column(
-        String(36), primary_key=True, default=lambda: str(uuid.uuid4())
-    )
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     treaty_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True)
     treaty_code: Mapped[str] = mapped_column(String(50), nullable=False, index=True)
     claim_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True)

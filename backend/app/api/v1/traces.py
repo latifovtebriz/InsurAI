@@ -105,7 +105,9 @@ def get_trace_detail(
                 detail=f"Trace run '{run_id}' not found",
             )
 
-    steps_stmt = select(AgentStep).where(AgentStep.run_id == run.id).order_by(AgentStep.step_index.asc())
+    steps_stmt = (
+        select(AgentStep).where(AgentStep.run_id == run.id).order_by(AgentStep.step_index.asc())
+    )
     steps = db.scalars(steps_stmt).all()
 
     step_responses = [

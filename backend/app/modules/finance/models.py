@@ -24,9 +24,7 @@ class Account(Base):
     account_type: Mapped[str] = mapped_column(
         String(20), nullable=False
     )  # ASSET, LIABILITY, EQUITY, REVENUE, EXPENSE
-    normal_balance: Mapped[str] = mapped_column(
-        String(10), nullable=False
-    )  # DEBIT, CREDIT
+    normal_balance: Mapped[str] = mapped_column(String(10), nullable=False)  # DEBIT, CREDIT
     description: Mapped[str | None] = mapped_column(Text, nullable=True)
 
 
@@ -36,9 +34,7 @@ class GeneralLedgerTransaction(Base):
     __tablename__ = "gl_transactions"
     __table_args__ = {"schema": "finance"}
 
-    id: Mapped[str] = mapped_column(
-        String(36), primary_key=True, default=lambda: str(uuid.uuid4())
-    )
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     transaction_number: Mapped[str] = mapped_column(
         String(50), unique=True, nullable=False, index=True
     )
@@ -60,17 +56,11 @@ class GeneralLedgerEntry(Base):
     __tablename__ = "gl_entries"
     __table_args__ = {"schema": "finance"}
 
-    id: Mapped[str] = mapped_column(
-        String(36), primary_key=True, default=lambda: str(uuid.uuid4())
-    )
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     transaction_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True)
     account_code: Mapped[str] = mapped_column(String(20), nullable=False, index=True)
-    debit: Mapped[Decimal] = mapped_column(
-        Numeric(14, 2), default=Decimal("0.00"), nullable=False
-    )
-    credit: Mapped[Decimal] = mapped_column(
-        Numeric(14, 2), default=Decimal("0.00"), nullable=False
-    )
+    debit: Mapped[Decimal] = mapped_column(Numeric(14, 2), default=Decimal("0.00"), nullable=False)
+    credit: Mapped[Decimal] = mapped_column(Numeric(14, 2), default=Decimal("0.00"), nullable=False)
     entry_order: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=utcnow, nullable=False
@@ -83,12 +73,8 @@ class Invoice(Base):
     __tablename__ = "invoices"
     __table_args__ = {"schema": "finance"}
 
-    id: Mapped[str] = mapped_column(
-        String(36), primary_key=True, default=lambda: str(uuid.uuid4())
-    )
-    invoice_number: Mapped[str] = mapped_column(
-        String(50), unique=True, nullable=False, index=True
-    )
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    invoice_number: Mapped[str] = mapped_column(String(50), unique=True, nullable=False, index=True)
     policy_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True)
     policy_number: Mapped[str] = mapped_column(String(50), nullable=False, index=True)
     party_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True)
@@ -101,9 +87,7 @@ class Invoice(Base):
     dunning_level: Mapped[int] = mapped_column(
         Integer, default=0, nullable=False
     )  # 0=current, 1=T+7, 2=T+14, 3=T+30
-    paid_at: Mapped[datetime | None] = mapped_column(
-        DateTime(timezone=True), nullable=True
-    )
+    paid_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=utcnow, nullable=False
     )
@@ -115,9 +99,7 @@ class Payment(Base):
     __tablename__ = "payments"
     __table_args__ = {"schema": "finance"}
 
-    id: Mapped[str] = mapped_column(
-        String(36), primary_key=True, default=lambda: str(uuid.uuid4())
-    )
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     payment_reference: Mapped[str] = mapped_column(
         String(60), unique=True, nullable=False, index=True
     )
@@ -141,9 +123,7 @@ class Disbursement(Base):
     __tablename__ = "disbursements"
     __table_args__ = {"schema": "finance"}
 
-    id: Mapped[str] = mapped_column(
-        String(36), primary_key=True, default=lambda: str(uuid.uuid4())
-    )
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     disbursement_reference: Mapped[str] = mapped_column(
         String(60), unique=True, nullable=False, index=True
     )
@@ -154,12 +134,8 @@ class Disbursement(Base):
         String(30), default="pending_approval", nullable=False, index=True
     )  # pending_approval, approved, disbursed, rejected
     approved_by: Mapped[str | None] = mapped_column(String(100), nullable=True)
-    approved_at: Mapped[datetime | None] = mapped_column(
-        DateTime(timezone=True), nullable=True
-    )
-    disbursed_at: Mapped[datetime | None] = mapped_column(
-        DateTime(timezone=True), nullable=True
-    )
+    approved_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    disbursed_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=utcnow, nullable=False
     )
@@ -171,9 +147,7 @@ class Commission(Base):
     __tablename__ = "commissions"
     __table_args__ = {"schema": "finance"}
 
-    id: Mapped[str] = mapped_column(
-        String(36), primary_key=True, default=lambda: str(uuid.uuid4())
-    )
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
     policy_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True)
     agent_party_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True)
     commission_rate: Mapped[Decimal] = mapped_column(Numeric(5, 4), nullable=False)

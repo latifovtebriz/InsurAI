@@ -98,11 +98,12 @@ class RenewalCase(Base):
     )  # pending_review, offer_generated, non_renewal_alert, accepted, declined
     notice_deadline: Mapped[date] = mapped_column(Date, nullable=False)  # T-30 statutory deadline
     notice_sent: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
-    statutory_deadline_breached: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    statutory_deadline_breached: Mapped[bool] = mapped_column(
+        Boolean, default=False, nullable=False
+    )
     advisor_rationale: Mapped[str | None] = mapped_column(Text, nullable=True)
     underwriter_approved: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     approved_by: Mapped[str | None] = mapped_column(String(100), nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=utcnow, nullable=False
     )
-

@@ -41,7 +41,9 @@ def test_sales_and_underwriting_api_lifecycle(client: TestClient, db_session: Se
     # 4. Chat with A1 Quote Assistant
     chat_resp = client.post(
         "/api/v1/sales/chat",
-        json={"message": "Can I get a quote for a 2023 Toyota Corolla valued at 35,000 AZN? I am 30 years old with 8 years driving experience."},
+        json={
+            "message": "Can I get a quote for a 2023 Toyota Corolla valued at 35,000 AZN? I am 30 years old with 8 years driving experience."
+        },
         headers=headers,
     )
     assert chat_resp.status_code == 200

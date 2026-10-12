@@ -36,7 +36,9 @@ class ReasonEvidence(BaseModel):
 
 
 class ClaimReason(BaseModel):
-    type: str = Field(description="coverage | exclusion | amount | risk | policy_status | missing_info")
+    type: str = Field(
+        description="coverage | exclusion | amount | risk | policy_status | missing_info"
+    )
     statement: str
     evidence: ReasonEvidence = Field(default_factory=ReasonEvidence)
 
@@ -125,9 +127,7 @@ class ClaimsTriageAgent:
     def _register_tools(self) -> None:
         # Tool 1: get_policy
         def _get_policy_handler(args: GetPolicyArgs) -> dict[str, Any]:
-            rep = policy_service.check_policy_active(
-                self.session, args.policy_number, date_today()
-            )
+            rep = policy_service.check_policy_active(self.session, args.policy_number, date_today())
             if not rep.exists:
                 return {"status": "not_found", "policy_number": args.policy_number}
             return {
@@ -152,6 +152,7 @@ class ClaimsTriageAgent:
         # Tool 2: check_policy_active
         def _check_policy_active_handler(args: CheckPolicyActiveArgs) -> dict[str, Any]:
             from datetime import date
+
             try:
                 inc_date = date.fromisoformat(args.incident_date)
             except ValueError:
@@ -268,6 +269,7 @@ class ClaimsTriageAgent:
         # Tool 6: get_fraud_signals
         def _get_fraud_signals_handler(args: GetFraudSignalsArgs) -> dict[str, Any]:
             from datetime import date
+
             try:
                 inc_date = date.fromisoformat(args.incident_date)
             except ValueError:
@@ -288,7 +290,12 @@ class ClaimsTriageAgent:
                 claimed_amount=Decimal(str(args.claimed_amount)),
                 prior_claims_count=prior_count,
             )
-            return {"signals": [{"code": s.code, "severity": s.severity, "description": s.description} for s in signals]}
+            return {
+                "signals": [
+                    {"code": s.code, "severity": s.severity, "description": s.description}
+                    for s in signals
+                ]
+            }
 
         self.registry.register(
             ToolDefinition(

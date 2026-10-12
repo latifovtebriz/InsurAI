@@ -4,6 +4,11 @@ import {
   ChatQuoteResponse,
   ClaimDetail,
   ClaimSummary,
+  ComplaintItem,
+  ComplianceAlertItem,
+  ComplianceExplanationResponse,
+  CustomerChatResponse,
+  EndorsementDraftResult,
   EvalSummary,
   FinancialKpiResponse,
   GeneralLedgerTransactionItem,
@@ -17,6 +22,8 @@ import {
   ReinsuranceTreatyItem,
   RenewalAssessmentResponse,
   RenewalCaseItem,
+  SIUAssessmentResponse,
+  SIUCaseItem,
   UnderwritingCaseDetail,
   UnderwritingCaseSummary,
   UserProfile,
@@ -347,6 +354,108 @@ class ApiClient {
   // Reinsurance
   async getReinsuranceTreaties(): Promise<ReinsuranceTreatyItem[]> {
     return this.request<ReinsuranceTreatyItem[]>('/api/v1/reinsurance/treaties');
+  }
+
+  // Phase 11: Fraud & SIU (Agent A5)
+  async getSIUCases(statusFilter?: string): Promise<SIUCaseItem[]> {
+    const url = statusFilter ? `/api/v1/siu/cases?status_filter=${statusFilter}` : '/api/v1/siu/cases';
+    return this.request<SIUCaseItem[]>(url);
+  }
+
+  async getSIUCase(caseId: string): Promise<SIUCaseItem & { signals: any[] }> {
+    return this.request(`/api/v1/siu/cases/${caseId}`);
+  }
+
+  async assessClaimSIU(claimNumber: string, investigatorNotes = ''): Promise<SIUAssessmentResponse> {
+    return this.request<SIUAssessmentResponse>(`/api/v1/siu/assess/${claimNumber}`, {
+      method: 'POST',
+      body: JSON.stringify({ investigator_notes: investigatorNotes }),
+    });
+  }
+
+  async updateSIUCase(caseId: string, status: string, findingsSummary: string, investigatorId = 'investigator'): Promise<{ status: string }> {
+    return this.request(`/api/v1/siu/cases/${caseId}/update`, {
+      method: 'POST',
+      body: JSON.stringify({ status, findings_summary: findingsSummary, investigator_id: investigatorId }),
+    });
+  }
+
+  // Phase 11: Compliance & Watchlist (Agent A8)
+  async getComplianceAlerts(statusFilter?: string): Promise<ComplianceAlertItem[]> {
+    const url = statusFilter ? `/api/v1/compliance/alerts?status_filter=${statusFilter}` : '/api/v1/compliance/alerts';
+    return this.request<ComplianceAlertItem[]>(url);
+  }
+
+  async screenPartyCompliance(partyId: string, partyName: string, taxId?: string): Promise<{
+    status: string;
+    matches_count: number;
+    alerts: Array<{ id: string; alert_number: string; matched_name: string; score: number }>;
+  }> {
+    return this.request('/api/v1/compliance/screen', {
+      method: 'POST',
+      body: JSON.stringify({ party_id: partyId, party_name: partyName, tax_id: taxId }),
+    });
+  }
+
+  async assessComplianceAlert(alertId: string): Promise<ComplianceExplanationResponse> {
+    return this.request<ComplianceExplanationResponse>(`/api/v1/compliance/assess/${alertId}`, {
+      method: 'POST',
+    });
+  }
+
+  async adjudicateComplianceAlert(alertId: string, decision: string, decisionNotes: string): Promise<{
+    status: string;
+    alert_status: string;
+    alert_number: string;
+    decided_by: string;
+  }> {
+    return this.request(`/api/v1/compliance/alerts/${alertId}/adjudicate`, {
+      method: 'POST',
+      body: JSON.stringify({ decision, decision_notes: decisionNotes }),
+    });
+  }
+
+  // Phase 11: Customer Service & Servicing (Agents A6 & A3)
+  async sendCustomerChat(message: string, isAuthenticated = false, verifiedPartyId?: string, customerIdentifier = 'guest_user'): Promise<CustomerChatResponse> {
+    return this.request<CustomerChatResponse>('/api/v1/service/chat', {
+      method: 'POST',
+      body: JSON.stringify({
+        message,
+        is_authenticated: isAuthenticated,
+        verified_party_id: verifiedPartyId,
+        customer_identifier: customerIdentifier,
+      }),
+    });
+  }
+
+  async getComplaints(statusFilter?: string): Promise<ComplaintItem[]> {
+    const url = statusFilter ? `/api/v1/service/complaints?status_filter=${statusFilter}` : '/api/v1/service/complaints';
+    return this.request<ComplaintItem[]>(url);
+  }
+
+  async submitComplaint(partyId: string, subject: string, description: string, policyId?: string, claimId?: string): Promise<{
+    status: string;
+    complaint_number: string;
+    initial_response_deadline: string;
+    final_resolution_deadline: string;
+    sla_breached: boolean;
+  }> {
+    return this.request('/api/v1/service/complaints', {
+      method: 'POST',
+      body: JSON.stringify({ party_id: partyId, subject, description, policy_id: policyId, claim_id: claimId }),
+    });
+  }
+
+  async proposeEndorsement(policyNumber: string, endorsementType: string, effectiveDate: string, changes: Record<string, any>): Promise<EndorsementDraftResult> {
+    return this.request<EndorsementDraftResult>('/api/v1/service/endorsements/propose', {
+      method: 'POST',
+      body: JSON.stringify({
+        policy_number: policyNumber,
+        endorsement_type: endorsementType,
+        effective_date: effectiveDate,
+        changes,
+      }),
+    });
   }
 }
 

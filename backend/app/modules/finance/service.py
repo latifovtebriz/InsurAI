@@ -108,9 +108,7 @@ class FinanceService:
             raise ValueError(f"Policy with id '{policy_id}' not found.")
 
         # Check existing invoices
-        existing = session.scalars(
-            select(Invoice).where(Invoice.policy_id == policy_id)
-        ).all()
+        existing = session.scalars(select(Invoice).where(Invoice.policy_id == policy_id)).all()
         if existing:
             return list(existing)
 
@@ -392,7 +390,7 @@ class FinanceService:
             session=session,
             reference_type="COMMISSION_ACCRUAL",
             reference_id=policy_number,
-            description=f"Commission accrual ({float(rate)*100:.1f}%) for policy {policy_number}",
+            description=f"Commission accrual ({float(rate) * 100:.1f}%) for policy {policy_number}",
             entries=entries,
             user_id=user_id,
         )
@@ -479,17 +477,17 @@ class FinanceService:
             cred_val = quantize_money(cred)
 
             if acc_code == "4010":
-                gwp += (cred_val - deb_val)
+                gwp += cred_val - deb_val
             elif acc_code in ("5010", "5030"):
-                losses += (deb_val - cred_val)
+                losses += deb_val - cred_val
             elif acc_code == "5020":
-                commissions += (deb_val - cred_val)
+                commissions += deb_val - cred_val
             elif acc_code == "1010":
-                cash += (deb_val - cred_val)
+                cash += deb_val - cred_val
             elif acc_code == "1200":
-                receivables += (deb_val - cred_val)
+                receivables += deb_val - cred_val
             elif acc_code == "2010":
-                claims_payable += (cred_val - deb_val)
+                claims_payable += cred_val - deb_val
 
         gwp = quantize_money(gwp)
         losses = quantize_money(losses)
