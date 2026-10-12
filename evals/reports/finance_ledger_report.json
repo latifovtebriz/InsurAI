@@ -1,0 +1,16 @@
+{
+  "transactions_tested": 175,
+  "invariants_passed": 175,
+  "invariant_success_rate_pct": 100.0,
+  "total_debits": 143750.0,
+  "total_credits": 143750.0,
+  "difference": 0.0,
+  "is_balanced": true,
+  "kpis": {
+    "gross_written_premium": 46875.0,
+    "incurred_losses": 21250.0,
+    "loss_ratio_pct": 45.33,
+    "combined_ratio_pct": 45.33,
+    "cash_balance": 25625.0
+  }
+}

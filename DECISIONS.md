@@ -16,6 +16,7 @@
 | ADR-010 | Tooling and Quality Stack: Python 3.12+, uv, FastAPI, Pydantic v2, Ruff, Mypy | Accepted | 2026-10-12 |
 | ADR-011 | React 18, Vite, TypeScript Web Console with Human-in-the-Loop Transparency | Accepted | 2026-10-12 |
 | ADR-012 | Deterministic Underwriting Rules vs Copilot Boundaries & G2 Numerical Fidelity | Accepted | 2026-10-12 |
+| ADR-013 | Balanced Double-Entry General Ledger Constraint & Reinsurance Bordereaux Architecture | Accepted | 2026-10-12 |
 
 ---
 
@@ -81,3 +82,8 @@
 - **Context:** Letting LLMs directly calculate insurance quotes or evaluate underwriting risk thresholds leads to price hallucinations, unvetted exposures, and statutory non-compliance.
 - **Decision:** Strictly separate deterministic rule evaluation from agentic assistance. For sales (Agent A1), the LLM parses natural language intent, clarifies missing parameters, and explains quotes, but all numerical premiums are calculated by pure Python rating functions (Guardrail G2). For underwriting (Agent A2), deterministic rule hits (UW-01 through UW-05) and authority limit tiers are evaluated first; Copilot A2 summarizes risk profiles and retrieves guidelines, but cannot auto-approve beyond authority tiers or execute terminal declines without human underwriter sign-off (Guardrail G3).
 - **Consequences:** 100% numerical fidelity in quotations, zero risk of autonomous unauthorized risk acceptance, fully auditable underwriting governance.
+
+### ADR-013: Balanced Double-Entry General Ledger Constraint & Reinsurance Bordereaux Architecture
+- **Context:** Financial movements in core insurance (premium receivables, cash collection, loss reserves, claim payouts, commissions, and reinsurance cessions) must maintain absolute accounting integrity. Single-entry ledgers or ad-hoc balance columns allow rounding drift and hidden imbalances. Furthermore, treaty reinsurance requires tracking cessions and recoveries down to the cent for reinsurer bordereaux reporting.
+- **Decision:** Implement a strict double-entry General Ledger engine (`GeneralLedgerTransaction`, `GeneralLedgerEntry`). Every financial operation must post matching debits and credits; the invariant `|sum(debit) - sum(credit)| == 0.00` is enforced prior to every commit, raising `LedgerImbalanceError` on any mismatch. Reinsurance treaties (Quota Share and Excess of Loss) automatically calculate ceded premiums and recoveries, posting balanced contra accounts and generating periodic bordereau statements. Expiring policies are reviewed at T-60 by Renewal Service and Agent A7, with statutory 30-day notice deadlines strictly monitored and non-renewals requiring underwriter sign-off (L2).
+- **Consequences:** Zero financial imbalance drift across all accounts, full auditability, automated treaty bordereaux generation, and compliance with statutory policy non-renewal notification mandates.

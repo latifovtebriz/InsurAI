@@ -293,3 +293,110 @@ export interface UnderwritingCaseDetail {
   created_at: string;
 }
 
+export interface InvoiceItem {
+  id: string;
+  invoice_number: string;
+  policy_id: string;
+  policy_number: string;
+  party_id: string;
+  installment_number: number;
+  amount: number;
+  due_date: string;
+  status: string;
+  dunning_level: number;
+  paid_at?: string | null;
+  created_at: string;
+}
+
+export interface GeneralLedgerTransactionItem {
+  id: string;
+  transaction_number: string;
+  transaction_date: string;
+  reference_type: string;
+  reference_id: string;
+  description: string;
+  total_amount: number;
+  entries: Array<{
+    account_code: string;
+    debit: number;
+    credit: number;
+  }>;
+  created_at: string;
+}
+
+export interface LedgerCheckResponse {
+  is_balanced: boolean;
+  difference: number;
+  total_debits: number;
+  total_credits: number;
+  status: string;
+}
+
+export interface FinancialKpiResponse {
+  gross_written_premium: number;
+  incurred_losses: number;
+  commissions_expense: number;
+  loss_ratio_pct: number;
+  expense_ratio_pct: number;
+  combined_ratio_pct: number;
+  cash_balance: number;
+  outstanding_receivables: number;
+  claims_payable_reserve: number;
+  ledger_balanced: boolean;
+  ledger_difference: number;
+}
+
+export interface RenewalCaseItem {
+  id: string;
+  policy_id: string;
+  policy_number: string;
+  party_id: string;
+  product_code: string;
+  current_end_date: string;
+  days_to_expiry: number;
+  claims_count: number;
+  total_claims_incurred: number;
+  current_premium: number;
+  proposed_premium: number;
+  recommendation: string;
+  status: string;
+  notice_deadline: string;
+  notice_sent: boolean;
+  statutory_deadline_breached: boolean;
+  advisor_rationale?: string | null;
+  underwriter_approved: boolean;
+  approved_by?: string | null;
+}
+
+export interface RenewalAssessmentResponse {
+  policy_number: string;
+  current_end_date: string;
+  days_to_expiry: number;
+  claims_count: number;
+  total_claims_incurred: number;
+  current_premium: number;
+  proposed_premium: number;
+  recommendation: string;
+  notice_deadline: string;
+  statutory_deadline_breached: boolean;
+  autonomy_level: string;
+  draft_notice_text: string;
+  underwriter_signoff_required: boolean;
+}
+
+export interface ReinsuranceTreatyItem {
+  id: string;
+  treaty_code: string;
+  treaty_name: string;
+  treaty_type: string;
+  product_code: string;
+  reinsurer_name: string;
+  retention_share_pct: number;
+  ceded_share_pct: number;
+  retention_amount: number;
+  treaty_limit: number;
+  start_date: string;
+  end_date: string;
+  is_active: boolean;
+}
+

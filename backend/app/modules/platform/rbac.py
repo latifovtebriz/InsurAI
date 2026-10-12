@@ -15,9 +15,9 @@ security_bearer = HTTPBearer(auto_error=False)
 # Static Role-Permission Mapping per Architecture Section 3.12
 ROLE_PERMISSIONS_MATRIX: dict[str, list[str]] = {
     "admin": ["*"],
-    "underwriter": ["sales:*", "underwriting:*", "product:read", "policy:read", "traces:read", "metrics:read"],
-    "adjuster": ["claims:*", "policy:read", "fraud:read", "sales:read", "underwriting:read", "traces:read", "audit:read", "metrics:read"],
-    "finance_officer": ["finance:*", "claims:read", "traces:read", "metrics:read"],
+    "underwriter": ["sales:*", "underwriting:*", "product:read", "policy:read", "policy:write", "finance:read", "traces:read", "metrics:read"],
+    "adjuster": ["claims:*", "policy:read", "fraud:read", "sales:read", "underwriting:read", "payment:execute", "traces:read", "audit:read", "metrics:read"],
+    "finance_officer": ["finance:*", "payment:*", "policy:read", "policy:write", "claims:read", "traces:read", "metrics:read"],
     "compliance_officer": ["compliance:*", "party:read", "audit:read", "traces:read", "metrics:read"],
     "siu_investigator": ["fraud:*", "claims:read", "traces:read", "metrics:read"],
     "broker": ["sales:*", "policy:read_assigned", "underwriting:read"],

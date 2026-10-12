@@ -1,11 +1,11 @@
 # InsurAI Implementation Progress
 
 ## Current State
-- **Active Phase:** Phase 10 (Finance, Renewal, Reinsurance, and A7 Renewal Advisor)
-- **Active Task:** Task 10.1 (`finance` module P05, P11: installments, invoices, balanced double-entry ledger, dunning)
+- **Active Phase:** Phase 11 (Fraud, Compliance, Service, A5, A6, A8, A3 - Release R2)
+- **Active Task:** Task 11.1 (`fraud` module P09, SIU routing, A5 Fraud Agent with G8 neutral language)
 - **Status:** In Progress
-- **Last Completed Step:** Phase 9 completed, Sales module, Underwriting rule engine, A1 Quote Assistant, A2 Underwriting Copilot, REST API, UI screens, eval runner, tagged `phase-9-done`.
-- **Next Step:** Implement finance ledger models, balanced entry invariants, renewal job at T-60, reinsurance treaties, and A7 Renewal Advisor.
+- **Last Completed Step:** Phase 10 completed. Built Finance double-entry ledger (Debits == Credits invariant), Invoicing, Payments, Dunning, Reinsurance treaties (QS/XOL), Bordereaux, Policy Renewal (P07), Agent A7 Renewal Advisor, REST APIs, and UI screens. Tagged `phase-10-done`.
+- **Next Step:** Implement Phase 11 modules: fraud SIU (A5), compliance screening (A8), policy servicing (A3), customer service chat (A6), and tag `release-R2`.
 
 ---
 
@@ -23,8 +23,8 @@
 | Phase 7 | Claims and Claims Triage Agent (A4) | Completed | `phase-7-done` |
 | Phase 8 | Web console v1 & Release R1 | Completed | `phase-8-done`, `release-R1` |
 | Phase 9 | Sales and underwriting (A1, A2) | Completed | `phase-9-done` |
-| Phase 10 | Finance, renewal, reinsurance, A7 | In Progress | - |
-| Phase 11 | Fraud, compliance, service, A5, A6, A8, A3 | Not Started | `release-R2` pending |
+| Phase 10 | Finance, renewal, reinsurance, A7 | Completed | `phase-10-done` |
+| Phase 11 | Fraud, compliance, service, A5, A6, A8, A3 | In Progress | `release-R2` pending |
 | Phase 12 | Console v2, KPIs, end-to-end journeys | Not Started | - |
 | Phase 13 | Observability, security, governance, polish | Not Started | `release-R3` pending |
 | Phase 14 | Deployment (Postponed) | Postponed | - |

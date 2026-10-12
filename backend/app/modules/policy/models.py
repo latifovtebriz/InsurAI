@@ -6,7 +6,7 @@ from decimal import Decimal
 from typing import Any
 
 from app.db import Base
-from sqlalchemy import Date, DateTime, Numeric, String, Text
+from sqlalchemy import Boolean, Date, DateTime, Integer, Numeric, String, Text
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.types import JSON
 
@@ -69,3 +69,40 @@ class PolicyCertificate(Base):
     issued_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=utcnow, nullable=False
     )
+
+
+class RenewalCase(Base):
+    """Annual policy renewal review, claim loss rating, and statutory notice enforcement."""
+
+    __tablename__ = "renewal_cases"
+    __table_args__ = {"schema": "policy"}
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
+    policy_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True)
+    policy_number: Mapped[str] = mapped_column(String(50), nullable=False, index=True)
+    party_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True)
+    product_code: Mapped[str] = mapped_column(String(50), nullable=False, index=True)
+    current_end_date: Mapped[date] = mapped_column(Date, nullable=False, index=True)
+    days_to_expiry: Mapped[int] = mapped_column(Integer, nullable=False)
+    claims_count: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    total_claims_incurred: Mapped[Decimal] = mapped_column(
+        Numeric(12, 2), default=Decimal("0.00"), nullable=False
+    )
+    current_premium: Mapped[Decimal] = mapped_column(Numeric(10, 2), nullable=False)
+    proposed_premium: Mapped[Decimal] = mapped_column(Numeric(10, 2), nullable=False)
+    recommendation: Mapped[str] = mapped_column(
+        String(30), nullable=False
+    )  # STANDARD_RENEWAL, SURCHARGED_RENEWAL, NON_RENEWAL
+    status: Mapped[str] = mapped_column(
+        String(30), default="pending_review", nullable=False, index=True
+    )  # pending_review, offer_generated, non_renewal_alert, accepted, declined
+    notice_deadline: Mapped[date] = mapped_column(Date, nullable=False)  # T-30 statutory deadline
+    notice_sent: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    statutory_deadline_breached: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    advisor_rationale: Mapped[str | None] = mapped_column(Text, nullable=True)
+    underwriter_approved: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    approved_by: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=utcnow, nullable=False
+    )
+

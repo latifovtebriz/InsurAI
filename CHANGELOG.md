@@ -28,5 +28,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **REST API & Web Console v2 (Phase 9):** Endpoints `/api/v1/sales/*` and `/api/v1/underwriting/*`, `QuotesScreen.tsx` (calculator, A1 chat, quote ledger), and `UnderwritingScreen.tsx` (referral queue, rule hits dossier, A2 Copilot panel, adjudication form).
 - **Evaluation Suite (Phase 9):** Evaluated across 60 test scenarios with 100% G2 engine fidelity, 100% rule recall and precision, and 100% human sign-off enforcement.
 
-- Phase 10: Finance, Renewal, Reinsurance (A7).
+- **Finance & Double-Entry Ledger (Phase 10):** Chart of Accounts (`finance.accounts`), General Ledger (`gl_transactions`, `gl_entries`), constraint-enforced balanced double-entry invariant (Debits strictly equal Credits down to exact cent across 100% of journal postings), installment invoicing, payment intake simulator, payment allocation to policies, automated dunning job (T+7, T+14, T+30 escalations), claims payout disbursement with 4-eyes authorization, commission accrual.
+- **Reinsurance Treaties & Bordereaux (Phase 10):** Reinsurance treaties (`reinsurance.treaties` for Quota Share 20% and Excess of Loss 50k xs 500k), automated premium cessions, claim loss recoveries, monthly bordereau report generator.
+- **Policy Renewal (P07) & Agent A7 (Renewal Advisor) (Phase 10):** T-60 automated expiring policy scanning, claim frequency/severity re-rating with bonus-malus adjustments, statutory 30-day notice deadline monitoring (`statutory_deadline_breached = True`), Agent A7 with ReAct tool registry, draft renewal notice generation, L1 standard renewals, L2 underwriter sign-off for surcharges and non-renewals.
+- **REST APIs & Console v2 Screens (Phase 10):** Endpoints `/api/v1/finance/*`, `/api/v1/renewals/*`, `/api/v1/reinsurance/*`, `FinanceScreen.tsx` (KPIs, invoice simulator, double-entry journal viewer, treaties), `RenewalScreen.tsx` (T-60 queue, statutory notice alert banner, A7 Advisor inspection panel).
+- **Evaluation Benchmark (Phase 10):** Evaluated 175 financial transactions with 100.0% invariant preservation (Δ = 0.00 AZN), 30 renewal scenarios with 100.0% statutory breach recall and 100.0% G2 rate fidelity.
+
 - Phase 11: Fraud SIU (A5), Compliance (A8), Servicing (A3), Customer Chat (A6). Tag `release-R2`.

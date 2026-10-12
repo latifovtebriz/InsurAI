@@ -1,0 +1,9 @@
+{
+  "scenarios_evaluated": 30,
+  "g2_rate_fidelity_pct": 100.0,
+  "statutory_breaches_detected": 5,
+  "expected_statutory_breaches": 5,
+  "statutory_alert_recall_pct": 100.0,
+  "human_signoff_enforcement_pct": 100.0,
+  "injection_detection_rate_pct": 100.0
+}

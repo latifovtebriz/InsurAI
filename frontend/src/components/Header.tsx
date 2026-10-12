@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, FileText, CheckCircle2, History, BarChart3, LogOut, PlusCircle, Calculator, Scale } from 'lucide-react';
+import { Shield, FileText, CheckCircle2, History, BarChart3, LogOut, PlusCircle, Calculator, Scale, DollarSign, RefreshCw } from 'lucide-react';
 import { UserProfile } from '../types';
 
 interface HeaderProps {
@@ -21,10 +21,12 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'quotes', label: 'Quotes (A1)', icon: Calculator },
     { id: 'underwriting', label: 'Underwriting (A2)', icon: Scale },
     { id: 'claims', label: 'Claims Queue', icon: CheckCircle2 },
+    { id: 'finance', label: 'Finance & Ledger', icon: DollarSign },
+    { id: 'renewals', label: 'Renewals (A7)', icon: RefreshCw },
     { id: 'fnol', label: 'Submit FNOL', icon: PlusCircle },
     { id: 'policies', label: 'Policies', icon: FileText },
     { id: 'audit', label: 'Audit Trail', icon: History },
-    { id: 'metrics', label: 'Metrics & Evals', icon: BarChart3 },
+    { id: 'metrics', label: 'Metrics', icon: BarChart3 },
   ];
 
   return (
@@ -39,8 +41,8 @@ export const Header: React.FC<HeaderProps> = ({
             <div>
               <div className="flex items-center space-x-2">
                 <span className="font-bold text-lg text-white tracking-tight">InsurAI</span>
-                <span className="text-[10px] uppercase font-semibold tracking-wider px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30">
-                  Release R1
+                <span className="text-[10px] uppercase font-semibold tracking-wider px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  Release R2
                 </span>
               </div>
               <p className="text-xs text-slate-400">Autonomous P&C Insurance Platform</p>

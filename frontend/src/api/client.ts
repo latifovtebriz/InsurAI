@@ -5,11 +5,18 @@ import {
   ClaimDetail,
   ClaimSummary,
   EvalSummary,
+  FinancialKpiResponse,
+  GeneralLedgerTransactionItem,
+  InvoiceItem,
+  LedgerCheckResponse,
   OperationalMetrics,
   PolicyDetail,
   PolicyListItem,
   QuoteDetail,
   QuoteSummary,
+  ReinsuranceTreatyItem,
+  RenewalAssessmentResponse,
+  RenewalCaseItem,
   UnderwritingCaseDetail,
   UnderwritingCaseSummary,
   UserProfile,
@@ -239,6 +246,107 @@ class ApiClient {
       method: 'POST',
       body: JSON.stringify(decision),
     });
+  }
+
+  // Finance & Ledger
+  async getInvoices(policyNumber?: string, status?: string): Promise<InvoiceItem[]> {
+    let url = '/api/v1/finance/invoices';
+    const params = new URLSearchParams();
+    if (policyNumber) params.append('policy_number', policyNumber);
+    if (status) params.append('status', status);
+    if (params.toString()) url += `?${params.toString()}`;
+    return this.request<InvoiceItem[]>(url);
+  }
+
+  async payInvoice(invoiceId: string, amount: number, paymentMethod = 'bank_transfer'): Promise<{
+    status: string;
+    message: string;
+    payment_reference: string;
+    amount: number;
+  }> {
+    return this.request(`/api/v1/finance/invoices/${invoiceId}/pay`, {
+      method: 'POST',
+      body: JSON.stringify({ amount, payment_method: paymentMethod }),
+    });
+  }
+
+  async getLedgerTransactions(limit = 50): Promise<GeneralLedgerTransactionItem[]> {
+    return this.request<GeneralLedgerTransactionItem[]>(`/api/v1/finance/ledger?limit=${limit}`);
+  }
+
+  async getLedgerCheck(): Promise<LedgerCheckResponse> {
+    return this.request<LedgerCheckResponse>('/api/v1/finance/ledger/check');
+  }
+
+  async getFinancialKpis(): Promise<FinancialKpiResponse> {
+    return this.request<FinancialKpiResponse>('/api/v1/finance/kpis');
+  }
+
+  async runDunningJob(asOfDate?: string): Promise<{
+    status: string;
+    notices_generated_count: number;
+    notices: Array<Record<string, unknown>>;
+  }> {
+    return this.request('/api/v1/finance/dunning/run', {
+      method: 'POST',
+      body: JSON.stringify({ as_of_date: asOfDate }),
+    });
+  }
+
+  // Renewal Review & A7 Advisor
+  async getRenewalCases(status?: string, breachedOnly = false): Promise<RenewalCaseItem[]> {
+    let url = '/api/v1/renewals/cases';
+    const params = new URLSearchParams();
+    if (status) params.append('status_filter', status);
+    if (breachedOnly) params.append('breached_only', 'true');
+    if (params.toString()) url += `?${params.toString()}`;
+    return this.request<RenewalCaseItem[]>(url);
+  }
+
+  async runRenewalScan(daysAhead = 60, asOfDate?: string): Promise<{
+    status: string;
+    scanned_cases_count: number;
+    breaches_flagged_count: number;
+  }> {
+    return this.request('/api/v1/renewals/scan', {
+      method: 'POST',
+      body: JSON.stringify({ days_ahead: daysAhead, as_of_date: asOfDate }),
+    });
+  }
+
+  async assessPolicyRenewal(policyNumber: string, message = '', asOfDate?: string): Promise<RenewalAssessmentResponse> {
+    return this.request<RenewalAssessmentResponse>(`/api/v1/renewals/assess/${policyNumber}`, {
+      method: 'POST',
+      body: JSON.stringify({ message, as_of_date: asOfDate }),
+    });
+  }
+
+  async generateRenewalOffer(caseId: string): Promise<{ status: string; message: string }> {
+    return this.request(`/api/v1/renewals/cases/${caseId}/offer`, {
+      method: 'POST',
+    });
+  }
+
+  async issueNonRenewalNotice(caseId: string, rationale: string, underwriterName = 'Senior Underwriter'): Promise<{ status: string; message: string }> {
+    return this.request(`/api/v1/renewals/cases/${caseId}/non-renewal`, {
+      method: 'POST',
+      body: JSON.stringify({ rationale, underwriter_name: underwriterName }),
+    });
+  }
+
+  async acceptRenewalOffer(caseId: string): Promise<{
+    status: string;
+    renewed_policy_number: string;
+    premium: number;
+  }> {
+    return this.request(`/api/v1/renewals/cases/${caseId}/accept`, {
+      method: 'POST',
+    });
+  }
+
+  // Reinsurance
+  async getReinsuranceTreaties(): Promise<ReinsuranceTreatyItem[]> {
+    return this.request<ReinsuranceTreatyItem[]>('/api/v1/reinsurance/treaties');
   }
 }
 

@@ -6,6 +6,15 @@ import pytest
 from app.db import Base, get_db
 from app.main import app
 from app.modules.claims.public import Claim, ClaimDocument, ClaimReserve  # noqa: F401
+from app.modules.finance.public import (  # noqa: F401
+    Account,
+    Commission,
+    Disbursement,
+    GeneralLedgerEntry,
+    GeneralLedgerTransaction,
+    Invoice,
+    Payment,
+)
 from app.modules.party.public import Intermediary, Party, Property, Vehicle  # noqa: F401
 from app.modules.platform.public import (  # noqa: F401
     AgentRun,
@@ -18,8 +27,13 @@ from app.modules.platform.public import (  # noqa: F401
     RolePermission,
     User,
 )
-from app.modules.policy.public import Policy, PolicyCertificate  # noqa: F401
+from app.modules.policy.public import Policy, PolicyCertificate, RenewalCase  # noqa: F401
 from app.modules.product.public import Product, ProductVersion  # noqa: F401
+from app.modules.reinsurance.public import (  # noqa: F401
+    ReinsuranceCession,
+    ReinsuranceRecovery,
+    ReinsuranceTreaty,
+)
 from app.modules.sales.public import Lead, Quote  # noqa: F401
 from app.modules.underwriting.public import UnderwritingCase  # noqa: F401
 from fastapi.testclient import TestClient
