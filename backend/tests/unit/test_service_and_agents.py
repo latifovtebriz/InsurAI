@@ -6,9 +6,10 @@ from app.modules.service.customer_agent import CustomerServiceAgent
 from app.modules.service.models import EndorsementDraft
 from app.modules.service.service import CustomerServiceDomain
 from app.modules.service.servicing_agent import PolicyServicingAgent
+from sqlalchemy.orm import Session
 
 
-def test_agent_a6_verification_gate_unverified_faq(db_session):
+def test_agent_a6_verification_gate_unverified_faq(db_session: Session) -> None:
     """Unverified users can access general FAQ without authentication."""
     agent = CustomerServiceAgent()
     resp = agent.handle_customer_message(
@@ -22,7 +23,9 @@ def test_agent_a6_verification_gate_unverified_faq(db_session):
     assert resp.action_taken == "FAQ_LOOKUP"
 
 
-def test_agent_a6_verification_gate_blocks_unverified_policy_access(db_session):
+def test_agent_a6_verification_gate_blocks_unverified_policy_access(
+    db_session: Session,
+) -> None:
     """Unverified users requesting policy data are strictly gated."""
     agent = CustomerServiceAgent()
     resp = agent.handle_customer_message(
@@ -36,7 +39,7 @@ def test_agent_a6_verification_gate_blocks_unverified_policy_access(db_session):
     assert "Identity verification required" in resp.reply_text
 
 
-def test_agent_a6_verified_policy_access(db_session):
+def test_agent_a6_verified_policy_access(db_session: Session) -> None:
     """Verified users can inspect their active policies."""
     # Seed a policy
     start = date.today() - timedelta(days=30)
@@ -69,7 +72,7 @@ def test_agent_a6_verified_policy_access(db_session):
     assert "POL-A6-TEST-001" in resp.reply_text
 
 
-def test_complaint_statutory_sla_countdown_and_breach(db_session):
+def test_complaint_statutory_sla_countdown_and_breach(db_session: Session) -> None:
     """Statutory SLAs: 5-day initial response, 15-day resolution deadline."""
     domain = CustomerServiceDomain()
     base_date = date(2026, 1, 1)
@@ -98,7 +101,7 @@ def test_complaint_statutory_sla_countdown_and_breach(db_session):
     assert complaint.status == "escalated_to_ombudsman"
 
 
-def test_agent_a3_midterm_endorsement_and_prorata(db_session):
+def test_agent_a3_midterm_endorsement_and_prorata(db_session: Session) -> None:
     """Agent A3 drafts mid-term endorsement with exact pro-rata premium under L2 governance."""
     start = date(2026, 1, 1)
     end = date(2026, 12, 31)  # 365 days

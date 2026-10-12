@@ -10,6 +10,7 @@ import {
   CustomerChatResponse,
   EndorsementDraftResult,
   EvalSummary,
+  ExecutiveKPIs,
   FinancialKpiResponse,
   GeneralLedgerTransactionItem,
   InvoiceItem,
@@ -184,6 +185,10 @@ class ApiClient {
   // Metrics
   async getMetrics(): Promise<OperationalMetrics> {
     return this.request<OperationalMetrics>('/api/v1/metrics');
+  }
+
+  async getExecutiveKPIs(): Promise<ExecutiveKPIs> {
+    return this.request<ExecutiveKPIs>('/api/v1/metrics/executive-kpis');
   }
 
   async getEvalReports(): Promise<EvalSummary> {

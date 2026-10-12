@@ -31,6 +31,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Complaints & Statutory SLAs (Phase 11):** 5-day initial response and 15-day resolution deadline tracking with automatic Ombudsman breach escalation.
 - **Web Console v2 Screens (Phase 11):** `SIUScreen.tsx` (fraud score breakdown, G8 neutral dossier), `ComplianceScreen.tsx` (sanctions screening, A8 explainer, officer adjudication), and `CustomerServiceScreen.tsx` (verification gate chat simulator, A3 endorsement drafting, complaints SLA tracker).
 - **Finance, Renewal & Reinsurance (Phase 10):** Balanced double-entry ledger (Debits == Credits invariant across 100% of postings), installment invoicing, automated dunning (T+7, T+14, T+30), Quota Share and Excess of Loss treaties, bordereaux generator, T-60 renewal scanning with statutory 30-day notice monitoring, Agent A7 Renewal Advisor.
-- **Sales & Underwriting (Phase 9):** Sales module, deterministic rating engines (G2 math equality), Agent A1 Quote Assistant, Underwriting rule engine (UW-01..05), authority tiers, Agent A2 Underwriting Copilot.
 - **Agent Evaluation Benchmark Suite:** 4 evaluation suites in `evals/` covering all 8 agents (A1 through A8) with 100% pass rates on mathematical fidelity, fairness, and non-clearance invariants.
+
+### Phase 12: Console v2, KPIs & Golden Lifecycle Journeys - 2026-10-12
+- **Executive KPIs Engine (`/api/v1/metrics/executive-kpis`):** Aggregation of underwriting conversion, policy retention, claims loss ratio, cycle times, statutory complaint SLA compliance, adjuster override rates, and General Ledger double-entry balance verification ($\Delta = 0.00$ AZN).
+- **12-Step Full Lifecycle Golden Journey Integration Test:** Comprehensive end-to-end integration test (`test_full_lifecycle_golden_journey.py`) verifying all 12 operational stages of the property & casualty lifecycle.
+- **Turnkey Seed-to-Demo Script (`scripts/seed_demo_data.py`):** Standalone zero-friction seeding pipeline populating products, accounts, treaties, parties, policies, claims, and balanced accounting books in seconds.
+- **Web Console v2 Metrics Polish:** Real-time Executive KPIs dashboard, General Ledger balanced badge, and explicit AI Autonomy Level matrix (`[L1 Automated Execution]`, `[L2 Human-in-the-Loop]`, `[L3 Advisory Copilot]`).
 

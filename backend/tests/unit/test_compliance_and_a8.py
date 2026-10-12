@@ -5,9 +5,10 @@ from app.modules.compliance.matcher import (
     screen_entity,
 )
 from app.modules.compliance.service import ComplianceService
+from sqlalchemy.orm import Session
 
 
-def test_watchlist_matcher_fuzzy_and_exact(db_session):
+def test_watchlist_matcher_fuzzy_and_exact(db_session: Session) -> None:
     # Seed default watchlist
     entities = ensure_watchlist_seed(db_session)
     assert len(entities) >= 5
@@ -43,7 +44,7 @@ def test_watchlist_matcher_fuzzy_and_exact(db_session):
     assert len(matches_clean) == 0
 
 
-def test_agent_a8_never_clears_match():
+def test_agent_a8_never_clears_match() -> None:
     """Verify regulatory constraint: Agent A8 can NEVER auto-clear a watchlist hit."""
     agent = ComplianceExplainerAgent()
 
@@ -55,7 +56,7 @@ def test_agent_a8_never_clears_match():
     assert "Mandatory human compliance officer review" in str(exc_info.value)
 
 
-def test_agent_a8_analysis_generation(db_session):
+def test_agent_a8_analysis_generation(db_session: Session) -> None:
     service = ComplianceService()
 
     # Screen entity that produces a hit
@@ -80,7 +81,7 @@ def test_agent_a8_analysis_generation(db_session):
     assert "CONFIDENTIAL COMPLIANCE SAR DRAFT" in explanation.draft_sar_report
 
 
-def test_human_officer_adjudication(db_session):
+def test_human_officer_adjudication(db_session: Session) -> None:
     service = ComplianceService()
 
     alerts = service.screen_party(

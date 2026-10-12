@@ -97,3 +97,11 @@
   4. **Deterministic Pro-Rata Math (Agent A3):** Mid-term endorsements (P06) calculate additional or return premiums down to the exact day using deterministic Decimal math under Level 2 underwriter governance.
 - **Consequences:** Immunity from legal defamation claims, 100% adherence to regulatory AML non-clearance rules, zero customer PII leakage, and verified pro-rata financial adjustments.
 
+### ADR-015: End-to-End Golden Lifecycle Invariants & Executive Telemetry
+- **Context:** Individual modular tests verify isolated unit behaviors, but insurance core platforms succeed or fail on end-to-end multi-step integrity: an initial quote must seamlessly progress through underwriting, binding, invoicing, premium collection, reinsurance cession, mid-term endorsement, FNOL claim triage, SIU scoring, settlement disbursement, reinsurance recovery, and renewal review without financial drift, data corruption, or audit trail loss.
+- **Decision:**
+  1. Build an end-to-end Golden Lifecycle integration test (`test_full_lifecycle_golden_journey.py`) verifying all 12 operational steps in sequence against a single policy and asserting global invariants: Balanced General Ledger ($\Delta = 0.00$ AZN), immutable audit trail completeness, and executive KPI calculation.
+  2. Implement an Executive KPIs aggregation endpoint (`GET /api/v1/metrics/executive-kpis`) exposing conversion rate, retention rate, loss ratio, cycle times, complaint SLA compliance, adjuster override rate, and real-time ledger balance.
+  3. Create a turnkey seed script (`scripts/seed_demo_data.py`) with automatic offline SQLite probe to bootstrap catalog products, accounts, treaties, policies, and claims in seconds for demonstration.
+- **Consequences:** Verifiable proof that all domain engines, outbox events, and AI agents collaborate without impedance mismatch, guaranteeing operational readiness for enterprise deployment.
+

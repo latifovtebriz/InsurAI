@@ -193,6 +193,25 @@ export interface OperationalMetrics {
   total_paid_out_azn: number;
 }
 
+export interface ExecutiveKPIs {
+  total_quotes: number;
+  conversion_rate_percent: number;
+  retention_rate_percent: number;
+  loss_ratio_percent: number;
+  total_written_premium_azn: number;
+  total_incurred_claims_azn: number;
+  quote_to_bind_hours_avg: number;
+  claim_fnol_to_settlement_days_avg: number;
+  complaint_sla_compliance_percent: number;
+  total_complaints: number;
+  adjuster_override_rate_percent: number;
+  total_claims_triage_cases: number;
+  ledger_is_balanced: boolean;
+  ledger_balance_delta_azn: number;
+  total_ledger_debits_azn: number;
+  total_ledger_credits_azn: number;
+}
+
 export interface EvalSummary {
   extraction_eval?: Record<string, any> | null;
   retrieval_eval?: Record<string, any> | null;
