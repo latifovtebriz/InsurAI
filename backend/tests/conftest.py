@@ -3,7 +3,8 @@
 from collections.abc import Generator
 
 import pytest
-from app.db import Base
+from app.db import Base, get_db
+from app.main import app
 from app.modules.claims.public import Claim, ClaimDocument, ClaimReserve  # noqa: F401
 from app.modules.party.public import Intermediary, Party, Property, Vehicle  # noqa: F401
 from app.modules.platform.public import (  # noqa: F401
@@ -19,6 +20,9 @@ from app.modules.platform.public import (  # noqa: F401
 )
 from app.modules.policy.public import Policy, PolicyCertificate  # noqa: F401
 from app.modules.product.public import Product, ProductVersion  # noqa: F401
+from app.modules.sales.public import Lead, Quote  # noqa: F401
+from app.modules.underwriting.public import UnderwritingCase  # noqa: F401
+from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 from sqlalchemy.pool import StaticPool
@@ -55,3 +59,18 @@ def db_session() -> Generator[Session, None, None]:
         yield session
     finally:
         session.close()
+
+
+@pytest.fixture
+def client(db_session: Session) -> Generator[TestClient, None, None]:
+    """Provides a TestClient with database session overridden."""
+
+    def override_get_db() -> Generator[Session, None, None]:
+        yield db_session
+
+    app.dependency_overrides[get_db] = override_get_db
+    test_client = TestClient(app)
+    try:
+        yield test_client
+    finally:
+        app.dependency_overrides.clear()

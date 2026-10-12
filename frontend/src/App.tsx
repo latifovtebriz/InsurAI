@@ -8,6 +8,8 @@ import { ClaimsQueueScreen } from './screens/ClaimsQueueScreen';
 import { ClaimDetailScreen } from './screens/ClaimDetailScreen';
 import { FNOLIntakeScreen } from './screens/FNOLIntakeScreen';
 import { PoliciesScreen } from './screens/PoliciesScreen';
+import { QuotesScreen } from './screens/QuotesScreen';
+import { UnderwritingScreen } from './screens/UnderwritingScreen';
 import { AuditScreen } from './screens/AuditScreen';
 import { MetricsScreen } from './screens/MetricsScreen';
 
@@ -108,6 +110,8 @@ export default function App(): React.JSX.Element {
           />
         ) : (
           <>
+            {activeTab === 'quotes' && <QuotesScreen />}
+            {activeTab === 'underwriting' && <UnderwritingScreen />}
             {activeTab === 'claims' && (
               <ClaimsQueueScreen
                 onSelectClaim={(num) => setSelectedClaimNumber(num)}

@@ -1,30 +1,14 @@
 """Unit and integration tests for API v1 REST endpoints."""
 
-from collections.abc import Generator
 from datetime import date
 from decimal import Decimal
 
 import pytest
-from app.db import get_db
-from app.main import app
 from app.modules.party.public import party_service
 from app.modules.policy.public import policy_service
 from app.modules.product.public import product_service
 from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
-
-
-@pytest.fixture
-def client(db_session: Session) -> Generator[TestClient, None, None]:
-    """Creates a FastAPI test client overriding the database dependency."""
-
-    def override_get_db() -> Generator[Session, None, None]:
-        yield db_session
-
-    app.dependency_overrides[get_db] = override_get_db
-    test_client = TestClient(app)
-    yield test_client
-    app.dependency_overrides.clear()
 
 
 @pytest.fixture

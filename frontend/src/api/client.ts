@@ -1,12 +1,17 @@
 import {
   AgentRunDetail,
   AuditEvent,
+  ChatQuoteResponse,
   ClaimDetail,
   ClaimSummary,
   EvalSummary,
   OperationalMetrics,
   PolicyDetail,
   PolicyListItem,
+  QuoteDetail,
+  QuoteSummary,
+  UnderwritingCaseDetail,
+  UnderwritingCaseSummary,
   UserProfile,
 } from '../types';
 
@@ -170,6 +175,72 @@ class ApiClient {
   async getEvalReports(): Promise<EvalSummary> {
     return this.request<EvalSummary>('/api/v1/metrics/evals/latest');
   }
+
+  // Sales & Quotation
+  async createQuote(data: {
+    product_code: string;
+    vehicle_value: number;
+    vehicle_age: number;
+    driver_age: number;
+    prior_claims_count?: number;
+    deductible?: number;
+  }): Promise<QuoteDetail> {
+    return this.request<QuoteDetail>('/api/v1/sales/quotes', {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
+  async listQuotes(status?: string): Promise<QuoteSummary[]> {
+    const url = status ? `/api/v1/sales/quotes?status=${status}` : '/api/v1/sales/quotes';
+    return this.request<QuoteSummary[]>(url);
+  }
+
+  async getQuote(quoteNumber: string): Promise<QuoteDetail> {
+    return this.request<QuoteDetail>(`/api/v1/sales/quotes/${quoteNumber}`);
+  }
+
+  async acceptQuote(quoteNumber: string): Promise<QuoteDetail> {
+    return this.request<QuoteDetail>(`/api/v1/sales/quotes/${quoteNumber}/accept`, {
+      method: 'POST',
+    });
+  }
+
+  async chatWithQuoteAssistant(message: string): Promise<ChatQuoteResponse> {
+    return this.request<ChatQuoteResponse>('/api/v1/sales/chat', {
+      method: 'POST',
+      body: JSON.stringify({ message }),
+    });
+  }
+
+  // Underwriting & Referral
+  async listUnderwritingCases(status?: string): Promise<UnderwritingCaseSummary[]> {
+    const url = status ? `/api/v1/underwriting/cases?status=${status}` : '/api/v1/underwriting/cases';
+    return this.request<UnderwritingCaseSummary[]>(url);
+  }
+
+  async getUnderwritingCase(caseId: string): Promise<UnderwritingCaseDetail> {
+    return this.request<UnderwritingCaseDetail>(`/api/v1/underwriting/cases/${caseId}`);
+  }
+
+  async assessUnderwritingCase(caseId: string): Promise<UnderwritingCaseDetail> {
+    return this.request<UnderwritingCaseDetail>(`/api/v1/underwriting/cases/${caseId}/assess`, {
+      method: 'POST',
+    });
+  }
+
+  async recordUnderwriterDecision(caseId: string, decision: {
+    decision: string;
+    conditions?: string[];
+    override_reason?: string;
+    notes?: string;
+  }): Promise<UnderwritingCaseDetail> {
+    return this.request<UnderwritingCaseDetail>(`/api/v1/underwriting/cases/${caseId}/decision`, {
+      method: 'POST',
+      body: JSON.stringify(decision),
+    });
+  }
 }
 
 export const api = new ApiClient();
+

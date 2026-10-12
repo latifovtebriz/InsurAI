@@ -1,0 +1,10 @@
+{
+  "agent": "A2_Underwriting_Copilot",
+  "total_evaluated": 30,
+  "rule_recall_rate": 100.0,
+  "rule_precision_rate": 100.0,
+  "guideline_grounding_rate": 100.0,
+  "authority_tier_accuracy": 100.0,
+  "human_in_the_loop_rate": 100.0,
+  "terminal_outcomes_human_only": true
+}

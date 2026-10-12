@@ -1,11 +1,11 @@
 # InsurAI Implementation Progress
 
 ## Current State
-- **Active Phase:** Phase 9 (Sales and Underwriting: A1 Quote Assistant & A2 Underwriting Copilot)
-- **Active Task:** Task 9.1 (Sales module P02, Leads, Quotes, Rating integration, Quotation workflow)
+- **Active Phase:** Phase 10 (Finance, Renewal, Reinsurance, and A7 Renewal Advisor)
+- **Active Task:** Task 10.1 (`finance` module P05, P11: installments, invoices, balanced double-entry ledger, dunning)
 - **Status:** In Progress
-- **Last Completed Step:** Phase 8 completed, Web Console v1, REST API, E2E journey test, DEMO_SCRIPT.md, README.md, tagged `phase-8-done` and `release-R1`.
-- **Next Step:** Implement Sales domain models, quotation service, A1 Quote Assistant agent, Underwriting rules engine, and A2 Copilot.
+- **Last Completed Step:** Phase 9 completed, Sales module, Underwriting rule engine, A1 Quote Assistant, A2 Underwriting Copilot, REST API, UI screens, eval runner, tagged `phase-9-done`.
+- **Next Step:** Implement finance ledger models, balanced entry invariants, renewal job at T-60, reinsurance treaties, and A7 Renewal Advisor.
 
 ---
 
@@ -22,8 +22,8 @@
 | Phase 6 | Party, product, policy | Completed | `phase-6-done` |
 | Phase 7 | Claims and Claims Triage Agent (A4) | Completed | `phase-7-done` |
 | Phase 8 | Web console v1 & Release R1 | Completed | `phase-8-done`, `release-R1` |
-| Phase 9 | Sales and underwriting (A1, A2) | In Progress | - |
-| Phase 10 | Finance, renewal, reinsurance, A7 | Not Started | - |
+| Phase 9 | Sales and underwriting (A1, A2) | Completed | `phase-9-done` |
+| Phase 10 | Finance, renewal, reinsurance, A7 | In Progress | - |
 | Phase 11 | Fraud, compliance, service, A5, A6, A8, A3 | Not Started | `release-R2` pending |
 | Phase 12 | Console v2, KPIs, end-to-end journeys | Not Started | - |
 | Phase 13 | Observability, security, governance, polish | Not Started | `release-R3` pending |

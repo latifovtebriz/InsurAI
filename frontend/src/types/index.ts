@@ -199,3 +199,97 @@ export interface EvalSummary {
   claims_triage_dev_eval?: Record<string, any> | null;
   claims_triage_test_eval?: Record<string, any> | null;
 }
+
+// Sales & Quotation
+export interface QuoteSummary {
+  id: string;
+  quote_number: string;
+  product_code: string;
+  status: string;
+  sum_insured: number;
+  total_premium: number;
+  valid_until: string;
+  underwriting_case_id?: string | null;
+  created_at: string;
+}
+
+export interface QuoteDetail {
+  id: string;
+  quote_number: string;
+  product_code: string;
+  status: string;
+  sum_insured: number;
+  deductible: number;
+  total_premium: number;
+  rating_inputs: Record<string, any>;
+  breakdown: Record<string, any>;
+  installment_options: Array<{
+    plan: string;
+    installments_count: number;
+    schedule: Array<{ seq: number; due_date: string; amount: number }>;
+  }>;
+  valid_until: string;
+  underwriting_case_id?: string | null;
+  created_at: string;
+}
+
+export interface ChatQuoteResponse {
+  status: string;
+  message: string;
+  missing_fields: string[];
+  extracted?: Record<string, any> | null;
+  quote_result?: Record<string, any> | null;
+  risk_flag?: string | null;
+}
+
+// Underwriting & Referral
+export interface UnderwritingCaseSummary {
+  id: string;
+  case_number: string;
+  quote_id?: string | null;
+  product_code: string;
+  sum_insured: number;
+  proposed_premium: number;
+  status: string;
+  authority_tier_required: string;
+  rule_hits_count: number;
+  risk_score: number;
+  created_at: string;
+}
+
+export interface UnderwritingCaseDetail {
+  id: string;
+  case_number: string;
+  quote_id?: string | null;
+  policy_id?: string | null;
+  product_code: string;
+  sum_insured: number;
+  proposed_premium: number;
+  status: string;
+  authority_tier_required: string;
+  rule_hits: Array<{
+    rule_code: string;
+    rule_name: string;
+    severity: string;
+    description: string;
+    recommended_action: string;
+  }>;
+  risk_score: number;
+  copilot_assessment?: {
+    recommended_action: string;
+    confidence: number;
+    cited_guidelines: string[];
+    proposed_conditions: string[];
+    risk_summary: string;
+  } | null;
+  underwriter_decision?: {
+    decision: string;
+    conditions: string[];
+    override_reason?: string | null;
+    decided_by: string;
+    decided_at: string;
+  } | null;
+  notes?: string | null;
+  created_at: string;
+}
+

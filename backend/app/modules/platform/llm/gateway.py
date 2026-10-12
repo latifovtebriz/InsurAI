@@ -55,6 +55,17 @@ class LLMGateway:
         serialized = "|".join(f"{m.role}:{m.content}" for m in messages) + f"|temp:{temperature}"
         return hashlib.sha256(serialized.encode("utf-8")).hexdigest()
 
+    def detect_prompt_injection(self, text: str) -> bool:
+        """Heuristic detection of adversarial prompt injections and jailbreak attempts."""
+        import re
+
+        pattern = re.compile(
+            r"(ignore\s+(all\s+)?(previous\s+)?instructions|you\s+are\s+now|system\s+override|"
+            r"disregard\s+all|bypass\s+security|approve\s+this\s+(claim|quote)|maximum\s+limit)",
+            re.IGNORECASE,
+        )
+        return bool(pattern.search(text))
+
     async def generate(
         self,
         messages: list[LLMMessage],

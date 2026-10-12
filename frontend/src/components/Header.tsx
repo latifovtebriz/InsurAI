@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, FileText, CheckCircle2, History, BarChart3, LogOut, PlusCircle } from 'lucide-react';
+import { Shield, FileText, CheckCircle2, History, BarChart3, LogOut, PlusCircle, Calculator, Scale } from 'lucide-react';
 import { UserProfile } from '../types';
 
 interface HeaderProps {
@@ -18,6 +18,8 @@ export const Header: React.FC<HeaderProps> = ({
   isBackendOnline,
 }) => {
   const navItems = [
+    { id: 'quotes', label: 'Quotes (A1)', icon: Calculator },
+    { id: 'underwriting', label: 'Underwriting (A2)', icon: Scale },
     { id: 'claims', label: 'Claims Queue', icon: CheckCircle2 },
     { id: 'fnol', label: 'Submit FNOL', icon: PlusCircle },
     { id: 'policies', label: 'Policies', icon: FileText },

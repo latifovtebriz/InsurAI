@@ -15,6 +15,7 @@
 | ADR-009 | Clause-Based Semantic Chunking with Date-in-Force Filtering | Accepted | 2026-10-12 |
 | ADR-010 | Tooling and Quality Stack: Python 3.12+, uv, FastAPI, Pydantic v2, Ruff, Mypy | Accepted | 2026-10-12 |
 | ADR-011 | React 18, Vite, TypeScript Web Console with Human-in-the-Loop Transparency | Accepted | 2026-10-12 |
+| ADR-012 | Deterministic Underwriting Rules vs Copilot Boundaries & G2 Numerical Fidelity | Accepted | 2026-10-12 |
 
 ---
 
@@ -75,3 +76,8 @@
 - **Context:** An AI copilot in insurance claims and underwriting cannot be an opaque black box. Adjusters and underwriters require full visibility into agent confidence, exact wording citations, deterministic payout breakdowns, fraud risk alerts, and execution traces (thoughts and tool calls) before confirming actions.
 - **Decision:** Build a single-page application using React 18, Vite, TypeScript, and TailwindCSS. The console enforces persona-based quick logins, presents prominent uncertainty disclosures whenever confidence is less than 1.0 or flags exist, provides 4 golden demo scenario presets, and requires mandatory written rationale for any adjuster override.
 - **Consequences:** Low latency UI (<50ms state updates), explainable AI for claims adjusters, seamless human oversight, and ready-to-demo golden journeys.
+
+### ADR-012: Deterministic Underwriting Rules vs Copilot Boundaries & G2 Numerical Fidelity
+- **Context:** Letting LLMs directly calculate insurance quotes or evaluate underwriting risk thresholds leads to price hallucinations, unvetted exposures, and statutory non-compliance.
+- **Decision:** Strictly separate deterministic rule evaluation from agentic assistance. For sales (Agent A1), the LLM parses natural language intent, clarifies missing parameters, and explains quotes, but all numerical premiums are calculated by pure Python rating functions (Guardrail G2). For underwriting (Agent A2), deterministic rule hits (UW-01 through UW-05) and authority limit tiers are evaluated first; Copilot A2 summarizes risk profiles and retrieves guidelines, but cannot auto-approve beyond authority tiers or execute terminal declines without human underwriter sign-off (Guardrail G3).
+- **Consequences:** 100% numerical fidelity in quotations, zero risk of autonomous unauthorized risk acceptance, fully auditable underwriting governance.

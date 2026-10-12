@@ -20,6 +20,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Core Skeleton (Phase 0):** Modular monolith layout, AST module boundary tests, secret scanner.
 
 ## [Unreleased]
-- Phase 9: Sales and Underwriting (A1 Quote Assistant, A2 Underwriting Copilot).
+### Added
+- **Sales Module (Phase 9):** Lead and Quote domain models in `"sales"` schema, 30-day quote validity, deterministic rating integration (Motor OD, Motor TPL, Home), 1-lump-sum and 4-installment schedules, KYC-lite screening hook.
+- **Agent A1 (Quote Assistant):** Natural language quote intake, automatic missing-field clarification detection, Guardrail G2 mathematical equality (100% numerical fidelity matching engine), Guardrail G7 prompt injection interception.
+- **Underwriting Module & Rule Engine (Phase 9):** `UnderwritingCase` model in `"underwriting"` schema, deterministic rule engine (UW-01 through UW-05), authority limits matrix (Junior, Senior, Chief), Guardrail G3 terminal decline justification enforcement.
+- **Agent A2 (Underwriting Copilot):** Risk profiling, underwriting guidelines RAG, proposed conditions generation under L2 human-in-the-loop governance.
+- **REST API & Web Console v2 (Phase 9):** Endpoints `/api/v1/sales/*` and `/api/v1/underwriting/*`, `QuotesScreen.tsx` (calculator, A1 chat, quote ledger), and `UnderwritingScreen.tsx` (referral queue, rule hits dossier, A2 Copilot panel, adjudication form).
+- **Evaluation Suite (Phase 9):** Evaluated across 60 test scenarios with 100% G2 engine fidelity, 100% rule recall and precision, and 100% human sign-off enforcement.
+
 - Phase 10: Finance, Renewal, Reinsurance (A7).
 - Phase 11: Fraud SIU (A5), Compliance (A8), Servicing (A3), Customer Chat (A6). Tag `release-R2`.

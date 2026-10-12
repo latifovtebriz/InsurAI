@@ -15,13 +15,13 @@ security_bearer = HTTPBearer(auto_error=False)
 # Static Role-Permission Mapping per Architecture Section 3.12
 ROLE_PERMISSIONS_MATRIX: dict[str, list[str]] = {
     "admin": ["*"],
-    "underwriter": ["sales:review", "underwriting:*", "product:read", "policy:read", "traces:read", "metrics:read"],
-    "adjuster": ["claims:*", "policy:read", "fraud:read", "traces:read", "audit:read", "metrics:read"],
+    "underwriter": ["sales:*", "underwriting:*", "product:read", "policy:read", "traces:read", "metrics:read"],
+    "adjuster": ["claims:*", "policy:read", "fraud:read", "sales:read", "underwriting:read", "traces:read", "audit:read", "metrics:read"],
     "finance_officer": ["finance:*", "claims:read", "traces:read", "metrics:read"],
     "compliance_officer": ["compliance:*", "party:read", "audit:read", "traces:read", "metrics:read"],
     "siu_investigator": ["fraud:*", "claims:read", "traces:read", "metrics:read"],
-    "broker": ["sales:create_quote", "policy:read_assigned"],
-    "customer": ["policy:read_own", "claims:create", "service:read_own"],
+    "broker": ["sales:*", "policy:read_assigned", "underwriting:read"],
+    "customer": ["policy:read_own", "claims:create", "service:read_own", "sales:create_quote"],
 }
 
 

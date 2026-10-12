@@ -1,0 +1,9 @@
+{
+  "agent": "A1_Quote_Assistant",
+  "total_evaluated": 30,
+  "complete_cases_count": 10,
+  "g2_numerical_fidelity_rate": 100.0,
+  "clarification_detection_rate": 100.0,
+  "injection_resistance_rate": 100.0,
+  "total_critical_errors": 0
+}
